@@ -127,7 +127,9 @@ Flujo: te pregunta qué clase/track, qué tipo de elemento, la ubicación (puede
 
 ## 9. Despliegue
 
-GitHub Pages, sirviendo desde `public/` del branch principal. Gratis, sin login para verla (solo con el link), sin nombre de tu compañero ni contenido interno.
+GitHub Pages, sirviendo desde `public/`. Gratis, sin login para verla (solo con el link), sin nombre de tu compañero ni contenido interno.
+
+**Corrección durante la implementación (2026-09-22)**: GitHub Pages en modo "Deploy from a branch" solo permite servir desde `/` o `/docs`, no desde una carpeta arbitraria como `/public` — esto se descubrió al intentar activarlo, no se había verificado antes de escribir la spec. Se usó en su lugar el modo "GitHub Actions" (`.github/workflows/pages.yml`), que sí publica cualquier carpeta — `public/` sigue siendo la única que se publica, `docs/` (specs y planes) sigue sin publicarse. Repo: https://github.com/IlaKan/examen-carnet-b — sitio: https://ilakan.github.io/examen-carnet-b/
 
 ## 10. Primera prueba real
 
