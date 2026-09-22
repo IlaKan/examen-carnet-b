@@ -2,23 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Clase — Examen Carnet B</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
-    html, body { margin: 0; padding: 0; height: 100%; font-family: -apple-system, sans-serif; }
+    html, body {
+      margin: 0; padding: 0;
+      height: 100vh; height: 100dvh; /* dvh: fixes iOS Safari's shrinking/growing address bar */
+      font-family: -apple-system, sans-serif;
+      overflow: hidden;
+    }
+    body { display: flex; flex-direction: column; }
     #topbar { background: #000; color: #fff; padding: 8px 12px; font-size: 13px; display: flex;
-              justify-content: space-between; align-items: center; }
-    #topbar a { color: #9cf; }
-    #map { height: calc(100% - 140px); width: 100%; }
-    #layers { background: #eee; padding: 8px 12px; font-size: 12px; display: flex; gap: 10px;
-              flex-wrap: wrap; }
-    #layers label { display: flex; align-items: center; gap: 4px; }
-    #controls { height: 56px; background: #222; display: flex; align-items: center; gap: 10px; padding: 0 14px; }
-    #controls button { font-size: 18px; background: #444; color: #fff; border: none; border-radius: 6px;
-                        width: 40px; height: 40px; cursor: pointer; }
-    #controls input[type=range] { flex: 1; }
-    #controls span { color: #fff; font-size: 12px; min-width: 45px; }
+              justify-content: space-between; align-items: center; flex: 0 0 auto; }
+    #topbar a { color: #9cf; white-space: nowrap; }
+    #map { flex: 1 1 auto; width: 100%; min-height: 0; } /* min-height:0 lets flex children shrink in Safari */
+    #layers { background: #eee; padding: 6px 10px; font-size: 11px; display: flex; gap: 8px 12px;
+              flex-wrap: wrap; flex: 0 0 auto; }
+    #layers label { display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+    #layers .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid #fff; }
+    #controls { flex: 0 0 auto; height: 52px; background: #222; display: flex; align-items: center;
+                gap: 8px; padding: 0 10px; padding-bottom: env(safe-area-inset-bottom, 0); }
+    #controls button { font-size: 16px; background: #444; color: #fff; border: none; border-radius: 6px;
+                        min-width: 36px; height: 36px; cursor: pointer; flex: 0 0 auto; }
+    #speedBtn { font-size: 12px; font-weight: bold; width: 40px; }
+    #controls input[type=range] { flex: 1 1 auto; min-width: 0; }
+    #controls span { color: #fff; font-size: 11px; min-width: 34px; flex: 0 0 auto; }
     #error { padding: 20px; color: #a00; }
   </style>
 </head>
@@ -28,18 +37,19 @@
     <a href="lista.html">← Mis clases</a>
   </div>
   <div id="layers">
-    <label><input type="checkbox" data-layer="semaforos" checked> Semáforos</label>
-    <label><input type="checkbox" data-layer="stops" checked> Stops</label>
-    <label><input type="checkbox" data-layer="cedas" checked> Cedas</label>
-    <label><input type="checkbox" data-layer="pasos_peatones" checked> Pasos peatones</label>
-    <label><input type="checkbox" data-layer="carril_bici" checked> Carril bici</label>
-    <label><input type="checkbox" data-layer="carril_bus" checked> Carril bus</label>
-    <label><input type="checkbox" data-layer="obras" checked> Obras</label>
-    <label><input type="checkbox" data-layer="notas" checked> Mis notas</label>
+    <label><span class="swatch" style="background:#e74c3c;"></span><input type="checkbox" data-layer="semaforos" checked> Semáforos</label>
+    <label><span class="swatch" style="background:#c0392b;"></span><input type="checkbox" data-layer="stops" checked> Stops</label>
+    <label><span class="swatch" style="background:#f39c12;"></span><input type="checkbox" data-layer="cedas" checked> Cedas</label>
+    <label><span class="swatch" style="background:#2980b9;"></span><input type="checkbox" data-layer="pasos_peatones"> Pasos peatones</label>
+    <label><span class="swatch" style="background:#27ae60;"></span><input type="checkbox" data-layer="carril_bici"> Carril bici</label>
+    <label><span class="swatch" style="background:#8e44ad;"></span><input type="checkbox" data-layer="carril_bus"> Carril bus</label>
+    <label><span class="swatch" style="background:#7f8c8d;"></span><input type="checkbox" data-layer="obras"> Obras</label>
+    <label><span class="swatch" style="background:#e91e8c;"></span><input type="checkbox" data-layer="notas" checked> Mis notas</label>
   </div>
   <div id="map"></div>
   <div id="controls">
     <button id="playBtn">▶</button>
+    <button id="speedBtn">1x</button>
     <input type="range" id="scrubber" min="0" max="100" value="0" />
     <span id="progressLabel">0%</span>
   </div>
@@ -47,13 +57,14 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script>
     const LAYER_STYLE = {
-      semaforos: { color: '#e74c3c', label: 'S' },
-      stops: { color: '#c0392b', label: 'STOP' },
-      cedas: { color: '#f39c12', label: 'C' },
-      pasos_peatones: { color: '#2980b9', label: 'P' },
-      carril_bici: { color: '#27ae60', label: 'B' },
-      carril_bus: { color: '#8e44ad', label: 'BUS' },
-      obras: { color: '#7f8c8d', label: 'OBRA' },
+      semaforos: { color: '#e74c3c', label: 'Semáforo' },
+      stops: { color: '#c0392b', label: 'Stop' },
+      cedas: { color: '#f39c12', label: 'Ceda el paso' },
+      pasos_peatones: { color: '#2980b9', label: 'Paso de peatones' },
+      carril_bici: { color: '#27ae60', label: 'Carril bici' },
+      carril_bus: { color: '#8e44ad', label: 'Carril bus' },
+      obras: { color: '#7f8c8d', label: 'Obra' },
+      notas: { color: '#e91e8c', label: 'Nota tuya' },
     };
 
     function params() {
@@ -96,19 +107,27 @@
 
       L.polyline(latlngs, { color: '#999', weight: 3, opacity: 0.45 }).addTo(map);
 
+      // Layers hidden by default (denser / less critical) so the map isn't
+      // a wall of dots on first load — matches the checkboxes above, which
+      // start unchecked for these same keys.
+      const HIDDEN_BY_DEFAULT = new Set(['pasos_peatones', 'carril_bici', 'carril_bus', 'obras']);
+
       const layerGroups = {};
       function addLayerPoints(key, items, colorOverride) {
-        const style = LAYER_STYLE[key] || { color: '#333', label: key[0].toUpperCase() };
+        const style = LAYER_STYLE[key] || { color: '#333', label: key };
         const group = L.layerGroup();
         items.forEach(it => {
+          const label = it.titol && it.titol.trim() ? it.titol : style.label;
           L.circleMarker([it.lat, it.lng], {
-            radius: 6, color: '#fff', weight: 1.5,
+            radius: 7, color: '#fff', weight: 1.5,
             fillColor: colorOverride || style.color, fillOpacity: 0.9,
           })
-            .bindTooltip(it.titol || style.label)
+            // bindPopup (tap-to-open), not bindTooltip (hover-only) — hover
+            // doesn't exist on a touchscreen, so tooltips never showed on iPhone.
+            .bindPopup('<strong>' + style.label + '</strong>' + (label !== style.label ? '<br>' + label : ''))
             .addTo(group);
         });
-        group.addTo(map);
+        if (!HIDDEN_BY_DEFAULT.has(key)) group.addTo(map);
         layerGroups[key] = group;
       }
 
@@ -136,7 +155,7 @@
       if (track.waypoints_manuales && track.waypoints_manuales.length) {
         addLayerPoints('notas', track.waypoints_manuales.map(w => ({
           lat: w.lat, lng: w.lng, titol: w.name,
-        })), '#e91e8c');
+        })));
       }
 
       document.querySelectorAll('#layers input[type=checkbox]').forEach(cb => {
@@ -158,9 +177,17 @@
       const carMarker = L.marker(latlngs[0], { icon: carIcon }).addTo(map);
 
       let idx = 0, playing = false, timer = null;
+      const SPEEDS = [1, 2, 4];
+      let speedIdx = 0;
       const scrubber = document.getElementById('scrubber');
       const playBtn = document.getElementById('playBtn');
+      const speedBtn = document.getElementById('speedBtn');
       const progressLabel = document.getElementById('progressLabel');
+
+      // Full route plays back in ~90 real seconds at 1x (was ~16s before —
+      // too fast to follow, per feedback testing on a real device).
+      const BASE_STEPS_PER_TICK = Math.max(1, Math.round(N / 2200));
+      const TICK_MS = 40;
 
       function setIndex(i) {
         idx = Math.max(0, Math.min(N - 1, i));
@@ -176,9 +203,9 @@
 
       function tick() {
         if (!playing) return;
-        setIndex(idx + Math.max(1, Math.round(N / 400)));
+        setIndex(idx + BASE_STEPS_PER_TICK * SPEEDS[speedIdx]);
         if (idx >= N - 1) { playing = false; playBtn.textContent = '▶'; return; }
-        timer = setTimeout(tick, 40);
+        timer = setTimeout(tick, TICK_MS);
       }
 
       playBtn.addEventListener('click', () => {
@@ -186,6 +213,11 @@
         playBtn.textContent = playing ? '⏸' : '▶';
         if (playing) { if (idx >= N - 1) setIndex(0); tick(); }
         else clearTimeout(timer);
+      });
+
+      speedBtn.addEventListener('click', () => {
+        speedIdx = (speedIdx + 1) % SPEEDS.length;
+        speedBtn.textContent = SPEEDS[speedIdx] + 'x';
       });
 
       setIndex(0);
