@@ -37,13 +37,13 @@
     <a href="lista.html">← Mis clases</a>
   </div>
   <div id="layers">
-    <label><span class="swatch" style="background:#e74c3c;"></span><input type="checkbox" data-layer="semaforos" checked> Semáforos</label>
-    <label><span class="swatch" style="background:#c0392b;"></span><input type="checkbox" data-layer="stops" checked> Stops</label>
-    <label><span class="swatch" style="background:#f39c12;"></span><input type="checkbox" data-layer="cedas" checked> Cedas</label>
+    <label><span class="swatch" style="background:#e63946;"></span><input type="checkbox" data-layer="semaforos" checked> Semáforos</label>
+    <label><span class="swatch" style="background:#1d3557;"></span><input type="checkbox" data-layer="stops" checked> Stops</label>
+    <label><span class="swatch" style="background:#f4a300;"></span><input type="checkbox" data-layer="cedas" checked> Cedas</label>
     <label><span class="swatch" style="background:#2980b9;"></span><input type="checkbox" data-layer="pasos_peatones"> Pasos peatones</label>
-    <label><span class="swatch" style="background:#27ae60;"></span><input type="checkbox" data-layer="carril_bici"> Carril bici</label>
-    <label><span class="swatch" style="background:#8e44ad;"></span><input type="checkbox" data-layer="carril_bus"> Carril bus</label>
-    <label><span class="swatch" style="background:#7f8c8d;"></span><input type="checkbox" data-layer="obras"> Obras</label>
+    <label><span class="swatch" style="background:#2a9d8f;"></span><input type="checkbox" data-layer="carril_bici"> Carril bici</label>
+    <label><span class="swatch" style="background:#9b5de5;"></span><input type="checkbox" data-layer="carril_bus"> Carril bus</label>
+    <label><span class="swatch" style="background:#6c757d;"></span><input type="checkbox" data-layer="obras"> Obras</label>
     <label><span class="swatch" style="background:#e91e8c;"></span><input type="checkbox" data-layer="notas" checked> Mis notas</label>
   </div>
   <div id="map"></div>
@@ -56,15 +56,18 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script>
+    // Colores elegidos para ser distinguibles entre sí a simple vista (no
+    // dos tonos de rojo/naranja parecidos, como pasaba antes con
+    // semáforos/stops) — cada capa tiene un matiz de color distinto.
     const LAYER_STYLE = {
-      semaforos: { color: '#e74c3c', label: 'Semáforo' },
-      stops: { color: '#c0392b', label: 'Stop' },
-      cedas: { color: '#f39c12', label: 'Ceda el paso' },
-      pasos_peatones: { color: '#2980b9', label: 'Paso de peatones' },
-      carril_bici: { color: '#27ae60', label: 'Carril bici' },
-      carril_bus: { color: '#8e44ad', label: 'Carril bus' },
-      obras: { color: '#7f8c8d', label: 'Obra' },
-      notas: { color: '#e91e8c', label: 'Nota tuya' },
+      semaforos: { color: '#e63946', label: 'Semáforo' },      // rojo
+      stops: { color: '#1d3557', label: 'Stop' },              // azul marino, muy distinto del rojo
+      cedas: { color: '#f4a300', label: 'Ceda el paso' },      // ámbar
+      pasos_peatones: { color: '#2980b9', label: 'Paso de peatones' }, // azul claro
+      carril_bici: { color: '#2a9d8f', label: 'Carril bici' }, // verde-azulado
+      carril_bus: { color: '#9b5de5', label: 'Carril bus' },   // morado
+      obras: { color: '#6c757d', label: 'Obra' },              // gris
+      notas: { color: '#e91e8c', label: 'Nota tuya' },         // rosa
     };
 
     function params() {
@@ -191,10 +194,18 @@
 
       function setIndex(i) {
         idx = Math.max(0, Math.min(N - 1, i));
-        carMarker.setLatLng(latlngs[idx]);
+        const pos = latlngs[idx];
+        carMarker.setLatLng(pos);
         walkedLine.setLatLngs(latlngs.slice(0, idx + 1));
         scrubber.value = Math.round((idx / (N - 1)) * 100);
         progressLabel.textContent = scrubber.value + '%';
+
+        // Si has hecho zoom para ver detalle, el coche puede salir de lo que
+        // ves en pantalla al avanzar — el mapa se recentra solo cuando eso
+        // pasa (no en cada frame, para no pelearse con tu propio zoom/pan).
+        if (!map.getBounds().pad(-0.15).contains(pos)) {
+          map.panTo(pos, { animate: true, duration: 0.25 });
+        }
       }
 
       scrubber.addEventListener('input', () => {
