@@ -13,10 +13,13 @@ import certifi
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
-_EMPTY_LAYERS = {
-    "semaforos": [], "stops": [], "cedas": [],
-    "pasos_peatones": [], "carril_bici": [], "carril_bus": [],
-}
+# semaforos/stops/cedas/pasos_peatones son puntos (nodos OSM). carril_bici/
+# carril_bus/rotondas son LÍNEAS/formas (vías OSM) — un carril bus no es un
+# punto, es un tramo entero que hay que ver dibujado para saber por dónde
+# no meterse, así que se guardan como geometría completa, no un centro.
+_POINT_LAYERS = ("semaforos", "stops", "cedas", "pasos_peatones")
+_LINE_LAYERS = ("carril_bici", "carril_bus", "rotondas")
+_EMPTY_LAYERS = {k: [] for k in _POINT_LAYERS + _LINE_LAYERS}
 
 _SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
@@ -39,8 +42,9 @@ def _build_query(bbox):
   way["cycleway"]({bbox_str});
   way["busway"]({bbox_str});
   way["lanes:bus"]({bbox_str});
+  way["junction"="roundabout"]({bbox_str});
 );
-out center;
+out geom;
 """
 
 
@@ -71,25 +75,31 @@ def fetch_osm_infrastructure(bbox, retries=3, retry_wait_s=5):
 
     for el in payload.get("elements", []):
         tags = el.get("tags", {})
+
         if el["type"] == "node":
             point = {"lat": el["lat"], "lng": el["lon"]}
-        else:  # way -> use its computed center
-            center = el.get("center")
-            if not center:
-                continue
-            point = {"lat": center["lat"], "lng": center["lon"]}
+            if tags.get("highway") == "traffic_signals":
+                result["semaforos"].append(point)
+            elif tags.get("highway") == "stop":
+                result["stops"].append(point)
+            elif tags.get("highway") == "give_way":
+                result["cedas"].append(point)
+            elif tags.get("highway") == "crossing":
+                result["pasos_peatones"].append(point)
+            continue
 
-        if tags.get("highway") == "traffic_signals":
-            result["semaforos"].append(point)
-        elif tags.get("highway") == "stop":
-            result["stops"].append(point)
-        elif tags.get("highway") == "give_way":
-            result["cedas"].append(point)
-        elif tags.get("highway") == "crossing":
-            result["pasos_peatones"].append(point)
+        # way: geometría completa (lista de puntos), no solo el centro —
+        # para carril_bici/carril_bus/rotondas necesitamos la forma real.
+        geometry = el.get("geometry")
+        if not geometry:
+            continue
+        line = {"points": [{"lat": g["lat"], "lng": g["lon"]} for g in geometry]}
+
+        if tags.get("junction") == "roundabout":
+            result["rotondas"].append(line)
         elif tags.get("highway") == "cycleway" or "cycleway" in tags:
-            result["carril_bici"].append(point)
+            result["carril_bici"].append(line)
         elif "busway" in tags or "lanes:bus" in tags:
-            result["carril_bus"].append(point)
+            result["carril_bus"].append(line)
 
     return result

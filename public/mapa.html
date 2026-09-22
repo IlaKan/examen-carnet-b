@@ -109,6 +109,8 @@
     <label><span class="swatch" style="background:#9b5de5;"></span><input type="checkbox" data-layer="carril_bus"> Carril bus</label>
     <label><span class="swatch" style="background:#6c757d;"></span><input type="checkbox" data-layer="obras"> Obras</label>
     <label><span class="swatch" style="background:#e91e8c;"></span><input type="checkbox" data-layer="notas" checked> Mis notas</label>
+    <label><span class="swatch" style="background:#ffc300;"></span><input type="checkbox" data-layer="catalogo" checked> Puntos autoescuela</label>
+    <label><span class="swatch" style="background:#ff7b00;"></span><input type="checkbox" data-layer="rotondas" checked> Rotondas</label>
   </div>
   <div style="position:relative; flex:1 1 auto; min-height:0;">
     <div id="map" style="height:100%;"></div>
@@ -144,11 +146,18 @@
       carril_bus: { color: '#9b5de5', label: 'Carril bus' },   // morado
       obras: { color: '#6c757d', label: 'Obra' },              // gris
       notas: { color: '#e91e8c', label: 'Nota tuya' },         // rosa
+      catalogo: { color: '#ffc300', label: 'Punto autoescuela' }, // dorado, se distingue de todo lo demás
+      rotondas: { color: '#ff7b00', label: 'Rotonda' },        // naranja fuerte
     };
+
+    // Distancia máxima para considerar que la ruta "pasa por" un punto del
+    // catálogo de la autoescuela (misma tolerancia que zone_matcher.py usa
+    // para detectar la zona de una clase nueva).
+    const CATALOGO_MATCH_RADIUS_M = 60;
 
     // Las categorías que de verdad importan revisar mientras conduces —
     // el copiloto ("próximo: ...") solo avisa de estas, no de carriles/obras.
-    const COPILOT_LAYERS = ['semaforos', 'stops', 'cedas'];
+    const COPILOT_LAYERS = ['semaforos', 'stops', 'cedas', 'rotondas'];
     const COPILOT_RADIUS_M = 150;
 
     function params() {
@@ -226,6 +235,36 @@
       // start unchecked for these same keys.
       const HIDDEN_BY_DEFAULT = new Set(['pasos_peatones', 'carril_bici', 'carril_bus', 'obras']);
 
+      // carril_bici/carril_bus/rotondas son tramos, no puntos sueltos — se
+      // dibujan como línea sobre la calle real para ver exactamente dónde
+      // no hay que meterse, en vez de un punto genérico "por aquí hay uno".
+      // Tolera también el formato antiguo (un solo punto) por si hay datos
+      // en caché de antes de este cambio, para no romper clases ya procesadas.
+      function addLayerShapes(key, items) {
+        const style = LAYER_STYLE[key] || { color: '#333', label: key };
+        const group = L.layerGroup();
+        (items || []).forEach(it => {
+          if (it.points && it.points.length) {
+            const coords = it.points.map(p => [p.lat, p.lng]);
+            L.polyline(coords, { color: style.color, weight: 6, opacity: 0.75 })
+              .bindPopup('<strong>' + style.label + '</strong>')
+              .addTo(group);
+            if (COPILOT_LAYERS.includes(key)) {
+              copilotPoints.push({ lat: coords[0][0], lng: coords[0][1], tipo: style.label });
+            }
+          } else if (typeof it.lat === 'number') {
+            L.circleMarker([it.lat, it.lng], {
+              radius: 7, color: '#fff', weight: 1.5, fillColor: style.color, fillOpacity: 0.9,
+            }).bindPopup('<strong>' + style.label + '</strong>').addTo(group);
+            if (COPILOT_LAYERS.includes(key)) {
+              copilotPoints.push({ lat: it.lat, lng: it.lng, tipo: style.label });
+            }
+          }
+        });
+        if (!HIDDEN_BY_DEFAULT.has(key)) group.addTo(map);
+        layerGroups[key] = group;
+      }
+
       const layerGroups = {};
       const copilotPoints = []; // {lat,lng,tipo} para el aviso "próximo: ..."
 
@@ -250,13 +289,54 @@
         layerGroups[key] = group;
       }
 
+      // Cruce con los 68 puntos críticos reales de la autoescuela (HoyVoy):
+      // a diferencia de las capas de OSM (genéricas), estos ya traen la nota
+      // real de un profesor explicando por qué ese punto concreto es
+      // difícil — es el contenido más valioso que tenemos, así que se
+      // muestra completo en el popup, no recortado a una etiqueta.
+      function addCatalogLayer(catalogPoints) {
+        if (!catalogPoints || !catalogPoints.length) return;
+        const style = LAYER_STYLE.catalogo;
+        const group = L.layerGroup();
+        let matched = 0;
+
+        catalogPoints.forEach(cp => {
+          let closest = Infinity;
+          for (const [lat, lng] of latlngs) {
+            const d = haversineM([lat, lng], [cp.lat, cp.lng]);
+            if (d < closest) closest = d;
+            if (closest <= CATALOGO_MATCH_RADIUS_M) break; // ya es match, no hace falta seguir
+          }
+          if (closest > CATALOGO_MATCH_RADIUS_M) return;
+          matched++;
+
+          const notaCorta = cp.nota && cp.nota.length > 320 ? cp.nota.slice(0, 320) + '…' : (cp.nota || '');
+          const popupHtml =
+            '<strong>' + cp.nombre + '</strong><br>' +
+            (notaCorta ? '<div style="max-width:220px;margin-top:4px;">' + notaCorta + '</div>' : '') +
+            '<div style="margin-top:6px;font-size:11px;color:#666;">' + (cp.zona || '') + '</div>';
+
+          L.circleMarker([cp.lat, cp.lng], {
+            radius: 8, color: '#fff', weight: 2,
+            fillColor: style.color, fillOpacity: 0.95,
+          }).bindPopup(popupHtml).addTo(group);
+
+          copilotPoints.push({ lat: cp.lat, lng: cp.lng, tipo: cp.nombre });
+        });
+
+        group.addTo(map); // esta capa sí empieza visible: es la más valiosa
+        layerGroups['catalogo'] = group;
+        console.log(matched + ' de ' + catalogPoints.length + ' puntos del catálogo coinciden con esta ruta (<=' + CATALOGO_MATCH_RADIUS_M + 'm)');
+      }
+
       if (osm && osm.disponible) {
         addLayerPoints('semaforos', osm.semaforos);
         addLayerPoints('stops', osm.stops);
         addLayerPoints('cedas', osm.cedas);
         addLayerPoints('pasos_peatones', osm.pasos_peatones);
-        addLayerPoints('carril_bici', osm.carril_bici);
-        addLayerPoints('carril_bus', osm.carril_bus);
+        addLayerShapes('carril_bici', osm.carril_bici);
+        addLayerShapes('carril_bus', osm.carril_bus);
+        addLayerShapes('rotondas', osm.rotondas);
       } else if (osm) {
         console.warn('Infraestructura OSM no disponible para esta clase:', osm.error);
       }
@@ -276,6 +356,8 @@
           lat: w.lat, lng: w.lng, titol: w.name,
         })));
       }
+
+      addCatalogLayer(points);
 
       document.querySelectorAll('#layers input[type=checkbox]').forEach(cb => {
         cb.addEventListener('change', () => {
@@ -347,7 +429,7 @@
       // Full route plays back in ~90 real seconds at 1x (was ~16s before —
       // too fast to follow, per feedback testing on a real device).
       const BASE_STEPS_PER_TICK = Math.max(1, Math.round(N / 2200));
-      const TICK_MS = 40;
+      const TICK_MS = 55; // un pelín más lento que antes (40ms), a petición
 
       // Por debajo de esto, dos puntos del GPX están tan cerca que la
       // "dirección" entre ellos es solo ruido del GPS, no movimiento real
