@@ -222,7 +222,11 @@
         (track.zonas.length ? ' · ' + track.zonas.join(', ') : '') + '</span>';
 
       const latlngs = track.points.map(p => [p.lat, p.lng]);
-      const map = L.map('map', { zoomControl: true });
+      // Zoom en la esquina superior derecha, no la izquierda — ahí es donde
+      // Leaflet lo pone por defecto, y se solapaba con el panel de info
+      // (distancia/tiempo), tanto en móvil como en escritorio.
+      const map = L.map('map', { zoomControl: false });
+      L.control.zoom({ position: 'topright' }).addTo(map);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19, attribution: '&copy; OpenStreetMap contributors',
       }).addTo(map);
