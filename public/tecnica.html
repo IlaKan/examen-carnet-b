@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checklist de técnica — Examen Carnet B</title>
+  <style>
+    :root { --accent: #4285F4; --bg-dark: #16181d; --bg-dark-2: #1f2229; }
+    html, body { margin: 0; padding: 0; background: var(--bg-dark); color: #e7e9ee;
+                 font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    #topbar { background: var(--bg-dark); padding: 14px; display: flex; justify-content: space-between;
+              align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,.35); position: sticky; top: 0; }
+    #topbar h1 { font-size: 16px; margin: 0; }
+    #topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+    main { max-width: 640px; margin: 0 auto; padding: 16px; }
+    .intro { color: #9aa0ab; font-size: 13px; margin-bottom: 20px; line-height: 1.5; }
+    h2.categoria { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--accent);
+                   margin: 26px 0 10px; }
+    .tip-card { background: var(--bg-dark-2); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+                box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+    .tip-card .tip { font-size: 14px; line-height: 1.5; }
+    .tip-card .fuente { margin-top: 8px; font-size: 11px; color: #767c88; line-height: 1.4; }
+    #vacio { color: #767c88; padding: 30px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div id="topbar">
+    <h1>Checklist de técnica general</h1>
+    <a href="lista.html">← Mis clases</a>
+  </div>
+  <main>
+    <p class="intro">
+      No son puntos de un mapa — son fallos de técnica que se repiten en exámenes reales,
+      recopilados de fuentes externas (vídeos de análisis de simulacros) vía NotebookLM.
+      Cada uno lleva su fuente. Se amplía a mano cuando aparece algo que vale la pena guardar.
+    </p>
+    <div id="contenido"></div>
+    <div id="vacio" style="display:none;">Todavía no hay nada aquí.</div>
+  </main>
+
+  <script>
+    fetch('data/tecnica_general.json')
+      .then(r => r.json())
+      .then(render)
+      .catch(() => { document.getElementById('vacio').style.display = 'block'; });
+
+    function render(items) {
+      if (!items.length) {
+        document.getElementById('vacio').style.display = 'block';
+        return;
+      }
+      const porCategoria = {};
+      items.forEach(it => {
+        (porCategoria[it.categoria] = porCategoria[it.categoria] || []).push(it);
+      });
+
+      const contenido = document.getElementById('contenido');
+      Object.keys(porCategoria).forEach(categoria => {
+        const h2 = document.createElement('h2');
+        h2.className = 'categoria';
+        h2.textContent = categoria;
+        contenido.appendChild(h2);
+
+        porCategoria[categoria].forEach(it => {
+          const card = document.createElement('div');
+          card.className = 'tip-card';
+          card.innerHTML =
+            '<div class="tip">' + it.tip + '</div>' +
+            '<div class="fuente">' + it.fuente + ' · verificado ' + it.fecha_verificacion + '</div>';
+          contenido.appendChild(card);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
