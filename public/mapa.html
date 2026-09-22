@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase — Examen Carnet B</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; font-family: -apple-system, sans-serif; }
+    #topbar { background: #000; color: #fff; padding: 8px 12px; font-size: 13px; display: flex;
+              justify-content: space-between; align-items: center; }
+    #topbar a { color: #9cf; }
+    #map { height: calc(100% - 140px); width: 100%; }
+    #layers { background: #eee; padding: 8px 12px; font-size: 12px; display: flex; gap: 10px;
+              flex-wrap: wrap; }
+    #layers label { display: flex; align-items: center; gap: 4px; }
+    #controls { height: 56px; background: #222; display: flex; align-items: center; gap: 10px; padding: 0 14px; }
+    #controls button { font-size: 18px; background: #444; color: #fff; border: none; border-radius: 6px;
+                        width: 40px; height: 40px; cursor: pointer; }
+    #controls input[type=range] { flex: 1; }
+    #controls span { color: #fff; font-size: 12px; min-width: 45px; }
+    #error { padding: 20px; color: #a00; }
+  </style>
+</head>
+<body>
+  <div id="topbar">
+    <span id="titulo">Cargando...</span>
+    <a href="lista.html">← Mis clases</a>
+  </div>
+  <div id="layers">
+    <label><input type="checkbox" data-layer="semaforos" checked> Semáforos</label>
+    <label><input type="checkbox" data-layer="stops" checked> Stops</label>
+    <label><input type="checkbox" data-layer="cedas" checked> Cedas</label>
+    <label><input type="checkbox" data-layer="pasos_peatones" checked> Pasos peatones</label>
+    <label><input type="checkbox" data-layer="carril_bici" checked> Carril bici</label>
+    <label><input type="checkbox" data-layer="carril_bus" checked> Carril bus</label>
+    <label><input type="checkbox" data-layer="obras" checked> Obras</label>
+    <label><input type="checkbox" data-layer="notas" checked> Mis notas</label>
+  </div>
+  <div id="map"></div>
+  <div id="controls">
+    <button id="playBtn">▶</button>
+    <input type="range" id="scrubber" min="0" max="100" value="0" />
+    <span id="progressLabel">0%</span>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const LAYER_STYLE = {
+      semaforos: { color: '#e74c3c', label: 'S' },
+      stops: { color: '#c0392b', label: 'STOP' },
+      cedas: { color: '#f39c12', label: 'C' },
+      pasos_peatones: { color: '#2980b9', label: 'P' },
+      carril_bici: { color: '#27ae60', label: 'B' },
+      carril_bus: { color: '#8e44ad', label: 'BUS' },
+      obras: { color: '#7f8c8d', label: 'OBRA' },
+    };
+
+    function params() {
+      return new URLSearchParams(window.location.search);
+    }
+
+    function fetchJsonOrNull(url) {
+      return fetch(url).then(r => (r.ok ? r.json() : null)).catch(() => null);
+    }
+
+    async function main() {
+      const trackId = params().get('track');
+      if (!trackId) {
+        document.getElementById('map').outerHTML = '<div id="error">Falta ?track=&lt;id&gt; en la URL.</div>';
+        return;
+      }
+
+      const [track, osm, obras, overrides, points] = await Promise.all([
+        fetchJsonOrNull('data/tracks/' + trackId + '.json'),
+        fetchJsonOrNull('data/tracks/' + trackId + '-osm.json'),
+        fetchJsonOrNull('data/tracks/' + trackId + '-obras.json'),
+        fetchJsonOrNull('data/tracks/' + trackId + '-overrides.json'),
+        fetchJsonOrNull('data/points.json'),
+      ]);
+
+      if (!track) {
+        document.getElementById('map').outerHTML = '<div id="error">No se encontró la clase "' + trackId + '".</div>';
+        return;
+      }
+
+      document.getElementById('titulo').textContent =
+        track.nombre + ' — ' + track.fecha + (track.zonas.length ? ' — ' + track.zonas.join(', ') : '');
+
+      const latlngs = track.points.map(p => [p.lat, p.lng]);
+      const map = L.map('map');
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19, attribution: '&copy; OpenStreetMap contributors',
+      }).addTo(map);
+      map.fitBounds(latlngs, { padding: [20, 20] });
+
+      L.polyline(latlngs, { color: '#999', weight: 3, opacity: 0.45 }).addTo(map);
+
+      const layerGroups = {};
+      function addLayerPoints(key, items, colorOverride) {
+        const style = LAYER_STYLE[key] || { color: '#333', label: key[0].toUpperCase() };
+        const group = L.layerGroup();
+        items.forEach(it => {
+          L.circleMarker([it.lat, it.lng], {
+            radius: 6, color: '#fff', weight: 1.5,
+            fillColor: colorOverride || style.color, fillOpacity: 0.9,
+          })
+            .bindTooltip(it.titol || style.label)
+            .addTo(group);
+        });
+        group.addTo(map);
+        layerGroups[key] = group;
+      }
+
+      if (osm && osm.disponible) {
+        addLayerPoints('semaforos', osm.semaforos);
+        addLayerPoints('stops', osm.stops);
+        addLayerPoints('cedas', osm.cedas);
+        addLayerPoints('pasos_peatones', osm.pasos_peatones);
+        addLayerPoints('carril_bici', osm.carril_bici);
+        addLayerPoints('carril_bus', osm.carril_bus);
+      } else if (osm) {
+        console.warn('Infraestructura OSM no disponible para esta clase:', osm.error);
+      }
+
+      if (obras && obras.disponible) {
+        addLayerPoints('obras', obras.obras);
+      } else if (obras) {
+        console.warn('Datos de obras no disponibles para esta clase:', obras.error);
+      }
+
+      if (overrides) {
+        addLayerPoints('overrides-added', overrides.added || [], '#000');
+      }
+
+      if (track.waypoints_manuales && track.waypoints_manuales.length) {
+        addLayerPoints('notas', track.waypoints_manuales.map(w => ({
+          lat: w.lat, lng: w.lng, titol: w.name,
+        })), '#e91e8c');
+      }
+
+      document.querySelectorAll('#layers input[type=checkbox]').forEach(cb => {
+        cb.addEventListener('change', () => {
+          const group = layerGroups[cb.dataset.layer];
+          if (!group) return;
+          if (cb.checked) map.addLayer(group);
+          else map.removeLayer(group);
+        });
+      });
+
+      // Reproducción animada
+      const N = latlngs.length;
+      const walkedLine = L.polyline([latlngs[0]], { color: '#e74c3c', weight: 5, opacity: 0.9 }).addTo(map);
+      const carIcon = L.divIcon({
+        className: '', html: '<div style="font-size:22px;transform:translate(-50%,-50%);">🚗</div>',
+        iconSize: [0, 0],
+      });
+      const carMarker = L.marker(latlngs[0], { icon: carIcon }).addTo(map);
+
+      let idx = 0, playing = false, timer = null;
+      const scrubber = document.getElementById('scrubber');
+      const playBtn = document.getElementById('playBtn');
+      const progressLabel = document.getElementById('progressLabel');
+
+      function setIndex(i) {
+        idx = Math.max(0, Math.min(N - 1, i));
+        carMarker.setLatLng(latlngs[idx]);
+        walkedLine.setLatLngs(latlngs.slice(0, idx + 1));
+        scrubber.value = Math.round((idx / (N - 1)) * 100);
+        progressLabel.textContent = scrubber.value + '%';
+      }
+
+      scrubber.addEventListener('input', () => {
+        setIndex(Math.round((Number(scrubber.value) / 100) * (N - 1)));
+      });
+
+      function tick() {
+        if (!playing) return;
+        setIndex(idx + Math.max(1, Math.round(N / 400)));
+        if (idx >= N - 1) { playing = false; playBtn.textContent = '▶'; return; }
+        timer = setTimeout(tick, 40);
+      }
+
+      playBtn.addEventListener('click', () => {
+        playing = !playing;
+        playBtn.textContent = playing ? '⏸' : '▶';
+        if (playing) { if (idx >= N - 1) setIndex(0); tick(); }
+        else clearTimeout(timer);
+      });
+
+      setIndex(0);
+    }
+
+    main();
+  </script>
+</body>
+</html>
