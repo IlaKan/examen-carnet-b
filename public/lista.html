@@ -5,51 +5,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mis clases — Examen Carnet B</title>
   <style>
-    body { font-family: -apple-system, sans-serif; margin: 0; padding: 16px; background: #f4f4f4; }
-    h1 { font-size: 20px; }
-    #filtros { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
-    #filtros select { padding: 8px; font-size: 14px; }
-    .card { background: #fff; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
-            box-shadow: 0 1px 3px rgba(0,0,0,.15); text-decoration: none; color: #222; display: block; }
-    .card h3 { margin: 0 0 4px; font-size: 16px; }
-    .card .meta { font-size: 13px; color: #666; }
-    #vacio { color: #888; padding: 20px; text-align: center; }
+    :root { --accent: #4285F4; --bg-dark: #16181d; --bg-dark-2: #1f2229; }
+    html, body { margin: 0; padding: 0; background: var(--bg-dark); color: #e7e9ee;
+                 font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+
+    #topbar {
+      background: var(--bg-dark); padding: 16px 16px 12px; box-shadow: 0 2px 8px rgba(0,0,0,.35);
+      position: sticky; top: 0; z-index: 5;
+    }
+    #topbar h1 { font-size: 18px; margin: 0 0 4px; }
+    #topbar .subtitle { font-size: 12px; color: #767c88; }
+
+    #navlinks { display: flex; gap: 8px; padding: 12px 16px; flex-wrap: wrap; background: var(--bg-dark-2); }
+    #navlinks a {
+      color: #c7ccd4; text-decoration: none; font-size: 12.5px; background: #2a2e37;
+      border: 1px solid #383d48; border-radius: 999px; padding: 7px 12px;
+      display: inline-flex; align-items: center; gap: 5px; transition: border-color .15s;
+    }
+    #navlinks a:hover { border-color: var(--accent); color: #fff; }
+
+    main { max-width: 640px; margin: 0 auto; padding: 16px; }
+
+    #filtros { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    #filtros select {
+      background: var(--bg-dark-2); color: #e7e9ee; border: 1px solid #383d48;
+      border-radius: 8px; padding: 8px 12px; font-size: 13px; flex: 1 1 auto;
+    }
+
+    .card {
+      background: var(--bg-dark-2); border-radius: 12px; padding: 16px; margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.3); text-decoration: none; color: inherit; display: block;
+      border: 1px solid transparent; transition: border-color .15s, transform .1s;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card:active { transform: scale(0.99); }
+    .card h3 { margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+    .card .meta { font-size: 12.5px; color: #9aa0ab; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .card .zona-tag {
+      background: #2a2e37; color: var(--accent); border-radius: 999px; padding: 2px 9px; font-size: 11px;
+    }
+
+    #vacio { color: #767c88; padding: 50px 20px; text-align: center; font-size: 14px; line-height: 1.6; }
+    #vacio .big { font-size: 32px; display: block; margin-bottom: 10px; }
   </style>
 </head>
 <body>
-  <h1>Mis clases</h1>
-  <div id="filtros">
-    <select id="filtroZona"><option value="">Todas las zonas</option></select>
-    <a href="tecnica.html" style="align-self:center;font-size:13px;">📋 Checklist de técnica general</a>
-    <a href="puntos.html" style="align-self:center;font-size:13px;">📍 Catálogo de 68 puntos</a>
+  <div id="topbar">
+    <h1>Mis clases</h1>
+    <div class="subtitle" id="subtitle">Cargando…</div>
   </div>
-  <div id="lista"></div>
-  <div id="vacio" style="display:none;">No hay ninguna clase todavía.</div>
+  <div id="navlinks">
+    <a href="tecnica.html">📋 Checklist de técnica general</a>
+    <a href="puntos.html">📍 Catálogo de 68 puntos</a>
+  </div>
+  <main>
+    <div id="filtros" style="display:none;">
+      <select id="filtroZona"><option value="">Todas las zonas</option></select>
+    </div>
+    <div id="lista"></div>
+    <div id="vacio" style="display:none;">
+      <span class="big">🚗</span>
+      Todavía no hay ninguna clase grabada.<br>
+      Procesa un GPX con <code>scripts/nueva_clase.py</code> para que aparezca aquí.
+    </div>
+  </main>
 
   <script>
     fetch('data/tracks/index.json')
       .then(r => r.json())
       .then(renderAll)
-      .catch(() => { document.getElementById('vacio').style.display = 'block'; });
+      .catch(() => {
+        document.getElementById('subtitle').textContent = '';
+        document.getElementById('vacio').style.display = 'block';
+      });
 
     let ALL_TRACKS = [];
 
     function renderAll(tracks) {
       ALL_TRACKS = tracks;
       if (tracks.length === 0) {
+        document.getElementById('subtitle').textContent = '';
         document.getElementById('vacio').style.display = 'block';
         return;
       }
+
+      document.getElementById('subtitle').textContent =
+        tracks.length + (tracks.length === 1 ? ' clase grabada' : ' clases grabadas');
+
       const zonas = new Set();
       tracks.forEach(t => (t.zonas || []).forEach(z => zonas.add(z)));
-      const select = document.getElementById('filtroZona');
-      Array.from(zonas).sort().forEach(z => {
-        const opt = document.createElement('option');
-        opt.value = z;
-        opt.textContent = z;
-        select.appendChild(opt);
-      });
-      select.addEventListener('change', () => renderList(select.value));
+      if (zonas.size > 1) {
+        document.getElementById('filtros').style.display = 'flex';
+        const select = document.getElementById('filtroZona');
+        Array.from(zonas).sort().forEach(z => {
+          const opt = document.createElement('option');
+          opt.value = z;
+          opt.textContent = z;
+          select.appendChild(opt);
+        });
+        select.addEventListener('change', () => renderList(select.value));
+      }
       renderList('');
     }
 
@@ -64,11 +119,14 @@
         const a = document.createElement('a');
         a.className = 'card';
         a.href = 'mapa.html?track=' + encodeURIComponent(t.id);
+        const zonaTags = (t.zonas || []).map(z => '<span class="zona-tag">' + z + '</span>').join('');
         a.innerHTML =
           '<h3>' + t.nombre + '</h3>' +
-          '<div class="meta">' + t.fecha + ' · ' +
-          (t.duracion_min ? Math.round(t.duracion_min) + ' min · ' : '') +
-          ((t.zonas || []).join(', ') || 'sin zona') + '</div>';
+          '<div class="meta">' +
+          '<span>' + t.fecha + '</span>' +
+          (t.duracion_min ? '<span>· ' + Math.round(t.duracion_min) + ' min</span>' : '') +
+          (zonaTags || '<span class="zona-tag">sin zona</span>') +
+          '</div>';
         container.appendChild(a);
       });
     }
