@@ -5,3 +5,8 @@ gpx/
 
 # Archivos de sistema
 .DS_Store
+
+# Entorno virtual de Python (se recrea con: python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt)
+.venv/
+__pycache__/
+*.pyc
