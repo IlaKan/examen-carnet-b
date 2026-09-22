@@ -6,34 +6,98 @@
   <title>Clase — Examen Carnet B</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
+    :root {
+      --accent: #4285F4;
+      --bg-dark: #16181d;
+      --bg-dark-2: #1f2229;
+    }
     html, body {
       margin: 0; padding: 0;
       height: 100vh; height: 100dvh; /* dvh: fixes iOS Safari's shrinking/growing address bar */
-      font-family: -apple-system, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       overflow: hidden;
+      background: var(--bg-dark);
     }
     body { display: flex; flex-direction: column; }
-    #topbar { background: #000; color: #fff; padding: 8px 12px; font-size: 13px; display: flex;
-              justify-content: space-between; align-items: center; flex: 0 0 auto; }
-    #topbar a { color: #9cf; white-space: nowrap; }
+
+    #topbar {
+      background: var(--bg-dark); color: #fff; padding: 10px 14px 12px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex: 0 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,.35); z-index: 10;
+    }
+    #topbar #titulo { font-size: 14px; font-weight: 600; }
+    #topbar .sub { font-size: 11px; color: #9aa0ab; font-weight: 400; display: block; }
+    #topbar a { color: var(--accent); text-decoration: none; font-size: 13px; white-space: nowrap; }
+
+    #layers {
+      background: var(--bg-dark-2); padding: 8px 10px; display: flex; gap: 6px;
+      flex-wrap: wrap; flex: 0 0 auto; z-index: 10;
+    }
+    #layers label {
+      display: flex; align-items: center; gap: 5px; white-space: nowrap;
+      font-size: 11px; color: #c7ccd4; background: #2a2e37; border: 1px solid #383d48;
+      border-radius: 999px; padding: 5px 10px 5px 8px; cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    #layers label:has(input:checked) { background: #333a4a; border-color: var(--accent); color: #fff; }
+    #layers input[type=checkbox] { display: none; }
+    #layers .swatch { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
     #map { flex: 1 1 auto; width: 100%; min-height: 0; } /* min-height:0 lets flex children shrink in Safari */
-    #layers { background: #eee; padding: 6px 10px; font-size: 11px; display: flex; gap: 8px 12px;
-              flex-wrap: wrap; flex: 0 0 auto; }
-    #layers label { display: flex; align-items: center; gap: 4px; white-space: nowrap; }
-    #layers .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid #fff; }
-    #controls { flex: 0 0 auto; height: 52px; background: #222; display: flex; align-items: center;
-                gap: 8px; padding: 0 10px; padding-bottom: env(safe-area-inset-bottom, 0); }
-    #controls button { font-size: 16px; background: #444; color: #fff; border: none; border-radius: 6px;
-                        min-width: 36px; height: 36px; cursor: pointer; flex: 0 0 auto; }
-    #speedBtn { font-size: 12px; font-weight: bold; width: 40px; }
-    #controls input[type=range] { flex: 1 1 auto; min-width: 0; }
-    #controls span { color: #fff; font-size: 11px; min-width: 34px; flex: 0 0 auto; }
-    #error { padding: 20px; color: #a00; }
+
+    /* Panel de info en vivo: distancia / tiempo / próximo — la sensación de copiloto */
+    #liveinfo {
+      position: absolute; left: 10px; top: 10px; z-index: 999;
+      background: rgba(22,24,29,.92); color: #fff; border-radius: 14px;
+      padding: 10px 14px; box-shadow: 0 4px 14px rgba(0,0,0,.4);
+      font-size: 12px; display: none; backdrop-filter: blur(4px);
+    }
+    #liveinfo.visible { display: block; }
+    #liveinfo .row { display: flex; gap: 14px; }
+    #liveinfo .stat b { display: block; font-size: 15px; font-weight: 700; }
+    #liveinfo .stat span { color: #9aa0ab; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; }
+    #liveinfo .next { margin-top: 6px; padding-top: 6px; border-top: 1px solid #333a4a;
+                       font-size: 12px; color: #ffd166; min-height: 16px; }
+
+    #controls {
+      flex: 0 0 auto; background: var(--bg-dark); border-radius: 18px 18px 0 0;
+      box-shadow: 0 -4px 16px rgba(0,0,0,.35); padding: 10px 14px;
+      padding-bottom: calc(10px + env(safe-area-inset-bottom, 0)); z-index: 10;
+    }
+    #controls .row { display: flex; align-items: center; gap: 10px; }
+    #controls button {
+      font-size: 16px; background: var(--accent); color: #fff; border: none;
+      border-radius: 50%; width: 42px; height: 42px; cursor: pointer; flex: 0 0 auto;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #speedBtn { border-radius: 999px; width: auto; padding: 0 12px; background: #2a2e37; font-size: 12px; font-weight: 700; }
+    #controls input[type=range] {
+      flex: 1 1 auto; min-width: 0; accent-color: var(--accent);
+    }
+    #controls .pct { color: #9aa0ab; font-size: 11px; min-width: 32px; text-align: right; flex: 0 0 auto; }
+
+    #error { padding: 20px; color: #ff6b6b; background: #16181d; height: 100%; box-sizing: border-box; }
+
+    /* Flecha de navegación (sustituye al emoji de coche): apunta en la
+       dirección real de avance, calculada por rumbo entre puntos del GPX. */
+    .nav-arrow-wrap { width: 0; height: 0; }
+    .nav-arrow {
+      width: 0; height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 22px solid var(--accent);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.5));
+      transform-origin: 50% 70%;
+    }
+    .nav-arrow::after {
+      content: ''; position: absolute; left: -6px; top: 14px;
+      width: 12px; height: 12px; border-radius: 50%; background: #fff; opacity: .0;
+    }
   </style>
 </head>
 <body>
   <div id="topbar">
-    <span id="titulo">Cargando...</span>
+    <span id="titulo">Cargando…</span>
     <a href="lista.html">← Mis clases</a>
   </div>
   <div id="layers">
@@ -46,12 +110,24 @@
     <label><span class="swatch" style="background:#6c757d;"></span><input type="checkbox" data-layer="obras"> Obras</label>
     <label><span class="swatch" style="background:#e91e8c;"></span><input type="checkbox" data-layer="notas" checked> Mis notas</label>
   </div>
-  <div id="map"></div>
+  <div style="position:relative; flex:1 1 auto; min-height:0;">
+    <div id="map" style="height:100%;"></div>
+    <div id="liveinfo">
+      <div class="row">
+        <div class="stat"><b id="statDist">0,0 km</b><span>Recorrido</span></div>
+        <div class="stat"><b id="statTime">0:00</b><span>Tiempo</span></div>
+        <div class="stat"><b id="statTotal">0,0 km</b><span>Total</span></div>
+      </div>
+      <div class="next" id="nextInfo"></div>
+    </div>
+  </div>
   <div id="controls">
-    <button id="playBtn">▶</button>
-    <button id="speedBtn">1x</button>
-    <input type="range" id="scrubber" min="0" max="100" value="0" />
-    <span id="progressLabel">0%</span>
+    <div class="row">
+      <button id="playBtn">▶</button>
+      <button id="speedBtn">1x</button>
+      <input type="range" id="scrubber" min="0" max="100" value="0" />
+      <span class="pct" id="progressLabel">0%</span>
+    </div>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
@@ -70,6 +146,11 @@
       notas: { color: '#e91e8c', label: 'Nota tuya' },         // rosa
     };
 
+    // Las categorías que de verdad importan revisar mientras conduces —
+    // el copiloto ("próximo: ...") solo avisa de estas, no de carriles/obras.
+    const COPILOT_LAYERS = ['semaforos', 'stops', 'cedas'];
+    const COPILOT_RADIUS_M = 150;
+
     function params() {
       return new URLSearchParams(window.location.search);
     }
@@ -78,10 +159,39 @@
       return fetch(url).then(r => (r.ok ? r.json() : null)).catch(() => null);
     }
 
+    function haversineM(a, b) {
+      const R = 6371000;
+      const toRad = x => x * Math.PI / 180;
+      const dLat = toRad(b[0] - a[0]);
+      const dLng = toRad(b[1] - a[1]);
+      const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a[0])) * Math.cos(toRad(b[0])) * Math.sin(dLng / 2) ** 2;
+      return 2 * R * Math.asin(Math.sqrt(h));
+    }
+
+    // Rumbo inicial (en grados, 0 = norte, sentido horario) de a hacia b.
+    function bearingDeg(a, b) {
+      const toRad = x => x * Math.PI / 180, toDeg = x => x * 180 / Math.PI;
+      const lat1 = toRad(a[0]), lat2 = toRad(b[0]);
+      const dLng = toRad(b[1] - a[1]);
+      const y = Math.sin(dLng) * Math.cos(lat2);
+      const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+      return (toDeg(Math.atan2(y, x)) + 360) % 360;
+    }
+
+    function formatKm(m) {
+      return (m / 1000).toLocaleString('es-ES', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' km';
+    }
+
+    function formatMinSec(totalSeconds) {
+      const m = Math.floor(totalSeconds / 60);
+      const s = Math.floor(totalSeconds % 60);
+      return m + ':' + String(s).padStart(2, '0');
+    }
+
     async function main() {
       const trackId = params().get('track');
       if (!trackId) {
-        document.getElementById('map').outerHTML = '<div id="error">Falta ?track=&lt;id&gt; en la URL.</div>';
+        document.body.innerHTML = '<div id="error">Falta ?track=&lt;id&gt; en la URL.</div>';
         return;
       }
 
@@ -94,21 +204,22 @@
       ]);
 
       if (!track) {
-        document.getElementById('map').outerHTML = '<div id="error">No se encontró la clase "' + trackId + '".</div>';
+        document.body.innerHTML = '<div id="error">No se encontró la clase "' + trackId + '".</div>';
         return;
       }
 
-      document.getElementById('titulo').textContent =
-        track.nombre + ' — ' + track.fecha + (track.zonas.length ? ' — ' + track.zonas.join(', ') : '');
+      document.getElementById('titulo').innerHTML =
+        track.nombre + '<span class="sub">' + track.fecha +
+        (track.zonas.length ? ' · ' + track.zonas.join(', ') : '') + '</span>';
 
       const latlngs = track.points.map(p => [p.lat, p.lng]);
-      const map = L.map('map');
+      const map = L.map('map', { zoomControl: true });
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19, attribution: '&copy; OpenStreetMap contributors',
       }).addTo(map);
       map.fitBounds(latlngs, { padding: [20, 20] });
 
-      L.polyline(latlngs, { color: '#999', weight: 3, opacity: 0.45 }).addTo(map);
+      L.polyline(latlngs, { color: '#999', weight: 3, opacity: 0.4 }).addTo(map);
 
       // Layers hidden by default (denser / less critical) so the map isn't
       // a wall of dots on first load — matches the checkboxes above, which
@@ -116,6 +227,8 @@
       const HIDDEN_BY_DEFAULT = new Set(['pasos_peatones', 'carril_bici', 'carril_bus', 'obras']);
 
       const layerGroups = {};
+      const copilotPoints = []; // {lat,lng,tipo} para el aviso "próximo: ..."
+
       function addLayerPoints(key, items, colorOverride) {
         const style = LAYER_STYLE[key] || { color: '#333', label: key };
         const group = L.layerGroup();
@@ -129,6 +242,9 @@
             // doesn't exist on a touchscreen, so tooltips never showed on iPhone.
             .bindPopup('<strong>' + style.label + '</strong>' + (label !== style.label ? '<br>' + label : ''))
             .addTo(group);
+          if (COPILOT_LAYERS.includes(key)) {
+            copilotPoints.push({ lat: it.lat, lng: it.lng, tipo: style.label });
+          }
         });
         if (!HIDDEN_BY_DEFAULT.has(key)) group.addTo(map);
         layerGroups[key] = group;
@@ -170,27 +286,72 @@
         });
       });
 
-      // Reproducción animada
+      // Distancia acumulada precalculada, para no recorrer el array entero
+      // en cada frame — es lo que alimenta el "Recorrido" del panel de info.
+      const cumDist = [0];
+      for (let i = 1; i < latlngs.length; i++) {
+        cumDist.push(cumDist[i - 1] + haversineM(latlngs[i - 1], latlngs[i]));
+      }
+      const totalDist = cumDist[cumDist.length - 1];
+      const pointTimes = track.points.map(p => (p.time ? new Date(p.time).getTime() : null));
+      const startTime = pointTimes[0];
+
+      // --- Reproducción animada ---
       const N = latlngs.length;
-      const walkedLine = L.polyline([latlngs[0]], { color: '#e74c3c', weight: 5, opacity: 0.9 }).addTo(map);
-      const carIcon = L.divIcon({
-        className: '', html: '<div style="font-size:22px;transform:translate(-50%,-50%);">🚗</div>',
-        iconSize: [0, 0],
-      });
-      const carMarker = L.marker(latlngs[0], { icon: carIcon }).addTo(map);
+      const walkedLine = L.polyline([latlngs[0]], { color: '#e63946', weight: 5, opacity: 0.9 }).addTo(map);
+
+      const carMarker = L.marker(latlngs[0], {
+        icon: L.divIcon({
+          className: '',
+          html: '<div class="nav-arrow" style="transform:translate(-10px,-16px) rotate(0deg);"></div>',
+          iconSize: [0, 0],
+        }),
+      }).addTo(map);
 
       let idx = 0, playing = false, timer = null;
       const SPEEDS = [1, 2, 4];
       let speedIdx = 0;
+      const NAV_ZOOM = 18;
       const scrubber = document.getElementById('scrubber');
       const playBtn = document.getElementById('playBtn');
       const speedBtn = document.getElementById('speedBtn');
       const progressLabel = document.getElementById('progressLabel');
+      const liveinfo = document.getElementById('liveinfo');
+      const statDist = document.getElementById('statDist');
+      const statTime = document.getElementById('statTime');
+      const statTotal = document.getElementById('statTotal');
+      const nextInfo = document.getElementById('nextInfo');
+
+      statTotal.textContent = formatKm(totalDist);
 
       // Full route plays back in ~90 real seconds at 1x (was ~16s before —
       // too fast to follow, per feedback testing on a real device).
       const BASE_STEPS_PER_TICK = Math.max(1, Math.round(N / 2200));
       const TICK_MS = 40;
+
+      function updateBearing(i) {
+        const lookAheadIdx = Math.min(i + 3, N - 1);
+        if (lookAheadIdx === i) return;
+        const deg = bearingDeg(latlngs[i], latlngs[lookAheadIdx]);
+        const el = carMarker.getElement();
+        if (el) {
+          const arrow = el.querySelector('.nav-arrow');
+          if (arrow) arrow.style.transform = 'translate(-10px,-16px) rotate(' + deg + 'deg)';
+        }
+      }
+
+      function updateCopilot(pos) {
+        let nearest = null, nearestDist = Infinity;
+        for (const p of copilotPoints) {
+          const d = haversineM(pos, [p.lat, p.lng]);
+          if (d < nearestDist) { nearestDist = d; nearest = p; }
+        }
+        if (nearest && nearestDist <= COPILOT_RADIUS_M) {
+          nextInfo.textContent = '📍 Cerca: ' + nearest.tipo + ' (' + Math.round(nearestDist) + ' m)';
+        } else {
+          nextInfo.textContent = '';
+        }
+      }
 
       function setIndex(i) {
         idx = Math.max(0, Math.min(N - 1, i));
@@ -199,11 +360,21 @@
         walkedLine.setLatLngs(latlngs.slice(0, idx + 1));
         scrubber.value = Math.round((idx / (N - 1)) * 100);
         progressLabel.textContent = scrubber.value + '%';
+        updateBearing(idx);
+        updateCopilot(pos);
 
-        // Si has hecho zoom para ver detalle, el coche puede salir de lo que
-        // ves en pantalla al avanzar — el mapa se recentra solo cuando eso
-        // pasa (no en cada frame, para no pelearse con tu propio zoom/pan).
-        if (!map.getBounds().pad(-0.15).contains(pos)) {
+        statDist.textContent = formatKm(cumDist[idx]);
+        if (startTime && pointTimes[idx]) {
+          statTime.textContent = formatMinSec((pointTimes[idx] - startTime) / 1000);
+        }
+
+        if (playing) {
+          // Modo navegación: la cámara sigue de cerca, con zoom de calle,
+          // como en una app de navegación real — no solo "no perder de vista".
+          map.setView(pos, Math.max(map.getZoom(), NAV_ZOOM), { animate: false });
+        } else if (!map.getBounds().pad(-0.15).contains(pos)) {
+          // Pausado/arrastrando el slider: solo recentra si te sales de la vista,
+          // para no pelearse con un zoom/pan que hayas hecho tú a mano.
           map.panTo(pos, { animate: true, duration: 0.25 });
         }
       }
@@ -222,8 +393,14 @@
       playBtn.addEventListener('click', () => {
         playing = !playing;
         playBtn.textContent = playing ? '⏸' : '▶';
-        if (playing) { if (idx >= N - 1) setIndex(0); tick(); }
-        else clearTimeout(timer);
+        liveinfo.classList.toggle('visible', playing);
+        if (playing) {
+          if (idx >= N - 1) setIndex(0);
+          map.setView(latlngs[idx], NAV_ZOOM, { animate: true });
+          tick();
+        } else {
+          clearTimeout(timer);
+        }
       });
 
       speedBtn.addEventListener('click', () => {
