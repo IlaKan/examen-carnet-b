@@ -286,6 +286,26 @@
         });
       });
 
+      // El GPS real "tiembla" unos metros incluso parado (ruido de sensor,
+      // más notorio al empezar/acabar la clase). A la escala de calle a la
+      // que navega la cámara ahora, ese ruido se ve como vibración — antes
+      // pasaba desapercibido porque la vista era mucho más amplia. Se usa
+      // una posición suavizada (media de los puntos vecinos) para todo lo
+      // visual (flecha, cámara, marcador); la ruta de fondo y la distancia
+      // siguen calculándose con los puntos reales, sin alterarlos.
+      function smoothPath(points, windowRadius) {
+        const out = [];
+        for (let i = 0; i < points.length; i++) {
+          let sumLat = 0, sumLng = 0, count = 0;
+          for (let j = Math.max(0, i - windowRadius); j <= Math.min(points.length - 1, i + windowRadius); j++) {
+            sumLat += points[j][0]; sumLng += points[j][1]; count++;
+          }
+          out.push([sumLat / count, sumLng / count]);
+        }
+        return out;
+      }
+      const smoothedLatlngs = smoothPath(latlngs, 2);
+
       // Distancia acumulada precalculada, para no recorrer el array entero
       // en cada frame — es lo que alimenta el "Recorrido" del panel de info.
       const cumDist = [0];
@@ -341,8 +361,8 @@
       function updateBearing(i) {
         const lookAheadIdx = Math.min(i + 3, N - 1);
         if (lookAheadIdx === i) return;
-        if (haversineM(latlngs[i], latlngs[lookAheadIdx]) < MIN_MOVEMENT_FOR_BEARING_M) return;
-        lastBearingDeg = bearingDeg(latlngs[i], latlngs[lookAheadIdx]);
+        if (haversineM(smoothedLatlngs[i], smoothedLatlngs[lookAheadIdx]) < MIN_MOVEMENT_FOR_BEARING_M) return;
+        lastBearingDeg = bearingDeg(smoothedLatlngs[i], smoothedLatlngs[lookAheadIdx]);
         const el = carMarker.getElement();
         if (el) {
           const arrow = el.querySelector('.nav-arrow');
@@ -363,18 +383,11 @@
         }
       }
 
-      // Recentrar el mapa (setView) es caro — repintar tiles a zoom de calle
-      // en cada frame (cada 40ms) es justo lo que se sentía "a saltos"/poco
-      // fluido. El marcador y la línea sí se actualizan cada frame (barato);
-      // la cámara solo se recoloca cada pocos frames.
-      let ticksSinceCameraMove = 0;
-      const CAMERA_MOVE_EVERY_N_TICKS = 4;
-
       function setIndex(i) {
         idx = Math.max(0, Math.min(N - 1, i));
-        const pos = latlngs[idx];
+        const pos = smoothedLatlngs[idx];
         carMarker.setLatLng(pos);
-        walkedLine.setLatLngs(latlngs.slice(0, idx + 1));
+        walkedLine.setLatLngs(smoothedLatlngs.slice(0, idx + 1));
         scrubber.value = Math.round((idx / (N - 1)) * 100);
         progressLabel.textContent = scrubber.value + '%';
         updateBearing(idx);
@@ -386,13 +399,13 @@
         }
 
         if (playing) {
-          // Modo navegación: la cámara sigue de cerca, con zoom de calle,
-          // como en una app de navegación real — no solo "no perder de vista".
-          ticksSinceCameraMove++;
-          if (ticksSinceCameraMove >= CAMERA_MOVE_EVERY_N_TICKS) {
-            ticksSinceCameraMove = 0;
-            map.setView(pos, Math.max(map.getZoom(), NAV_ZOOM), { animate: true, duration: 0.2 });
-          }
+          // Modo navegación: la cámara sigue de cerca, con zoom de calle.
+          // Sin animación en cada frame — con frames tan seguidos (cada
+          // 40ms), un salto directo se ve como movimiento fluido; una
+          // animación con duración propia en cada frame competía consigo
+          // misma (se reiniciaba a medio camino) y eso sí se veía como
+          // vibración en toda la pantalla, no solo en el marcador.
+          map.panTo(pos, { animate: false });
         } else if (!map.getBounds().pad(-0.15).contains(pos)) {
           // Pausado/arrastrando el slider: solo recentra si te sales de la vista,
           // para no pelearse con un zoom/pan que hayas hecho tú a mano.
@@ -417,7 +430,7 @@
         liveinfo.classList.toggle('visible', playing);
         if (playing) {
           if (idx >= N - 1) setIndex(0);
-          map.setView(latlngs[idx], NAV_ZOOM, { animate: true });
+          map.setView(smoothedLatlngs[idx], NAV_ZOOM, { animate: true });
           tick();
         } else {
           clearTimeout(timer);
