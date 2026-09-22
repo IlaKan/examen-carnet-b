@@ -15,7 +15,8 @@ from scripts.lib.zone_matcher import match_zones
 from scripts.lib.geo_utils import bbox_with_buffer
 from scripts.lib.osm_fetcher import fetch_osm_infrastructure
 from scripts.lib.obras_fetcher import fetch_obras
-from scripts.lib.track_index import upsert_track_entry
+from scripts.lib.track_index import upsert_track_entry, load_index
+from scripts.lib.zone_suggest import collect_known_zones
 
 ROOT = Path(__file__).resolve().parent.parent
 TRACKS_DIR = ROOT / "public" / "data" / "tracks"
@@ -44,10 +45,21 @@ def main():
     catalog = json.loads(POINTS_PATH.read_text(encoding="utf-8"))
     zonas = match_zones(parsed["points"], catalog)
     if not zonas:
-        nombre_manual = input(
-            "Esta clase no coincide con ninguna zona del catálogo (60m). "
-            "¿Cómo la llamas? (ej. 'zona franca'): "
-        ).strip()
+        known_zones = collect_known_zones(load_index(str(INDEX_PATH)))
+        prompt = "Esta clase no coincide con ninguna zona del catálogo (60m). "
+        if known_zones:
+            print("Zonas ya usadas antes (para no escribir el mismo nombre de dos formas distintas):")
+            for i, z in enumerate(known_zones, 1):
+                print(f"  {i}. {z}")
+            prompt += "Elige un número de la lista, o escribe un nombre nuevo: "
+        else:
+            prompt += "¿Cómo la llamas? (ej. 'zona franca'): "
+
+        raw = input(prompt).strip()
+        if raw.isdigit() and 1 <= int(raw) <= len(known_zones):
+            nombre_manual = known_zones[int(raw) - 1]
+        else:
+            nombre_manual = raw
         zonas = [nombre_manual] if nombre_manual else ["sin clasificar"]
         print(f"Zona registrada manualmente: {zonas}")
     else:

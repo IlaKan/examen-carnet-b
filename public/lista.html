@@ -61,6 +61,7 @@
   <main>
     <div id="filtros" style="display:none;">
       <select id="filtroZona"><option value="">Todas las zonas</option></select>
+      <select id="filtroMes" style="display:none;"><option value="">Todas las fechas</option></select>
     </div>
     <div id="lista"></div>
     <div id="vacio" style="display:none;">
@@ -93,9 +94,17 @@
         tracks.length + (tracks.length === 1 ? ' clase grabada' : ' clases grabadas');
 
       const zonas = new Set();
-      tracks.forEach(t => (t.zonas || []).forEach(z => zonas.add(z)));
+      const meses = new Set();
+      const MESES_ES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
+                         'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+      tracks.forEach(t => {
+        (t.zonas || []).forEach(z => zonas.add(z));
+        if (t.fecha) meses.add(t.fecha.slice(0, 7)); // "YYYY-MM"
+      });
+
+      let anyFilterShown = false;
       if (zonas.size > 1) {
-        document.getElementById('filtros').style.display = 'flex';
+        anyFilterShown = true;
         const select = document.getElementById('filtroZona');
         Array.from(zonas).sort().forEach(z => {
           const opt = document.createElement('option');
@@ -103,17 +112,39 @@
           opt.textContent = z;
           select.appendChild(opt);
         });
-        select.addEventListener('change', () => renderList(select.value));
+        select.addEventListener('change', applyFilters);
       }
-      renderList('');
+      if (meses.size > 1) {
+        anyFilterShown = true;
+        const select = document.getElementById('filtroMes');
+        select.style.display = '';
+        Array.from(meses).sort().reverse().forEach(m => {
+          const [year, month] = m.split('-');
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = MESES_ES[parseInt(month, 10) - 1] + ' ' + year;
+          select.appendChild(opt);
+        });
+        select.addEventListener('change', applyFilters);
+      }
+      if (anyFilterShown) document.getElementById('filtros').style.display = 'flex';
+
+      renderList(ALL_TRACKS);
     }
 
-    function renderList(zonaFiltro) {
+    function applyFilters() {
+      const zonaFiltro = document.getElementById('filtroZona').value;
+      const mesFiltro = document.getElementById('filtroMes').value;
+      const filtered = ALL_TRACKS.filter(t =>
+        (!zonaFiltro || (t.zonas || []).includes(zonaFiltro)) &&
+        (!mesFiltro || (t.fecha || '').slice(0, 7) === mesFiltro)
+      );
+      renderList(filtered);
+    }
+
+    function renderList(filtered) {
       const container = document.getElementById('lista');
       container.innerHTML = '';
-      const filtered = zonaFiltro
-        ? ALL_TRACKS.filter(t => (t.zonas || []).includes(zonaFiltro))
-        : ALL_TRACKS;
 
       filtered.forEach(t => {
         const a = document.createElement('a');
