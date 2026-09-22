@@ -329,14 +329,24 @@
       const BASE_STEPS_PER_TICK = Math.max(1, Math.round(N / 2200));
       const TICK_MS = 40;
 
+      // Por debajo de esto, dos puntos del GPX están tan cerca que la
+      // "dirección" entre ellos es solo ruido del GPS, no movimiento real
+      // (típicamente al principio/final, con el coche parado arrancando la
+      // grabación) — girar la flecha con ese ruido es justo lo que se
+      // sentía como "vibración". Si no hay movimiento real, se mantiene el
+      // último rumbo válido en vez de recalcular.
+      const MIN_MOVEMENT_FOR_BEARING_M = 5;
+      let lastBearingDeg = 0;
+
       function updateBearing(i) {
         const lookAheadIdx = Math.min(i + 3, N - 1);
         if (lookAheadIdx === i) return;
-        const deg = bearingDeg(latlngs[i], latlngs[lookAheadIdx]);
+        if (haversineM(latlngs[i], latlngs[lookAheadIdx]) < MIN_MOVEMENT_FOR_BEARING_M) return;
+        lastBearingDeg = bearingDeg(latlngs[i], latlngs[lookAheadIdx]);
         const el = carMarker.getElement();
         if (el) {
           const arrow = el.querySelector('.nav-arrow');
-          if (arrow) arrow.style.transform = 'translate(-10px,-16px) rotate(' + deg + 'deg)';
+          if (arrow) arrow.style.transform = 'translate(-10px,-16px) rotate(' + lastBearingDeg + 'deg)';
         }
       }
 
@@ -352,6 +362,13 @@
           nextInfo.textContent = '';
         }
       }
+
+      // Recentrar el mapa (setView) es caro — repintar tiles a zoom de calle
+      // en cada frame (cada 40ms) es justo lo que se sentía "a saltos"/poco
+      // fluido. El marcador y la línea sí se actualizan cada frame (barato);
+      // la cámara solo se recoloca cada pocos frames.
+      let ticksSinceCameraMove = 0;
+      const CAMERA_MOVE_EVERY_N_TICKS = 4;
 
       function setIndex(i) {
         idx = Math.max(0, Math.min(N - 1, i));
@@ -371,7 +388,11 @@
         if (playing) {
           // Modo navegación: la cámara sigue de cerca, con zoom de calle,
           // como en una app de navegación real — no solo "no perder de vista".
-          map.setView(pos, Math.max(map.getZoom(), NAV_ZOOM), { animate: false });
+          ticksSinceCameraMove++;
+          if (ticksSinceCameraMove >= CAMERA_MOVE_EVERY_N_TICKS) {
+            ticksSinceCameraMove = 0;
+            map.setView(pos, Math.max(map.getZoom(), NAV_ZOOM), { animate: true, duration: 0.2 });
+          }
         } else if (!map.getBounds().pad(-0.15).contains(pos)) {
           // Pausado/arrastrando el slider: solo recentra si te sales de la vista,
           // para no pelearse con un zoom/pan que hayas hecho tú a mano.
