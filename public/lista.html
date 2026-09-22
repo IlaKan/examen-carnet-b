@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis clases — Examen Carnet B</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; margin: 0; padding: 16px; background: #f4f4f4; }
+    h1 { font-size: 20px; }
+    #filtros { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    #filtros select { padding: 8px; font-size: 14px; }
+    .card { background: #fff; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.15); text-decoration: none; color: #222; display: block; }
+    .card h3 { margin: 0 0 4px; font-size: 16px; }
+    .card .meta { font-size: 13px; color: #666; }
+    #vacio { color: #888; padding: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Mis clases</h1>
+  <div id="filtros">
+    <select id="filtroZona"><option value="">Todas las zonas</option></select>
+  </div>
+  <div id="lista"></div>
+  <div id="vacio" style="display:none;">No hay ninguna clase todavía.</div>
+
+  <script>
+    fetch('data/tracks/index.json')
+      .then(r => r.json())
+      .then(renderAll)
+      .catch(() => { document.getElementById('vacio').style.display = 'block'; });
+
+    let ALL_TRACKS = [];
+
+    function renderAll(tracks) {
+      ALL_TRACKS = tracks;
+      if (tracks.length === 0) {
+        document.getElementById('vacio').style.display = 'block';
+        return;
+      }
+      const zonas = new Set();
+      tracks.forEach(t => (t.zonas || []).forEach(z => zonas.add(z)));
+      const select = document.getElementById('filtroZona');
+      Array.from(zonas).sort().forEach(z => {
+        const opt = document.createElement('option');
+        opt.value = z;
+        opt.textContent = z;
+        select.appendChild(opt);
+      });
+      select.addEventListener('change', () => renderList(select.value));
+      renderList('');
+    }
+
+    function renderList(zonaFiltro) {
+      const container = document.getElementById('lista');
+      container.innerHTML = '';
+      const filtered = zonaFiltro
+        ? ALL_TRACKS.filter(t => (t.zonas || []).includes(zonaFiltro))
+        : ALL_TRACKS;
+
+      filtered.forEach(t => {
+        const a = document.createElement('a');
+        a.className = 'card';
+        a.href = 'mapa.html?track=' + encodeURIComponent(t.id);
+        a.innerHTML =
+          '<h3>' + t.nombre + '</h3>' +
+          '<div class="meta">' + t.fecha + ' · ' +
+          (t.duracion_min ? Math.round(t.duracion_min) + ' min · ' : '') +
+          ((t.zonas || []).join(', ') || 'sin zona') + '</div>';
+        container.appendChild(a);
+      });
+    }
+  </script>
+</body>
+</html>
