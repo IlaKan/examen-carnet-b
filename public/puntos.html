@@ -7,7 +7,11 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
-    #map { height: 42vh; min-height: 260px; width: 100%; }
+    /* vh se recalcula cuando la barra de direcciones de Safari/Chrome iOS
+       se muestra/oculta (p.ej. justo al tocar un enlace que abre pestaña
+       nueva) — el mapa podía "crecer" de golpe en ese instante. dvh no
+       tiene ese problema; mismo fix que ya se aplicó en mapa.html. */
+    #map { height: 42vh; height: 42dvh; min-height: 260px; width: 100%; }
 
     .intro { margin-bottom: 16px; }
     h2.zona { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--accent);
