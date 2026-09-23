@@ -18,8 +18,9 @@
   --bg-dark-3: #2a2e37;   /* fondo de chip/pill (sobre bg-dark-2) */
 
   /* --- Color: acento y marca --- */
-  --accent: #4285F4;
-  --lila: #8b7cf6;        /* usado en el CTA "última clase" de home; branding aún no cerrado */
+  --accent: #8b7cf6;      /* violeta de marca — antes azul #4285F4, cerrado con tuPilotoB */
+  --lila: #8b7cf6;        /* alias del mismo violeta, usado explícito en el CTA "última clase" */
+  --confirm: #34C7A3;     /* verde-menta — "ya repasado/confirmado" (icono, badges de estado) */
 
   /* --- Color: bordes --- */
   --border: #383d48;      /* borde de chip/pill/select */
