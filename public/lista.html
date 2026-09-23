@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TuPilotoB — Mis clases</title>
+  <title>TuPilotoB</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* La marca es lo único que vive en la cabecera ahora — antes competía
@@ -11,9 +11,14 @@
        de la versión previa de la home. Sin ese competidor, el wordmark pasa
        a ser el elemento principal de verdad: más grande, con aire propio. */
     #topbar { padding: 22px 16px 20px; }
-    #topbar .wordmark { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    #topbar .wordmark svg { width: 30px; height: 30px; flex-shrink: 0; }
-    #topbar .wordmark span { font-size: 23px; font-weight: 800; color: #fff; letter-spacing: -.02em; }
+    #topbar .wordmark { display: flex; align-items: center; gap: 11px; margin-bottom: 8px; }
+    #topbar .wordmark .icon-tile {
+      width: 38px; height: 38px; border-radius: 11px; background: #1f2530;
+      border: 1px solid #333a4a; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    #topbar .wordmark svg { width: 22px; height: 22px; }
+    #topbar .wordmark span { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -.02em; }
     #topbar .wordmark span b { color: #34C7A3; font-weight: 800; }
     #topbar .payoff { font-size: 12.5px; color: var(--text-dimmer); line-height: 1.4; }
 
@@ -76,12 +81,14 @@
 <body>
   <div id="topbar" class="topbar">
     <div class="wordmark">
-      <svg width="22" height="22" viewBox="0 0 44 44">
-        <circle cx="14" cy="24" r="3.2" fill="#8b7cf6"/>
-        <line x1="17" y1="24" x2="25" y2="24" stroke="#4d5560" stroke-width="1.5"/>
-        <circle cx="29" cy="24" r="4" fill="#34C7A3"/>
-        <circle cx="29" cy="24" r="7.5" fill="none" stroke="#34C7A3" stroke-width="1.3" opacity="0.5"/>
-      </svg>
+      <div class="icon-tile">
+        <svg viewBox="0 0 44 44">
+          <circle cx="13" cy="24" r="3.6" fill="#8b7cf6"/>
+          <line x1="17" y1="24" x2="24" y2="24" stroke="#6b7280" stroke-width="2.4"/>
+          <circle cx="30" cy="24" r="5" fill="#34C7A3"/>
+          <circle cx="30" cy="24" r="8.5" fill="none" stroke="#34C7A3" stroke-width="2"/>
+        </svg>
+      </div>
       <span>TuPiloto<b>B</b></span>
     </div>
     <div class="payoff">Nunca más fallos. Tu carnet, a la primera.</div>
