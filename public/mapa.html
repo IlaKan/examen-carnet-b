@@ -130,7 +130,7 @@
   <div id="controls">
     <div class="row">
       <button id="playBtn">▶</button>
-      <button id="speedBtn">1x</button>
+      <button id="speedBtn">0.5x</button>
       <input type="range" id="scrubber" min="0" max="100" value="0" />
       <span class="pct" id="progressLabel">0%</span>
     </div>
@@ -462,7 +462,7 @@
 
       let idx = 0, playing = false, timer = null;
       const SPEEDS = [0.5, 1, 2, 4];
-      let speedIdx = 1; // arranca en 1x (índice 0 = 0.5x), igual que antes de añadir la opción lenta
+      let speedIdx = 0; // arranca en 0.5x — a petición, para poder leer los nombres de calle
       const NAV_ZOOM = 18;
       const scrubber = document.getElementById('scrubber');
       const playBtn = document.getElementById('playBtn');
