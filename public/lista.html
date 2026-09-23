@@ -11,16 +11,20 @@
        de la versión previa de la home. Sin ese competidor, el wordmark pasa
        a ser el elemento principal de verdad: más grande, con aire propio. */
     #topbar { padding: 22px 16px 20px; }
-    #topbar .wordmark { display: flex; align-items: center; gap: 11px; margin-bottom: 8px; }
+    #topbar .wordmark { display: flex; align-items: center; gap: 12px; }
     #topbar .wordmark .icon-tile {
-      width: 38px; height: 38px; border-radius: 11px; background: #1f2530;
+      width: 42px; height: 42px; border-radius: 12px; background: #1f2530;
       border: 1px solid #333a4a; display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    #topbar .wordmark svg { width: 22px; height: 22px; }
-    #topbar .wordmark span { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -.02em; }
+    #topbar .wordmark svg { width: 23px; height: 23px; }
+    /* Nombre y payoff van apilados juntos a la derecha del icono, con el
+       mismo margen — antes el payoff quedaba a ancho completo debajo de
+       todo el bloque, sin seguir la indentación del propio texto. */
+    #topbar .wordmark .texto { display: flex; flex-direction: column; gap: 2px; }
+    #topbar .wordmark span { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -.02em; line-height: 1; }
     #topbar .wordmark span b { color: #34C7A3; font-weight: 800; }
-    #topbar .payoff { font-size: 12.5px; color: var(--text-dimmer); line-height: 1.4; }
+    #topbar .payoff { font-size: 12px; color: var(--text-dimmer); line-height: 1.3; }
 
     #semana { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity;
               padding-bottom: 4px; margin-bottom: 18px; -webkit-overflow-scrolling: touch; }
@@ -89,9 +93,11 @@
           <circle cx="30" cy="24" r="8.5" fill="none" stroke="#34C7A3" stroke-width="2"/>
         </svg>
       </div>
-      <span>TuPiloto<b>B</b></span>
+      <div class="texto">
+        <span>TuPiloto<b>B</b></span>
+        <div class="payoff">Nunca más fallos. Tu carnet, a la primera.</div>
+      </div>
     </div>
-    <div class="payoff">Nunca más fallos. Tu carnet, a la primera.</div>
   </div>
   <main>
     <div id="semana"></div>
