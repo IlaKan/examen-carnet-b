@@ -234,6 +234,39 @@
 
       L.polyline(latlngs, { color: '#999', weight: 3, opacity: 0.4 }).addTo(map);
 
+      // Pin de inicio (verde) / bandera a cuadros de fin — antes solo se veía
+      // la línea gris cruda, y justo al principio/final (coche parado
+      // esperando señal GPS) el ruido del sensor dibuja un garabato que no
+      // se lee como "aquí empezó/acabó". Sin depender de ninguna librería
+      // nueva, todo SVG inline.
+      function pinIcon(color) {
+        return L.divIcon({
+          className: '',
+          html: '<svg width="26" height="36" viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 24 12 24s12-15 12-24C24 5.4 18.6 0 12 0z" fill="' + color + '"/>' +
+                '<circle cx="12" cy="12" r="5" fill="#fff"/></svg>',
+          iconSize: [26, 36],
+          iconAnchor: [13, 36],
+          popupAnchor: [0, -32],
+        });
+      }
+      function flagIcon() {
+        return L.divIcon({
+          className: '',
+          html: '<svg width="28" height="36" viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg">' +
+                '<defs><pattern id="checker" width="4" height="4" patternUnits="userSpaceOnUse">' +
+                '<rect width="4" height="4" fill="#fff"/><rect width="2" height="2" fill="#111"/>' +
+                '<rect x="2" y="2" width="2" height="2" fill="#111"/></pattern></defs>' +
+                '<rect x="3" y="2" width="3" height="33" fill="#333"/>' +
+                '<rect x="6" y="2" width="18" height="14" fill="url(#checker)" stroke="#111" stroke-width="0.5"/></svg>',
+          iconSize: [28, 36],
+          iconAnchor: [4, 35],
+          popupAnchor: [4, -30],
+        });
+      }
+      L.marker(latlngs[0], { icon: pinIcon('#2ecc71') }).bindPopup('<strong>Inicio</strong>').addTo(map);
+      L.marker(latlngs[latlngs.length - 1], { icon: flagIcon() }).bindPopup('<strong>Fin</strong>').addTo(map);
+
       // Layers hidden by default (denser / less critical) so the map isn't
       // a wall of dots on first load — matches the checkboxes above, which
       // start unchecked for these same keys.
