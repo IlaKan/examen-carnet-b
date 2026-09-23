@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Catálogo de puntos críticos — Examen Carnet B</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
     :root { --accent: #4285F4; --bg-dark: #16181d; --bg-dark-2: #1f2229; }
     html, body { margin: 0; padding: 0; background: var(--bg-dark); color: #e7e9ee;
@@ -15,10 +16,14 @@
     #topbar a { color: var(--accent); text-decoration: none; font-size: 13px; white-space: nowrap; }
     #topbar select { background: var(--bg-dark-2); color: #e7e9ee; border: 1px solid #383d48;
                       border-radius: 8px; padding: 6px 10px; font-size: 13px; }
+
+    #map { height: 42vh; min-height: 260px; width: 100%; }
+
     main { max-width: 640px; margin: 0 auto; padding: 16px; }
     .intro { color: #9aa0ab; font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
     h2.zona { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--accent);
-              margin: 26px 0 10px; }
+              margin: 26px 0 10px; display: flex; align-items: center; gap: 6px; }
+    h2.zona .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     .punto-card { background: var(--bg-dark-2); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
                   box-shadow: 0 1px 4px rgba(0,0,0,.3); }
     .punto-card .nombre { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
@@ -35,6 +40,7 @@
     <select id="filtroZona"><option value="">Todas las zonas</option></select>
     <a href="lista.html">← Mis clases</a>
   </div>
+  <div id="map"></div>
   <main>
     <p class="intro">
       Los 68 puntos críticos de tu autoescuela, con la nota real del profesor —
@@ -46,13 +52,61 @@
     <div id="vacio" style="display:none;">No se pudo cargar el catálogo.</div>
   </main>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script>
+    // Mismo tipo de paleta por zona que el resto del proyecto — un color fijo
+    // por zona para que el mapa y la lista se lean juntos de un vistazo.
+    const ZONA_COLORS = {
+      'ZONA 2 - PEDRALBES': '#1f77b4',
+      'ZONA 3 - Z. UNIVERSIT.': '#2ca02c',
+      'ZONA 4 - POBLE SEC': '#ff7f0e',
+      'ZONA 6 - MONTJÜIC': '#9467bd',
+      'ZONA 7 - LA MAQUINISTA': '#8c564b',
+    };
+    const DEFAULT_COLOR = '#777777';
+    function colorFor(zona) { return ZONA_COLORS[zona] || DEFAULT_COLOR; }
+
     let ALL_POINTS = [];
+    let map, markersLayer;
 
     fetch('data/points.json')
       .then(r => r.json())
-      .then(pts => { ALL_POINTS = pts; setupFilter(pts); render(pts); })
+      .then(pts => { ALL_POINTS = pts; initMap(pts); setupFilter(pts); render(pts); })
       .catch(() => { document.getElementById('vacio').style.display = 'block'; });
+
+    function initMap(points) {
+      map = L.map('map');
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19, attribution: '&copy; OpenStreetMap contributors',
+      }).addTo(map);
+      markersLayer = L.layerGroup().addTo(map);
+      const bounds = points.map(p => [p.lat, p.lng]);
+      // invalidateSize + fitBounds en el siguiente tick: si se llama a
+      // fitBounds en el mismo ciclo en que se crea el mapa, a veces el
+      // contenedor todavía no tiene su tamaño real aplicado y Leaflet
+      // calcula un encuadre roto (zoom máximo, área minúscula).
+      setTimeout(() => {
+        map.invalidateSize();
+        if (bounds.length) map.fitBounds(bounds, { padding: [20, 20] });
+      }, 0);
+    }
+
+    function renderMap(points) {
+      markersLayer.clearLayers();
+      points.forEach(p => {
+        const color = colorFor(p.zona);
+        const notaCorta = p.nota && p.nota.length > 260 ? p.nota.slice(0, 260) + '…' : (p.nota || '');
+        const popupHtml =
+          '<strong>' + p.nombre + '</strong><br>' +
+          (notaCorta ? '<div style="max-width:220px;margin-top:4px;">' + notaCorta + '</div>' : '') +
+          '<div style="margin-top:6px;font-size:11px;color:#666;">' + p.zona + '</div>' +
+          (p.google_maps_link ? '<a href="' + p.google_maps_link + '" target="_blank" rel="noopener">Ver en Maps</a> · ' : '') +
+          '<a href="https://www.mapillary.com/app/?lat=' + p.lat + '&lng=' + p.lng + '&z=18" target="_blank" rel="noopener">📷 Fotos</a>';
+        L.circleMarker([p.lat, p.lng], {
+          radius: 7, color: '#fff', weight: 1.5, fillColor: color, fillOpacity: 0.9,
+        }).bindPopup(popupHtml).addTo(markersLayer);
+      });
+    }
 
     function setupFilter(points) {
       const zonas = Array.from(new Set(points.map(p => p.zona))).sort();
@@ -66,6 +120,8 @@
       select.addEventListener('change', () => {
         const filtered = select.value ? ALL_POINTS.filter(p => p.zona === select.value) : ALL_POINTS;
         render(filtered);
+        const bounds = filtered.map(p => [p.lat, p.lng]);
+        if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
       });
     }
 
@@ -81,7 +137,7 @@
       Object.keys(porZona).sort().forEach(zona => {
         const h2 = document.createElement('h2');
         h2.className = 'zona';
-        h2.textContent = zona;
+        h2.innerHTML = '<span class="swatch" style="background:' + colorFor(zona) + ';"></span>' + zona;
         contenido.appendChild(h2);
 
         porZona[zona].forEach(p => {
@@ -98,6 +154,8 @@
           contenido.appendChild(card);
         });
       });
+
+      if (map) renderMap(points);
     }
   </script>
 </body>
