@@ -92,25 +92,6 @@
     .cta-thumb .label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; opacity: .8; font-weight: 700; }
     .cta-thumb .titulo { font-size: 15.5px; font-weight: 700; margin-top: 3px; }
 
-    #filtros { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-    #filtros select {
-      background: var(--bg-dark-2); color: #e7e9ee; border: 1px solid #383d48;
-      border-radius: 8px; padding: 8px 12px; font-size: 13px; flex: 1 1 auto;
-    }
-
-    .card {
-      background: var(--bg-dark-2); border-radius: 12px; padding: 16px; margin-bottom: 10px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.3); text-decoration: none; color: inherit; display: block;
-      border: 1px solid transparent; transition: border-color .15s, transform .1s;
-    }
-    .card:hover { border-color: var(--accent); }
-    .card:active { transform: scale(0.99); }
-    .card h3 { margin: 0 0 8px; font-size: 15px; font-weight: 600; }
-    .card .meta { font-size: 12.5px; color: #9aa0ab; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .card .zona-tag {
-      background: #2a2e37; color: var(--accent); border-radius: 999px; padding: 2px 9px; font-size: 11px;
-    }
-
     #vacio { color: #767c88; padding: 50px 20px; text-align: center; font-size: 14px; line-height: 1.6; }
     #vacio .big { font-size: 32px; display: block; margin-bottom: 10px; }
   </style>
@@ -146,11 +127,14 @@
       </div>
     </a>
 
-    <div id="filtros" style="display:none;">
-      <select id="filtroZona"><option value="">Todas las zonas</option></select>
-      <select id="filtroMes" style="display:none;"><option value="">Todas las fechas</option></select>
-    </div>
-    <div id="lista"></div>
+    <a class="cta-thumb" href="puntos.html"
+       style="background-image:url('https://images.unsplash.com/photo-1681350216731-51dd784923f2?auto=format&amp;fit=crop&amp;w=900&amp;q=60');">
+      <div class="contenido">
+        <div class="label">Puntos críticos</div>
+        <div class="titulo">Los 68 de tu autoescuela, con nota del profe →</div>
+      </div>
+    </a>
+
     <div id="vacio" style="display:none;">
       <span class="big">🚗</span>
       Todavía no hay ninguna clase grabada.<br>
@@ -171,7 +155,6 @@
     let ALL_POINTS = [];
     let ALL_TIPS = [];
     let ALL_FALLOS = [];
-    let diaFiltro = '';
 
     fetch('data/points.json').then(r => r.json()).then(d => { ALL_POINTS = d; }).catch(() => {});
     fetch('data/tecnica_general.json').then(r => r.json()).then(d => { ALL_TIPS = d; }).catch(() => {});
@@ -231,7 +214,7 @@
 
       html += '<div class="grupo-label">Puntos críticos · ' + puntos.length + '</div>';
       html += puntos.length
-        ? puntos.map(p => '<a class="res" href="puntos.html">' +
+        ? puntos.map(p => '<a class="res" href="puntos.html?zona=' + encodeURIComponent(p.zona) + '">' +
             '<span class="res-dot" style="background:' + (ZONA_COLORS[p.zona] || '#777') + ';"></span>' +
             '<span>' + p.nombre + '<span class="res-sub">' + p.zona + '</span></span></a>').join('')
         : '<div class="res-vacio">Ningún punto del catálogo coincide.</div>';
@@ -269,66 +252,17 @@
 
       renderSemana(tracks);
       renderCtaUltima(tracks);
-
-      const zonas = new Set();
-      const meses = new Set();
-      const MESES_ES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
-                         'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-      tracks.forEach(t => {
-        (t.zonas || []).forEach(z => zonas.add(z));
-        if (t.fecha) meses.add(t.fecha.slice(0, 7)); // "YYYY-MM"
-      });
-
-      let anyFilterShown = false;
-      if (zonas.size > 1) {
-        anyFilterShown = true;
-        const select = document.getElementById('filtroZona');
-        Array.from(zonas).sort().forEach(z => {
-          const opt = document.createElement('option');
-          opt.value = z;
-          opt.textContent = z;
-          select.appendChild(opt);
-        });
-        select.addEventListener('change', applyFilters);
-      }
-      if (meses.size > 1) {
-        anyFilterShown = true;
-        const select = document.getElementById('filtroMes');
-        select.style.display = '';
-        Array.from(meses).sort().reverse().forEach(m => {
-          const [year, month] = m.split('-');
-          const opt = document.createElement('option');
-          opt.value = m;
-          opt.textContent = MESES_ES[parseInt(month, 10) - 1] + ' ' + year;
-          select.appendChild(opt);
-        });
-        select.addEventListener('change', applyFilters);
-      }
-      if (anyFilterShown) document.getElementById('filtros').style.display = 'flex';
-
-      renderList(ALL_TRACKS);
-    }
-
-    function applyFilters() {
-      const zonaFiltro = document.getElementById('filtroZona').value;
-      const mesFiltro = document.getElementById('filtroMes').value;
-      const filtered = ALL_TRACKS.filter(t =>
-        (!zonaFiltro || (t.zonas || []).includes(zonaFiltro)) &&
-        (!mesFiltro || (t.fecha || '').slice(0, 7) === mesFiltro) &&
-        (!diaFiltro || t.fecha === diaFiltro)
-      );
-      renderList(filtered);
     }
 
     // Tira de los últimos 7 días (hoy incluido, no la semana de calendario Lun-Dom) —
     // así siempre se ven las clases más recientes aunque caigan a caballo de dos
-    // semanas naturales. Cada día con clase es clicable y filtra la lista a ese día;
-    // volver a tocarlo lo quita. Scroll horizontal con snap, como una tira nativa.
+    // semanas naturales. Sin lista de clases debajo que filtrar (se quitó de la
+    // home), tocar un día con clase te lleva directo a su mapa — si hay varias
+    // ese mismo día, a la primera.
     const DIAS_ES = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
     function renderSemana(tracks) {
       const cont = document.getElementById('semana');
       cont.innerHTML = '';
-      const fechasConClase = new Set(tracks.map(t => t.fecha));
       const hoy = new Date();
       const hoyISO = hoy.toISOString().slice(0, 10);
 
@@ -336,44 +270,21 @@
         const d = new Date(hoy);
         d.setDate(d.getDate() - i);
         const iso = d.toISOString().slice(0, 10);
-        const tieneClase = fechasConClase.has(iso);
+        const clasesDelDia = tracks.filter(t => t.fecha === iso);
 
         const el = document.createElement('div');
-        el.className = 'dia' + (iso === hoyISO ? ' hoy' : '') + (tieneClase ? ' con-clase' : '')
-          + (iso === diaFiltro ? ' activo' : '');
+        el.className = 'dia' + (iso === hoyISO ? ' hoy' : '') + (clasesDelDia.length ? ' con-clase' : '');
         el.innerHTML =
           '<span>' + DIAS_ES[d.getDay()] + '</span>' +
           '<span class="num">' + d.getDate() + '</span>' +
-          '<span class="punto' + (tieneClase ? '' : ' vacio') + '"></span>';
-        if (tieneClase) {
+          '<span class="punto' + (clasesDelDia.length ? '' : ' vacio') + '"></span>';
+        if (clasesDelDia.length) {
           el.addEventListener('click', () => {
-            diaFiltro = (diaFiltro === iso) ? '' : iso;
-            renderSemana(tracks);
-            applyFilters();
+            window.location.href = 'mapa.html?track=' + encodeURIComponent(clasesDelDia[0].id);
           });
         }
         cont.appendChild(el);
       }
-    }
-
-    function renderList(filtered) {
-      const container = document.getElementById('lista');
-      container.innerHTML = '';
-
-      filtered.forEach(t => {
-        const a = document.createElement('a');
-        a.className = 'card';
-        a.href = 'mapa.html?track=' + encodeURIComponent(t.id);
-        const zonaTags = (t.zonas || []).map(z => '<span class="zona-tag">' + z + '</span>').join('');
-        a.innerHTML =
-          '<h3>' + t.nombre + '</h3>' +
-          '<div class="meta">' +
-          '<span>' + t.fecha + '</span>' +
-          (t.duracion_min ? '<span>· ' + Math.round(t.duracion_min) + ' min</span>' : '') +
-          (zonaTags || '<span class="zona-tag">sin zona</span>') +
-          '</div>';
-        container.appendChild(a);
-      });
     }
   </script>
 </body>

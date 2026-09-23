@@ -71,7 +71,24 @@
 
     fetch('data/points.json')
       .then(r => r.json())
-      .then(pts => { ALL_POINTS = pts; initMap(pts); setupFilter(pts); render(pts); })
+      .then(pts => {
+        ALL_POINTS = pts;
+        initMap(pts);
+        setupFilter(pts);
+        render(pts);
+        // Llegada desde el buscador de la home con ?zona=... — preselecciona el
+        // filtro en vez de enseñar los 68 puntos sin más contexto. En su propio
+        // setTimeout para que se aplique DESPUÉS del fitBounds inicial de
+        // initMap (que también se difiere un tick) y no lo pise.
+        const zonaUrl = new URLSearchParams(location.search).get('zona');
+        const select = document.getElementById('filtroZona');
+        if (zonaUrl && Array.from(select.options).some(o => o.value === zonaUrl)) {
+          setTimeout(() => {
+            select.value = zonaUrl;
+            select.dispatchEvent(new Event('change'));
+          }, 0);
+        }
+      })
       .catch(() => { document.getElementById('vacio').style.display = 'block'; });
 
     function initMap(points) {
