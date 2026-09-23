@@ -6,13 +6,16 @@
   <title>TuPilotoB — Mis clases</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    #topbar { padding: 16px 16px 12px; }
-    #topbar .wordmark { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-    #topbar .wordmark span { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+    /* La marca es lo único que vive en la cabecera ahora — antes competía
+       (y perdía) contra un <h1>"Mis clases"</h1> más grande que ella, resto
+       de la versión previa de la home. Sin ese competidor, el wordmark pasa
+       a ser el elemento principal de verdad: más grande, con aire propio. */
+    #topbar { padding: 22px 16px 20px; }
+    #topbar .wordmark { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    #topbar .wordmark svg { width: 30px; height: 30px; flex-shrink: 0; }
+    #topbar .wordmark span { font-size: 23px; font-weight: 800; color: #fff; letter-spacing: -.02em; }
     #topbar .wordmark span b { color: #34C7A3; font-weight: 800; }
-    #topbar .payoff { font-size: 11px; color: var(--text-dimmer); margin-bottom: 6px; }
-    #topbar h1 { font-size: 18px; margin: 0 0 4px; }
-    #topbar .subtitle { font-size: 12px; color: var(--text-dimmer); }
+    #topbar .payoff { font-size: 12.5px; color: var(--text-dimmer); line-height: 1.4; }
 
     #semana { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity;
               padding-bottom: 4px; margin-bottom: 18px; -webkit-overflow-scrolling: touch; }
@@ -82,8 +85,6 @@
       <span>TuPiloto<b>B</b></span>
     </div>
     <div class="payoff">Nunca más fallos. Tu carnet, a la primera.</div>
-    <h1>Mis clases</h1>
-    <div class="subtitle" id="subtitle">Cargando…</div>
   </div>
   <main>
     <div id="semana"></div>
@@ -134,7 +135,6 @@
       .then(r => r.json())
       .then(renderAll)
       .catch(() => {
-        document.getElementById('subtitle').textContent = '';
         document.getElementById('vacio').style.display = 'block';
       });
 
@@ -238,13 +238,9 @@
     function renderAll(tracks) {
       ALL_TRACKS = tracks;
       if (tracks.length === 0) {
-        document.getElementById('subtitle').textContent = '';
         document.getElementById('vacio').style.display = 'block';
         return;
       }
-
-      document.getElementById('subtitle').textContent =
-        tracks.length + (tracks.length === 1 ? ' clase grabada' : ' clases grabadas');
 
       renderSemana(tracks);
       renderCtaUltima(tracks);
