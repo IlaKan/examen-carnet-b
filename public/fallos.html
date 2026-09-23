@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fallos reales documentados — Examen Carnet B</title>
+  <style>
+    :root { --accent: #4285F4; --bg-dark: #16181d; --bg-dark-2: #1f2229; }
+    html, body { margin: 0; padding: 0; background: var(--bg-dark); color: #e7e9ee;
+                 font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    #topbar { background: var(--bg-dark); padding: 14px; display: flex; justify-content: space-between;
+              align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,.35); position: sticky; top: 0; }
+    #topbar h1 { font-size: 16px; margin: 0; }
+    #topbar a { color: var(--accent); text-decoration: none; font-size: 13px; }
+    main { max-width: 640px; margin: 0 auto; padding: 16px; }
+    .aviso {
+      background: #2a2410; border: 1px solid #4d3f1a; color: #e0c27a; border-radius: 10px;
+      padding: 12px 14px; font-size: 12.5px; line-height: 1.55; margin-bottom: 22px;
+    }
+    h2.zona { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--accent);
+              margin: 26px 0 8px; padding-top: 14px; border-top: 1px solid #23262e; }
+    h2.zona:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+    .fallo-card { padding: 10px 0; }
+    .fallo-card .afirmacion { font-size: 14px; line-height: 1.55; color: #e7e9ee; }
+    .fallo-card .meta { margin-top: 7px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .fallo-card .meta a.video-pill {
+      font-size: 10.5px; color: var(--accent); background: #1f2229; border: 1px solid #2a2e37;
+      border-radius: 999px; padding: 3px 10px; text-decoration: none; white-space: nowrap;
+    }
+    .fallo-card .meta a.video-pill:hover { border-color: var(--accent); }
+    .fallo-card .meta .minuto { font-size: 10.5px; color: #565c66; }
+    #vacio { color: #767c88; padding: 30px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div id="topbar">
+    <h1>Fallos reales documentados</h1>
+    <a href="lista.html">← Mis clases</a>
+  </div>
+  <main>
+    <div class="aviso">
+      ⚠️ Prueba de concepto — 7 de 44 casos posibles, elegidos para ver formato, no el listado completo todavía.
+      Vienen de vídeos de terceros en YouTube (Safety Car Autoescola, Tu Práctico de Coche, Aprobado a la primera,
+      hoy-voy autoescuelas), sintetizados vía NotebookLM — no son del catálogo oficial de tu autoescuela ni están
+      verificados con tu instructor. El "match" con zona es aproximado: el vídeo no siempre nombra el punto exacto
+      del catálogo.
+    </div>
+    <div id="contenido"></div>
+    <div id="vacio" style="display:none;">No se pudo cargar.</div>
+  </main>
+
+  <script>
+    fetch('data/fallos_reales.json')
+      .then(r => r.json())
+      .then(render)
+      .catch(() => { document.getElementById('vacio').style.display = 'block'; });
+
+    function render(items) {
+      if (!items.length) { document.getElementById('vacio').style.display = 'block'; return; }
+      const porZona = {};
+      items.forEach(it => { (porZona[it.zona] = porZona[it.zona] || []).push(it); });
+
+      const contenido = document.getElementById('contenido');
+      Object.keys(porZona).forEach(zona => {
+        const h2 = document.createElement('h2');
+        h2.className = 'zona';
+        h2.textContent = zona;
+        contenido.appendChild(h2);
+
+        porZona[zona].forEach(it => {
+          const card = document.createElement('div');
+          card.className = 'fallo-card';
+          card.innerHTML =
+            '<div class="afirmacion">' + it.afirmacion + '</div>' +
+            '<div class="meta">' +
+            '<a class="video-pill" href="' + it.url + '" target="_blank" rel="noopener">▶ ' + it.canal + '</a>' +
+            '<span class="minuto">' + it.titulo_video + ' · ' + it.minuto + '</span>' +
+            '</div>';
+          contenido.appendChild(card);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
