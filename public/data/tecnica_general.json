@@ -3,60 +3,93 @@
     "categoria": "Peatones y orden de observación",
     "tip": "Al girar (sobre todo a la izquierda), no te concentres solo en el espacio respecto a otros vehículos — sigue barriendo con la vista si hay peatones cruzando. Un giro \"limpio\" en cuanto a tráfico puede acabar en frenazo de emergencia por no ver a un peatón.",
     "fuente": "NotebookLM: análisis de simulacro de examen real (alumno con 40 prácticas), vídeo \"Así conduce después de 40 PRÁCTICAS\" — canal Aprobado a la primera, YouTube",
+    "fuentes_video": [
+      { "label": "Vídeo en YouTube", "url": "https://www.youtube.com/watch?v=pYWfUooR978" }
+    ],
     "fecha_verificacion": "2026-09-22"
   },
   {
     "categoria": "Peatones y orden de observación",
     "tip": "En un ceda el paso, el orden de observación importa: comprueba primero si hay peatones cruzando antes de centrarte en el tráfico de la vía transversal. Mirar solo los coches y no los peatones es un fallo que se repite en exámenes reales.",
     "fuente": "NotebookLM: análisis de simulacro de examen real (alumno con 40 prácticas), vídeo \"Así conduce después de 40 PRÁCTICAS\" — canal Aprobado a la primera, YouTube",
+    "fuentes_video": [
+      { "label": "Vídeo en YouTube", "url": "https://www.youtube.com/watch?v=pYWfUooR978" }
+    ],
     "fecha_verificacion": "2026-09-22"
   },
   {
     "categoria": "Peatones y orden de observación",
     "tip": "Al ceder el paso o parar cerca de un paso de peatones, detente en el borde de visibilidad, no encima del propio paso de peatones.",
     "fuente": "NotebookLM: análisis de simulacro de examen real (alumno con 40 prácticas), vídeo \"Así conduce después de 40 PRÁCTICAS\" — canal Aprobado a la primera, YouTube",
+    "fuentes_video": [
+      { "label": "Vídeo en YouTube", "url": "https://www.youtube.com/watch?v=pYWfUooR978" }
+    ],
     "fecha_verificacion": "2026-09-22"
   },
   {
     "categoria": "Intermitentes",
     "tip": "Señaliza ANTES de iniciar la maniobra, no durante ni después — incluye la incorporación inicial en marcha atrás al empezar el examen, que se suele olvidar por los nervios del arranque.",
     "fuente": "NotebookLM: análisis de simulacro de examen real (alumno con 40 prácticas), vídeo \"Así conduce después de 40 PRÁCTICAS\" — canal Aprobado a la primera, YouTube",
+    "fuentes_video": [
+      { "label": "Vídeo en YouTube", "url": "https://www.youtube.com/watch?v=pYWfUooR978" }
+    ],
     "fecha_verificacion": "2026-09-22"
   },
   {
     "categoria": "Cambio de marchas",
     "tip": "Si calas el motor al arrancar, revisa si estabas intentando salir en 2ª en vez de 1ª — es un fallo común en paradas/estacionamientos al final del recorrido, cuando ya se ha relajado la concentración.",
     "fuente": "NotebookLM: análisis de simulacro de examen real (alumno con 40 prácticas), vídeo \"Así conduce después de 40 PRÁCTICAS\" — canal Aprobado a la primera, YouTube",
+    "fuentes_video": [
+      { "label": "Vídeo en YouTube", "url": "https://www.youtube.com/watch?v=pYWfUooR978" }
+    ],
     "fecha_verificacion": "2026-09-22"
   },
   {
     "categoria": "Rotondas y glorietas",
     "tip": "No aceleres para \"ganarle\" el paso a un coche que se acerca a una rotonda/ceda, aunque técnicamente te dé tiempo — es la falta grave más citada en el análisis: entrada precipitada justo al principio del examen, con los nervios todavía altos.",
     "fuente": "NotebookLM: análisis de simulacro de examen real (alumno con 40 prácticas), vídeo \"Así conduce después de 40 PRÁCTICAS\" — canal Aprobado a la primera, YouTube",
+    "fuentes_video": [
+      { "label": "Vídeo en YouTube", "url": "https://www.youtube.com/watch?v=pYWfUooR978" }
+    ],
     "fecha_verificacion": "2026-09-22"
   },
   {
     "categoria": "Mentalidad general",
     "tip": "Dominar el coche mecánicamente no basta para aprobar — las faltas leves por precipitación y despiste (no las de manejo) son las que más tiran exámenes que iban bien. Mantener la concentración \"modo pantera\" durante TODO el recorrido, no solo en los tramos que sabes que son difíciles.",
     "fuente": "NotebookLM: conclusión del profesor en análisis de simulacro de examen real (alumno con 40 prácticas), vídeo \"Así conduce después de 40 PRÁCTICAS\" — canal Aprobado a la primera, YouTube",
+    "fuentes_video": [
+      { "label": "Vídeo en YouTube", "url": "https://www.youtube.com/watch?v=pYWfUooR978" }
+    ],
     "fecha_verificacion": "2026-09-22"
   },
   {
     "categoria": "Montjuïc — contexto de zona (sin verificar directamente)",
     "tip": "Varios vídeos de análisis (Safety Car Autoescola, Tu Práctico de Coche) afirman que muchos exámenes que recorren Montjuïc empiezan o acaban en el punto de reunión de Calle Minería, que citan como \"Zona 1\". No confirmado con el catálogo oficial de tu autoescuela ni con tu instructor — es una pista, no un hecho establecido.",
     "fuente": "NotebookLM: síntesis de vídeos de Safety Car Autoescola y Tu Práctico de Coche, YouTube",
+    "fuentes_video": [
+      { "label": "Canal: Safety Car Autoescola", "url": "https://www.youtube.com/channel/UCgw4eVnwVQ5mYuytm_DTung" },
+      { "label": "Playlist: Tu Práctico de Coche", "url": "https://www.youtube.com/playlist?list=PLzBUDfPG81VmybQ9JpAXC918WVJzZyr4S" }
+    ],
     "fecha_verificacion": "2026-09-23"
   },
   {
     "categoria": "Montjuïc — contexto de zona (sin verificar directamente)",
     "tip": "Las mismas fuentes hablan de recorridos de examen por Montjuïc clasificados en \"Ruta Roja\" (la más difícil, con tramos hacia Zona Franca), \"Ruta Verde\" y \"Ruta Amarilla\" (pasa por \"La Codorniz\" y Plaza España). Ninguno de estos nombres aparece en el catálogo oficial de tu autoescuela.",
     "fuente": "NotebookLM: síntesis de vídeos de Safety Car Autoescola y Tu Práctico de Coche, YouTube",
+    "fuentes_video": [
+      { "label": "Canal: Safety Car Autoescola", "url": "https://www.youtube.com/channel/UCgw4eVnwVQ5mYuytm_DTung" },
+      { "label": "Playlist: Tu Práctico de Coche", "url": "https://www.youtube.com/playlist?list=PLzBUDfPG81VmybQ9JpAXC918WVJzZyr4S" }
+    ],
     "fecha_verificacion": "2026-09-23"
   },
   {
     "categoria": "Montjuïc — contexto de zona (sin verificar directamente)",
     "tip": "Se menciona con frecuencia una zona de aparcamiento llamada \"La Jaula\" en Montjuïc como punto de parada final o prueba de estacionamiento al acabar el examen.",
     "fuente": "NotebookLM: síntesis de vídeos de Safety Car Autoescola y Tu Práctico de Coche, YouTube",
+    "fuentes_video": [
+      { "label": "Canal: Safety Car Autoescola", "url": "https://www.youtube.com/channel/UCgw4eVnwVQ5mYuytm_DTung" },
+      { "label": "Playlist: Tu Práctico de Coche", "url": "https://www.youtube.com/playlist?list=PLzBUDfPG81VmybQ9JpAXC918WVJzZyr4S" }
+    ],
     "fecha_verificacion": "2026-09-23"
   }
 ]
