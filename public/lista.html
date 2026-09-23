@@ -62,6 +62,7 @@
     .cta-ultima .sub { font-size: 12.5px; margin-top: 3px; opacity: .85; }
 
     .cta-thumb .label { opacity: .8; }
+    .cta-thumb .badge-count { position: absolute; top: 12px; right: 12px; z-index: 1; }
 
     #vacio { padding: 50px 20px; font-size: 14px; line-height: 1.6; }
     #vacio .big { font-size: 32px; display: block; margin-bottom: 10px; }
@@ -91,6 +92,7 @@
 
     <a class="cta-thumb" href="tecnica.html"
        style="background-image:url('https://images.unsplash.com/photo-1722500342362-f05c2bf325c1?auto=format&amp;fit=crop&amp;w=900&amp;q=60');">
+      <span class="badge-count" id="badgeTips"></span>
       <div class="contenido">
         <div class="label-upper label">Checklist de técnica</div>
         <div class="titulo">Fallos que se repiten en exámenes reales →</div>
@@ -99,6 +101,7 @@
 
     <a class="cta-thumb" href="fallos.html"
        style="background-image:url('https://images.unsplash.com/photo-1752199908720-e5aaa67909e7?auto=format&amp;fit=crop&amp;w=900&amp;q=60');">
+      <span class="badge-count" id="badgeFallos"></span>
       <div class="contenido">
         <div class="label-upper label">Fallos reales documentados</div>
         <div class="titulo">Casos reales en vídeo, por zona →</div>
@@ -107,6 +110,7 @@
 
     <a class="cta-thumb" href="puntos.html"
        style="background-image:url('img/puntos-criticos-cta.jpg');">
+      <span class="badge-count" id="badgePuntos"></span>
       <div class="contenido">
         <div class="label-upper label">Puntos críticos</div>
         <div class="titulo">Los 68 de tu autoescuela, con nota del profe →</div>
@@ -134,9 +138,18 @@
     let ALL_TIPS = [];
     let ALL_FALLOS = [];
 
-    fetch('data/points.json').then(r => r.json()).then(d => { ALL_POINTS = d; }).catch(() => {});
-    fetch('data/tecnica_general.json').then(r => r.json()).then(d => { ALL_TIPS = d; }).catch(() => {});
-    fetch('data/fallos_reales.json').then(r => r.json()).then(d => { ALL_FALLOS = d; }).catch(() => {});
+    fetch('data/points.json').then(r => r.json()).then(d => {
+      ALL_POINTS = d;
+      document.getElementById('badgePuntos').textContent = d.length;
+    }).catch(() => {});
+    fetch('data/tecnica_general.json').then(r => r.json()).then(d => {
+      ALL_TIPS = d;
+      document.getElementById('badgeTips').textContent = d.length;
+    }).catch(() => {});
+    fetch('data/fallos_reales.json').then(r => r.json()).then(d => {
+      ALL_FALLOS = d;
+      document.getElementById('badgeFallos').textContent = d.length;
+    }).catch(() => {});
 
     const ZONA_COLORS = {
       'ZONA 2 - PEDRALBES': '#1f77b4', 'ZONA 3 - Z. UNIVERSIT.': '#2ca02c',
