@@ -92,6 +92,7 @@
             '<div class="nota">' + (p.nota || '') + '</div>' +
             '<div class="meta">' +
             (p.google_maps_link ? '<a href="' + p.google_maps_link + '" target="_blank" rel="noopener">Ver en Maps</a>' : '') +
+            '<a href="https://www.mapillary.com/app/?lat=' + p.lat + '&lng=' + p.lng + '&z=18" target="_blank" rel="noopener">📷 Fotos de calle</a>' +
             '<span>' + (p.fuente || '') + '</span>' +
             '</div>';
           contenido.appendChild(card);

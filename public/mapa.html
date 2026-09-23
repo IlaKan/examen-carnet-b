@@ -315,10 +315,12 @@
           matched++;
 
           const notaCorta = cp.nota && cp.nota.length > 320 ? cp.nota.slice(0, 320) + '…' : (cp.nota || '');
+          const mapillaryLink = 'https://www.mapillary.com/app/?lat=' + cp.lat + '&lng=' + cp.lng + '&z=18';
           const popupHtml =
             '<strong>' + cp.nombre + '</strong><br>' +
             (notaCorta ? '<div style="max-width:220px;margin-top:4px;">' + notaCorta + '</div>' : '') +
-            '<div style="margin-top:6px;font-size:11px;color:#666;">' + (cp.zona || '') + '</div>';
+            '<div style="margin-top:6px;font-size:11px;color:#666;">' + (cp.zona || '') + '</div>' +
+            '<a href="' + mapillaryLink + '" target="_blank" rel="noopener" style="font-size:11px;">📷 Fotos de calle (Mapillary)</a>';
 
           L.circleMarker([cp.lat, cp.lng], {
             radius: 8, color: '#fff', weight: 2,
