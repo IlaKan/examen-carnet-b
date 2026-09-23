@@ -61,35 +61,5 @@
       { "label": "Vídeo en YouTube", "url": "https://www.youtube.com/watch?v=pYWfUooR978" }
     ],
     "fecha_verificacion": "2026-09-22"
-  },
-  {
-    "categoria": "Montjuïc — contexto de zona (sin verificar directamente)",
-    "tip": "Varios vídeos de análisis (Safety Car Autoescola, Tu Práctico de Coche) afirman que muchos exámenes que recorren Montjuïc empiezan o acaban en el punto de reunión de Calle Minería, que citan como \"Zona 1\". No confirmado con el catálogo oficial de tu autoescuela ni con tu instructor — es una pista, no un hecho establecido.",
-    "fuente": "NotebookLM: síntesis de vídeos de Safety Car Autoescola y Tu Práctico de Coche, YouTube",
-    "fuentes_video": [
-      { "label": "Canal: Safety Car Autoescola", "url": "https://www.youtube.com/channel/UCgw4eVnwVQ5mYuytm_DTung" },
-      { "label": "Playlist: Tu Práctico de Coche", "url": "https://www.youtube.com/playlist?list=PLzBUDfPG81VmybQ9JpAXC918WVJzZyr4S" }
-    ],
-    "fecha_verificacion": "2026-09-23"
-  },
-  {
-    "categoria": "Montjuïc — contexto de zona (sin verificar directamente)",
-    "tip": "Las mismas fuentes hablan de recorridos de examen por Montjuïc clasificados en \"Ruta Roja\" (la más difícil, con tramos hacia Zona Franca), \"Ruta Verde\" y \"Ruta Amarilla\" (pasa por \"La Codorniz\" y Plaza España). Ninguno de estos nombres aparece en el catálogo oficial de tu autoescuela.",
-    "fuente": "NotebookLM: síntesis de vídeos de Safety Car Autoescola y Tu Práctico de Coche, YouTube",
-    "fuentes_video": [
-      { "label": "Canal: Safety Car Autoescola", "url": "https://www.youtube.com/channel/UCgw4eVnwVQ5mYuytm_DTung" },
-      { "label": "Playlist: Tu Práctico de Coche", "url": "https://www.youtube.com/playlist?list=PLzBUDfPG81VmybQ9JpAXC918WVJzZyr4S" }
-    ],
-    "fecha_verificacion": "2026-09-23"
-  },
-  {
-    "categoria": "Montjuïc — contexto de zona (sin verificar directamente)",
-    "tip": "Se menciona con frecuencia una zona de aparcamiento llamada \"La Jaula\" en Montjuïc como punto de parada final o prueba de estacionamiento al acabar el examen.",
-    "fuente": "NotebookLM: síntesis de vídeos de Safety Car Autoescola y Tu Práctico de Coche, YouTube",
-    "fuentes_video": [
-      { "label": "Canal: Safety Car Autoescola", "url": "https://www.youtube.com/channel/UCgw4eVnwVQ5mYuytm_DTung" },
-      { "label": "Playlist: Tu Práctico de Coche", "url": "https://www.youtube.com/playlist?list=PLzBUDfPG81VmybQ9JpAXC918WVJzZyr4S" }
-    ],
-    "fecha_verificacion": "2026-09-23"
   }
 ]

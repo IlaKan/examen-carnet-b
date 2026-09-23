@@ -39,13 +39,13 @@
   </div>
   <main>
     <div class="aviso">
-      ⚠️ Prueba de concepto — 5 de 44 casos posibles, elegidos para ver formato, no el listado completo todavía.
-      Vienen de vídeos de terceros en YouTube (Safety Car Autoescola, hoy-voy autoescuelas), sintetizados vía
-      NotebookLM — no son del catálogo oficial de tu autoescuela ni están verificados con tu instructor. El "match"
-      con zona es aproximado: el vídeo no siempre nombra el punto exacto del catálogo. Cada vídeo y minuto se
-      comprobó a mano contra YouTube (duración real vs. minuto citado) — 2 casos del vídeo "40 PRÁCTICAS" se
-      descartaron porque ese vídeo ya no está disponible, y el minuto de Pedralbes se marcó como sin confirmar
-      porque el original no cabía en la duración real.
+      ⚠️ Sección en construcción — 5 casos de una tabla de NotebookLM (de 44 posibles, el resto sin comprobar
+      todavía) más las 3 notas de Montjuïc/Zona 1 que antes vivían dentro del checklist de técnica (se movieron
+      aquí porque son el mismo tipo de contenido: dato de zona de terceros, sin verificar, no una regla accionable).
+      No son del catálogo oficial de tu autoescuela ni están verificados con tu instructor. El "match" con zona es
+      aproximado. Cada vídeo y minuto de los 5 casos nuevos se comprobó a mano contra YouTube (duración real vs.
+      minuto citado) — 2 casos del vídeo "40 PRÁCTICAS" se descartaron porque ese vídeo ya no está disponible, y el
+      minuto de Pedralbes se marcó como sin confirmar porque el original no cabía en la duración real.
     </div>
     <div id="contenido"></div>
     <div id="vacio" style="display:none;">No se pudo cargar.</div>
@@ -72,12 +72,11 @@
         porZona[zona].forEach(it => {
           const card = document.createElement('div');
           card.className = 'fallo-card';
-          card.innerHTML =
-            '<div class="afirmacion">' + it.afirmacion + '</div>' +
-            '<div class="meta">' +
-            '<a class="video-pill" href="' + it.url + '" target="_blank" rel="noopener">▶ ' + it.canal + '</a>' +
-            '<span class="minuto">' + it.titulo_video + ' · ' + it.minuto + '</span>' +
-            '</div>';
+          const pills = (it.fuentes || []).map(f =>
+            '<a class="video-pill" href="' + f.url + '" target="_blank" rel="noopener">▶ ' + f.canal + '</a>' +
+            '<span class="minuto">' + f.titulo_video + ' · ' + f.minuto + '</span>'
+          ).join('<br>');
+          card.innerHTML = '<div class="afirmacion">' + it.afirmacion + '</div><div class="meta">' + pills + '</div>';
           contenido.appendChild(card);
         });
       });

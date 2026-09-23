@@ -138,6 +138,14 @@
       </div>
     </a>
 
+    <a class="cta-thumb" href="fallos.html"
+       style="background-image:url('https://images.unsplash.com/photo-1752199908720-e5aaa67909e7?auto=format&amp;fit=crop&amp;w=900&amp;q=60');">
+      <div class="contenido">
+        <div class="label">Fallos reales documentados</div>
+        <div class="titulo">Casos reales en vídeo, por zona →</div>
+      </div>
+    </a>
+
     <div id="filtros" style="display:none;">
       <select id="filtroZona"><option value="">Todas las zonas</option></select>
       <select id="filtroMes" style="display:none;"><option value="">Todas las fechas</option></select>
@@ -162,10 +170,12 @@
     let ALL_TRACKS = [];
     let ALL_POINTS = [];
     let ALL_TIPS = [];
+    let ALL_FALLOS = [];
     let diaFiltro = '';
 
     fetch('data/points.json').then(r => r.json()).then(d => { ALL_POINTS = d; }).catch(() => {});
     fetch('data/tecnica_general.json').then(r => r.json()).then(d => { ALL_TIPS = d; }).catch(() => {});
+    fetch('data/fallos_reales.json').then(r => r.json()).then(d => { ALL_FALLOS = d; }).catch(() => {});
 
     const ZONA_COLORS = {
       'ZONA 2 - PEDRALBES': '#1f77b4', 'ZONA 3 - Z. UNIVERSIT.': '#2ca02c',
@@ -208,6 +218,8 @@
         (p.zona || '').toLowerCase().includes(q)).slice(0, 8);
       const tips = ALL_TIPS.filter(t =>
         (t.tip || '').toLowerCase().includes(q) || (t.categoria || '').toLowerCase().includes(q)).slice(0, 8);
+      const fallos = ALL_FALLOS.filter(f =>
+        (f.afirmacion || '').toLowerCase().includes(q) || (f.zona || '').toLowerCase().includes(q)).slice(0, 8);
 
       let html = '';
       html += '<div class="grupo-label">Tus clases · ' + clases.length + '</div>';
@@ -231,6 +243,14 @@
             '<span>' + t.tip.slice(0, 90) + (t.tip.length > 90 ? '…' : '') +
             '<span class="res-sub">' + t.categoria + '</span></span></a>').join('')
         : '<div class="res-vacio">Ningún tip coincide.</div>';
+
+      html += '<div class="grupo-label">Fallos reales documentados · ' + fallos.length + '</div>';
+      html += fallos.length
+        ? fallos.map(f => '<a class="res" href="fallos.html">' +
+            '<span class="res-dot" style="background:#e05c5c;"></span>' +
+            '<span>' + f.afirmacion.slice(0, 90) + (f.afirmacion.length > 90 ? '…' : '') +
+            '<span class="res-sub">' + f.zona + '</span></span></a>').join('')
+        : '<div class="res-vacio">Ningún caso coincide.</div>';
 
       resultadosDiv.innerHTML = html;
       resultadosDiv.style.display = 'block';

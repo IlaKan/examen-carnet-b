@@ -2,41 +2,60 @@
   {
     "zona": "Pedralbes (Zona 2)",
     "afirmacion": "El alumno duda en la entrada a la Ronda de Dalt; el instructor corrige la velocidad de incorporación para no obstaculizar.",
-    "canal": "Safety Car Autoescola",
-    "titulo_video": "Red Route in Pedralbes!!! Extremely dangerous entrance to the Ronda de Dalt!!!",
-    "url": "https://www.youtube.com/watch?v=OiRZ1BSh9tE",
-    "minuto": "sin confirmar (el vídeo dura 1:17, el minuto original citado por NotebookLM no cabía)"
+    "fuentes": [
+      { "canal": "Safety Car Autoescola", "titulo_video": "Red Route in Pedralbes!!! Extremely dangerous entrance to the Ronda de Dalt!!!", "url": "https://www.youtube.com/watch?v=OiRZ1BSh9tE", "minuto": "sin confirmar (vídeo dura 1:17, el minuto original no cabía)" }
+    ]
   },
   {
     "zona": "Poble Sec (Zona 4)",
     "afirmacion": "No señalizar correctamente la salida de una glorieta.",
-    "canal": "Safety Car Autoescola",
-    "titulo_video": "Automatic Driving Test in Poble Sec!!! Barcelona!!!",
-    "url": "https://www.youtube.com/watch?v=auJpnsBa3fU",
-    "minuto": "12:30"
+    "fuentes": [
+      { "canal": "Safety Car Autoescola", "titulo_video": "Automatic Driving Test in Poble Sec!!! Barcelona!!!", "url": "https://www.youtube.com/watch?v=auJpnsBa3fU", "minuto": "12:30" }
+    ]
   },
   {
     "zona": "Poble Sec (Zona 4)",
     "afirmacion": "Incorporación peligrosa con tráfico denso.",
-    "canal": "Safety Car Autoescola",
-    "titulo_video": "Casi nos dan en la glorieta!!!!",
-    "url": "https://www.youtube.com/shorts/yjWxgwhapg0",
-    "minuto": "0:05"
+    "fuentes": [
+      { "canal": "Safety Car Autoescola", "titulo_video": "Casi nos dan en la glorieta!!!!", "url": "https://www.youtube.com/shorts/yjWxgwhapg0", "minuto": "0:05" }
+    ]
   },
   {
     "zona": "Minería — \"Zona 1\" (sin confirmar en el catálogo oficial)",
     "afirmacion": "El alumno suspende al final del recorrido por una mala decisión en la zona de Minería; el instructor enfatiza el mantenimiento de la calma hasta el estacionamiento.",
-    "canal": "Safety Car Autoescola",
-    "titulo_video": "SUSPENSO al final en este Recorrido de Examen de Minería (BCN)",
-    "url": "https://www.youtube.com/watch?v=oe_w1Qk_wbE",
-    "minuto": "25:30"
+    "fuentes": [
+      { "canal": "Safety Car Autoescola", "titulo_video": "SUSPENSO al final en este Recorrido de Examen de Minería (BCN)", "url": "https://www.youtube.com/watch?v=oe_w1Qk_wbE", "minuto": "25:30" }
+    ]
+  },
+  {
+    "zona": "Montjuïc / Calle Minería — \"Zona 1\" (sin confirmar)",
+    "afirmacion": "Varios vídeos de análisis afirman que muchos exámenes que recorren Montjuïc empiezan o acaban en el punto de reunión de Calle Minería, que citan como \"Zona 1\". No confirmado con el catálogo oficial de tu autoescuela ni con tu instructor — es una pista, no un hecho establecido.",
+    "fuentes": [
+      { "canal": "Canal: Safety Car Autoescola", "titulo_video": "(síntesis de varios vídeos, no un vídeo único)", "url": "https://www.youtube.com/channel/UCgw4eVnwVQ5mYuytm_DTung", "minuto": "no aplica (canal completo)" },
+      { "canal": "Playlist: Tu Práctico de Coche", "titulo_video": "Recorridos zona de Barcelona", "url": "https://www.youtube.com/playlist?list=PLzBUDfPG81VmybQ9JpAXC918WVJzZyr4S", "minuto": "no aplica (playlist completa)" }
+    ]
+  },
+  {
+    "zona": "Montjuïc / Calle Minería — \"Zona 1\" (sin confirmar)",
+    "afirmacion": "Las mismas fuentes hablan de recorridos de examen por Montjuïc clasificados en \"Ruta Roja\" (la más difícil, con tramos hacia Zona Franca), \"Ruta Verde\" y \"Ruta Amarilla\" (pasa por \"La Codorniz\" y Plaza España). Ninguno de estos nombres aparece en el catálogo oficial de tu autoescuela.",
+    "fuentes": [
+      { "canal": "Canal: Safety Car Autoescola", "titulo_video": "(síntesis de varios vídeos, no un vídeo único)", "url": "https://www.youtube.com/channel/UCgw4eVnwVQ5mYuytm_DTung", "minuto": "no aplica (canal completo)" },
+      { "canal": "Playlist: Tu Práctico de Coche", "titulo_video": "Recorridos zona de Barcelona", "url": "https://www.youtube.com/playlist?list=PLzBUDfPG81VmybQ9JpAXC918WVJzZyr4S", "minuto": "no aplica (playlist completa)" }
+    ]
+  },
+  {
+    "zona": "Montjuïc / Calle Minería — \"Zona 1\" (sin confirmar)",
+    "afirmacion": "Se menciona con frecuencia una zona de aparcamiento llamada \"La Jaula\" en Montjuïc como punto de parada final o prueba de estacionamiento al acabar el examen.",
+    "fuentes": [
+      { "canal": "Canal: Safety Car Autoescola", "titulo_video": "(síntesis de varios vídeos, no un vídeo único)", "url": "https://www.youtube.com/channel/UCgw4eVnwVQ5mYuytm_DTung", "minuto": "no aplica (canal completo)" },
+      { "canal": "Playlist: Tu Práctico de Coche", "titulo_video": "Recorridos zona de Barcelona", "url": "https://www.youtube.com/playlist?list=PLzBUDfPG81VmybQ9JpAXC918WVJzZyr4S", "minuto": "no aplica (playlist completa)" }
+    ]
   },
   {
     "zona": "Técnica general (sin zona concreta)",
     "afirmacion": "No realizar la observación necesaria en intersecciones conflictivas antes de reanudar la marcha.",
-    "canal": "hoy-voy autoescuelas",
-    "titulo_video": "The most difficult intersections and conflict points for driving practice",
-    "url": "https://www.youtube.com/watch?v=BPrvznwNVrs",
-    "minuto": "02:15"
+    "fuentes": [
+      { "canal": "hoy-voy autoescuelas", "titulo_video": "The most difficult intersections and conflict points for driving practice", "url": "https://www.youtube.com/watch?v=BPrvznwNVrs", "minuto": "02:15" }
+    ]
   }
 ]
