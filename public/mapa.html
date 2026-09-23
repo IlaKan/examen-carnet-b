@@ -516,7 +516,12 @@
       }
 
       function setIndex(i) {
-        idx = Math.max(0, Math.min(N - 1, i));
+        // Redondear SIEMPRE a entero: con velocidades no enteras (0.5x)
+        // BASE_STEPS_PER_TICK*SPEEDS[speedIdx] da un idx fraccionario, y
+        // smoothedLatlngs[idx] con un índice tipo 0.5 devuelve undefined —
+        // eso rompía carMarker.setLatLng() y mataba el bucle de tick() sin
+        // avisar, congelando la reproducción para siempre en esa velocidad.
+        idx = Math.max(0, Math.min(N - 1, Math.round(i)));
         const pos = smoothedLatlngs[idx];
         carMarker.setLatLng(pos);
         walkedLine.setLatLngs(smoothedLatlngs.slice(0, idx + 1));
