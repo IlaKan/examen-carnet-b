@@ -114,8 +114,8 @@
           '<strong>' + p.nombre + '</strong><br>' +
           (notaCorta ? '<div style="max-width:220px;margin-top:4px;">' + notaCorta + '</div>' : '') +
           '<div style="margin-top:6px;font-size:11px;color:#666;">' + p.zona + '</div>' +
-          (p.google_maps_link ? '<a href="' + p.google_maps_link + '" target="_blank" rel="noopener">Ver en Maps</a> · ' : '') +
-          '<a href="https://www.mapillary.com/app/?lat=' + p.lat + '&lng=' + p.lng + '&z=18" target="_blank" rel="noopener">📷 Fotos</a>';
+          (p.google_maps_link ? '<a href="' + p.google_maps_link + '">Ver en Maps</a> · ' : '') +
+          '<a href="https://www.mapillary.com/app/?lat=' + p.lat + '&lng=' + p.lng + '&z=18">📷 Fotos</a>';
         L.circleMarker([p.lat, p.lng], {
           radius: 7, color: '#fff', weight: 1.5, fillColor: color, fillOpacity: 0.9,
         }).bindPopup(popupHtml).addTo(markersLayer);
@@ -161,8 +161,8 @@
             '<div class="nombre">' + p.nombre + '</div>' +
             '<div class="nota">' + (p.nota || '') + '</div>' +
             '<div class="meta">' +
-            (p.google_maps_link ? '<a href="' + p.google_maps_link + '" target="_blank" rel="noopener">Ver en Maps</a>' : '') +
-            '<a href="https://www.mapillary.com/app/?lat=' + p.lat + '&lng=' + p.lng + '&z=18" target="_blank" rel="noopener">📷 Fotos de calle</a>' +
+            (p.google_maps_link ? '<a href="' + p.google_maps_link + '">Ver en Maps</a>' : '') +
+            '<a href="https://www.mapillary.com/app/?lat=' + p.lat + '&lng=' + p.lng + '&z=18">📷 Fotos de calle</a>' +
             '<span>' + (p.fuente || '') + '</span>' +
             '</div>';
           contenido.appendChild(card);
