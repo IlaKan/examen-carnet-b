@@ -26,6 +26,25 @@
 
     main { max-width: 640px; margin: 0 auto; padding: 16px; }
 
+    #semana { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity;
+              padding-bottom: 4px; margin-bottom: 18px; -webkit-overflow-scrolling: touch; }
+    #semana::-webkit-scrollbar { display: none; }
+    .dia {
+      scroll-snap-align: start; flex: 0 0 auto; width: 42px; padding: 8px 0 9px;
+      border-radius: 12px; background: var(--bg-dark-2); border: 1.5px solid transparent;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      color: #9aa0ab; font-size: 11px; cursor: default; -webkit-tap-highlight-color: transparent;
+    }
+    .dia .num { font-size: 15px; font-weight: 700; color: #e7e9ee; }
+    .dia.hoy { border-color: var(--accent); }
+    .dia.con-clase { cursor: pointer; }
+    .dia.con-clase .num { color: var(--accent); }
+    .dia .punto { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+    .dia .punto.vacio { background: transparent; }
+    .dia.activo { background: var(--accent); border-color: var(--accent); }
+    .dia.activo, .dia.activo .num { color: #0a1f18; }
+    .dia.activo .punto { background: #0a1f18; }
+
     #filtros { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
     #filtros select {
       background: var(--bg-dark-2); color: #e7e9ee; border: 1px solid #383d48;
@@ -59,6 +78,7 @@
     <a href="puntos.html">📍 Catálogo de 68 puntos</a>
   </div>
   <main>
+    <div id="semana"></div>
     <div id="filtros" style="display:none;">
       <select id="filtroZona"><option value="">Todas las zonas</option></select>
       <select id="filtroMes" style="display:none;"><option value="">Todas las fechas</option></select>
@@ -81,6 +101,7 @@
       });
 
     let ALL_TRACKS = [];
+    let diaFiltro = '';
 
     function renderAll(tracks) {
       ALL_TRACKS = tracks;
@@ -92,6 +113,8 @@
 
       document.getElementById('subtitle').textContent =
         tracks.length + (tracks.length === 1 ? ' clase grabada' : ' clases grabadas');
+
+      renderSemana(tracks);
 
       const zonas = new Set();
       const meses = new Set();
@@ -137,9 +160,46 @@
       const mesFiltro = document.getElementById('filtroMes').value;
       const filtered = ALL_TRACKS.filter(t =>
         (!zonaFiltro || (t.zonas || []).includes(zonaFiltro)) &&
-        (!mesFiltro || (t.fecha || '').slice(0, 7) === mesFiltro)
+        (!mesFiltro || (t.fecha || '').slice(0, 7) === mesFiltro) &&
+        (!diaFiltro || t.fecha === diaFiltro)
       );
       renderList(filtered);
+    }
+
+    // Tira de los últimos 7 días (hoy incluido, no la semana de calendario Lun-Dom) —
+    // así siempre se ven las clases más recientes aunque caigan a caballo de dos
+    // semanas naturales. Cada día con clase es clicable y filtra la lista a ese día;
+    // volver a tocarlo lo quita. Scroll horizontal con snap, como una tira nativa.
+    const DIAS_ES = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+    function renderSemana(tracks) {
+      const cont = document.getElementById('semana');
+      cont.innerHTML = '';
+      const fechasConClase = new Set(tracks.map(t => t.fecha));
+      const hoy = new Date();
+      const hoyISO = hoy.toISOString().slice(0, 10);
+
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(hoy);
+        d.setDate(d.getDate() - i);
+        const iso = d.toISOString().slice(0, 10);
+        const tieneClase = fechasConClase.has(iso);
+
+        const el = document.createElement('div');
+        el.className = 'dia' + (iso === hoyISO ? ' hoy' : '') + (tieneClase ? ' con-clase' : '')
+          + (iso === diaFiltro ? ' activo' : '');
+        el.innerHTML =
+          '<span>' + DIAS_ES[d.getDay()] + '</span>' +
+          '<span class="num">' + d.getDate() + '</span>' +
+          '<span class="punto' + (tieneClase ? '' : ' vacio') + '"></span>';
+        if (tieneClase) {
+          el.addEventListener('click', () => {
+            diaFiltro = (diaFiltro === iso) ? '' : iso;
+            renderSemana(tracks);
+            applyFilters();
+          });
+        }
+        cont.appendChild(el);
+      }
     }
 
     function renderList(filtered) {
