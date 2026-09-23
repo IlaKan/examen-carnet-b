@@ -456,8 +456,8 @@
       }).addTo(map);
 
       let idx = 0, playing = false, timer = null;
-      const SPEEDS = [1, 2, 4];
-      let speedIdx = 0;
+      const SPEEDS = [0.5, 1, 2, 4];
+      let speedIdx = 1; // arranca en 1x (índice 0 = 0.5x), igual que antes de añadir la opción lenta
       const NAV_ZOOM = 18;
       const scrubber = document.getElementById('scrubber');
       const playBtn = document.getElementById('playBtn');
