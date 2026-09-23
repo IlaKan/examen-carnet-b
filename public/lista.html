@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mis clases — Examen Carnet B</title>
   <style>
-    :root { --accent: #4285F4; --bg-dark: #16181d; --bg-dark-2: #1f2229; }
+    :root { --accent: #4285F4; --bg-dark: #16181d; --bg-dark-2: #1f2229; --lila: #8b7cf6; }
     html, body { margin: 0; padding: 0; background: var(--bg-dark); color: #e7e9ee;
                  font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
 
@@ -45,6 +45,53 @@
     .dia.activo, .dia.activo .num { color: #0a1f18; }
     .dia.activo .punto { background: #0a1f18; }
 
+    #buscador-wrap { margin-bottom: 18px; position: relative; }
+    #buscador {
+      width: 100%; box-sizing: border-box; background: transparent; border: none;
+      border-bottom: 2px solid #2a2e37; color: #e7e9ee; font-size: 19px; font-weight: 400;
+      padding: 6px 2px 10px; outline: none; font-family: inherit;
+    }
+    #buscador::placeholder { color: #4d5560; }
+    #buscador:focus { border-bottom-color: var(--accent); }
+    #resultados {
+      display: none; margin-top: 10px; background: var(--bg-dark-2); border-radius: 12px;
+      padding: 14px 16px; max-height: 340px; overflow-y: auto;
+    }
+    #resultados .grupo-label {
+      font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: #6b7280;
+      font-weight: 600; margin: 12px 0 6px;
+    }
+    #resultados .grupo-label:first-child { margin-top: 0; }
+    #resultados a.res, #resultados .res-vacio {
+      display: flex; align-items: center; gap: 9px; padding: 6px 0; text-decoration: none;
+      color: #e7e9ee; font-size: 13px;
+    }
+    #resultados a.res:hover { color: var(--accent); }
+    #resultados .res-vacio { color: #565c66; font-style: italic; }
+    #resultados .res-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    #resultados .res-sub { font-size: 10.5px; color: #767c88; display: block; }
+
+    .cta-ultima {
+      display: block; background: var(--lila); color: #17102e; text-decoration: none;
+      border-radius: 14px; padding: 18px; margin-bottom: 14px;
+    }
+    .cta-ultima .label { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; opacity: .75; font-weight: 700; }
+    .cta-ultima .titulo { font-size: 17px; font-weight: 800; margin-top: 5px; }
+    .cta-ultima .sub { font-size: 12.5px; margin-top: 3px; opacity: .85; }
+
+    .cta-thumb {
+      display: block; border-radius: 14px; overflow: hidden; text-decoration: none;
+      color: #fff; margin-bottom: 18px; position: relative; height: 130px;
+      background-size: cover; background-position: center;
+    }
+    .cta-thumb::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(10,10,15,.15) 0%, rgba(10,10,15,.85) 100%);
+    }
+    .cta-thumb .contenido { position: absolute; left: 16px; right: 16px; bottom: 14px; z-index: 1; }
+    .cta-thumb .label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; opacity: .8; font-weight: 700; }
+    .cta-thumb .titulo { font-size: 15.5px; font-weight: 700; margin-top: 3px; }
+
     #filtros { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
     #filtros select {
       background: var(--bg-dark-2); color: #e7e9ee; border: 1px solid #383d48;
@@ -73,12 +120,24 @@
     <h1>Mis clases</h1>
     <div class="subtitle" id="subtitle">Cargando…</div>
   </div>
-  <div id="navlinks">
-    <a href="tecnica.html">📋 Checklist de técnica general</a>
-    <a href="puntos.html">📍 Catálogo de 68 puntos</a>
-  </div>
   <main>
     <div id="semana"></div>
+
+    <div id="buscador-wrap">
+      <input id="buscador" type="text" placeholder="Busca un punto, una clase, un tip…" autocomplete="off">
+      <div id="resultados"></div>
+    </div>
+
+    <div id="ctaUltima"></div>
+
+    <a class="cta-thumb" href="tecnica.html"
+       style="background-image:url('https://images.unsplash.com/photo-1722500342362-f05c2bf325c1?auto=format&amp;fit=crop&amp;w=900&amp;q=60');">
+      <div class="contenido">
+        <div class="label">Checklist de técnica</div>
+        <div class="titulo">Fallos que se repiten en exámenes reales →</div>
+      </div>
+    </a>
+
     <div id="filtros" style="display:none;">
       <select id="filtroZona"><option value="">Todas las zonas</option></select>
       <select id="filtroMes" style="display:none;"><option value="">Todas las fechas</option></select>
@@ -101,7 +160,81 @@
       });
 
     let ALL_TRACKS = [];
+    let ALL_POINTS = [];
+    let ALL_TIPS = [];
     let diaFiltro = '';
+
+    fetch('data/points.json').then(r => r.json()).then(d => { ALL_POINTS = d; }).catch(() => {});
+    fetch('data/tecnica_general.json').then(r => r.json()).then(d => { ALL_TIPS = d; }).catch(() => {});
+
+    const ZONA_COLORS = {
+      'ZONA 2 - PEDRALBES': '#1f77b4', 'ZONA 3 - Z. UNIVERSIT.': '#2ca02c',
+      'ZONA 4 - POBLE SEC': '#ff7f0e', 'ZONA 6 - MONTJÜIC': '#9467bd',
+      'ZONA 7 - LA MAQUINISTA': '#8c564b',
+    };
+
+    function renderCtaUltima(tracks) {
+      const cont = document.getElementById('ctaUltima');
+      if (!tracks.length) { cont.innerHTML = ''; return; }
+      const ultima = tracks[0]; // ya viene ordenado por fecha desc desde track_index.py
+      const a = document.createElement('a');
+      a.className = 'cta-ultima';
+      a.href = 'mapa.html?track=' + encodeURIComponent(ultima.id);
+      a.innerHTML =
+        '<div class="label">Tu última clase</div>' +
+        '<div class="titulo">Repasar ' + ultima.fecha + ' →</div>' +
+        '<div class="sub">' + (ultima.zonas || []).join(', ') +
+        (ultima.duracion_min ? ' · ' + Math.round(ultima.duracion_min) + ' min' : '') + '</div>';
+      cont.innerHTML = '';
+      cont.appendChild(a);
+    }
+
+    // Buscador transversal: clases + catálogo de puntos + checklist de técnica,
+    // agrupado por fuente. Un grupo sin resultados lo dice explícito en vez de
+    // ocultarse, para no esconder huecos de dato (mismo criterio que el resto
+    // del proyecto).
+    const buscadorInput = document.getElementById('buscador');
+    const resultadosDiv = document.getElementById('resultados');
+    buscadorInput.addEventListener('input', () => buscar(buscadorInput.value));
+
+    function buscar(qRaw) {
+      const q = qRaw.trim().toLowerCase();
+      if (!q) { resultadosDiv.style.display = 'none'; resultadosDiv.innerHTML = ''; return; }
+
+      const clases = ALL_TRACKS.filter(t =>
+        (t.nombre || '').toLowerCase().includes(q) || (t.zonas || []).some(z => z.toLowerCase().includes(q)));
+      const puntos = ALL_POINTS.filter(p =>
+        (p.nombre || '').toLowerCase().includes(q) || (p.nota || '').toLowerCase().includes(q) ||
+        (p.zona || '').toLowerCase().includes(q)).slice(0, 8);
+      const tips = ALL_TIPS.filter(t =>
+        (t.tip || '').toLowerCase().includes(q) || (t.categoria || '').toLowerCase().includes(q)).slice(0, 8);
+
+      let html = '';
+      html += '<div class="grupo-label">Tus clases · ' + clases.length + '</div>';
+      html += clases.length
+        ? clases.map(t => '<a class="res" href="mapa.html?track=' + encodeURIComponent(t.id) + '">' +
+            '<span class="res-dot" style="background:var(--accent);"></span>' +
+            '<span>' + t.nombre + '<span class="res-sub">' + t.fecha + '</span></span></a>').join('')
+        : '<div class="res-vacio">Ninguna clase coincide.</div>';
+
+      html += '<div class="grupo-label">Puntos críticos · ' + puntos.length + '</div>';
+      html += puntos.length
+        ? puntos.map(p => '<a class="res" href="puntos.html">' +
+            '<span class="res-dot" style="background:' + (ZONA_COLORS[p.zona] || '#777') + ';"></span>' +
+            '<span>' + p.nombre + '<span class="res-sub">' + p.zona + '</span></span></a>').join('')
+        : '<div class="res-vacio">Ningún punto del catálogo coincide.</div>';
+
+      html += '<div class="grupo-label">Checklist de técnica · ' + tips.length + '</div>';
+      html += tips.length
+        ? tips.map(t => '<a class="res" href="tecnica.html">' +
+            '<span class="res-dot" style="background:var(--lila);"></span>' +
+            '<span>' + t.tip.slice(0, 90) + (t.tip.length > 90 ? '…' : '') +
+            '<span class="res-sub">' + t.categoria + '</span></span></a>').join('')
+        : '<div class="res-vacio">Ningún tip coincide.</div>';
+
+      resultadosDiv.innerHTML = html;
+      resultadosDiv.style.display = 'block';
+    }
 
     function renderAll(tracks) {
       ALL_TRACKS = tracks;
@@ -115,6 +248,7 @@
         tracks.length + (tracks.length === 1 ? ' clase grabada' : ' clases grabadas');
 
       renderSemana(tracks);
+      renderCtaUltima(tracks);
 
       const zonas = new Set();
       const meses = new Set();
