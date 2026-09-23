@@ -1,0 +1,244 @@
+/*
+ * Librería de estilo compartida — Examen Carnet B (2026)
+ *
+ * Consolida los tokens y patrones que ya existían duplicados (con pequeñas
+ * variaciones) en lista.html, puntos.html, tecnica.html, fallos.html y
+ * mapa.html. No inventa colores nuevos: todos los valores vienen de lo que
+ * ya se usaba en alguna de esas páginas.
+ *
+ * Ver docs/superpowers/specs/2026-09-23-style-guide.md para la referencia
+ * de qué clase usar para qué, pensada para que páginas futuras no
+ * reinventen estos mismos patrones.
+ */
+
+:root {
+  /* --- Color: superficies --- */
+  --bg-dark: #16181d;     /* fondo de página */
+  --bg-dark-2: #1f2229;   /* tarjetas, dropdowns, chips */
+  --bg-dark-3: #2a2e37;   /* fondo de chip/pill (sobre bg-dark-2) */
+
+  /* --- Color: acento y marca --- */
+  --accent: #4285F4;
+  --lila: #8b7cf6;        /* usado en el CTA "última clase" de home; branding aún no cerrado */
+
+  /* --- Color: bordes --- */
+  --border: #383d48;      /* borde de chip/pill/select */
+  --border-subtle: #23262e; /* separador entre secciones (h2 con border-top) */
+
+  /* --- Color: texto --- */
+  --text: #e7e9ee;          /* texto principal sobre fondo oscuro */
+  --text-muted: #c7ccd4;    /* texto secundario (notas, cuerpo de tarjeta) */
+  --text-dim: #9aa0ab;      /* texto terciario (intros, subtítulos) */
+  --text-dimmer: #767c88;   /* texto más apagado (metadatos, estado vacío) */
+  --text-faint: #565c66;    /* texto casi invisible (fechas pequeñas) */
+  --text-faintest: #6b7280; /* labels uppercase de grupo */
+
+  /* --- Color: aviso / warning (fallos.html) --- */
+  --warn-bg: #2a2410;
+  --warn-border: #4d3f1a;
+  --warn-text: #e0c27a;
+
+  /* --- Sombra --- */
+  --shadow-topbar: 0 2px 8px rgba(0, 0, 0, .35);
+  --shadow-card: 0 1px 4px rgba(0, 0, 0, .3);
+
+  /* --- Radio de borde --- */
+  --radius-lg: 14px;   /* cta-thumb, cta-ultima */
+  --radius-md: 12px;   /* tarjetas, dropdown de resultados */
+  --radius-sm: 8px;    /* select, inputs pequeños */
+  --radius-pill: 999px; /* pills de fuente/vídeo, chips de nav */
+
+  /* --- Tipografía --- */
+  --font-sans: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ---------------------------------------------------------------------
+ * Base de página — igual en las 5 páginas salvo mapa.html, que añade
+ * su propio height/overflow/flex encima de esto en su <style> local
+ * (necesita ocupar el viewport completo sin scroll, para el mapa).
+ * ------------------------------------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* ---------------------------------------------------------------------
+ * Topbar — cabecera superior de página.
+ *
+ * `.topbar` da el "chrome" común (fondo, sombra, sticky, padding base).
+ * `.topbar-row` es el modificador para el layout en fila (título +
+ * enlace, opcionalmente con más controles como un <select>) que usan
+ * puntos/tecnica/fallos. lista.html usa solo `.topbar` (título + subtítulo
+ * apilados, sin fila) y mapa.html no usa ninguna de las dos clases porque
+ * su cabecera tiene necesidades propias (no-sticky, dentro de un layout
+ * flex de página completa) — sí reutiliza `.topbar-link` para el enlace.
+ * ------------------------------------------------------------------- */
+.topbar {
+  background: var(--bg-dark);
+  padding: 14px;
+  box-shadow: var(--shadow-topbar);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.topbar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.topbar-row h1 {
+  font-size: 16px;
+  margin: 0;
+  flex: 1 1 auto;
+}
+.topbar-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Texto introductorio bajo la topbar (puntos.html, tecnica.html). */
+.intro {
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Estado vacío / error de carga — se combina con id="vacio" que ya
+ * usa el JS de cada página (getElementById), no lo sustituye. */
+.empty-state {
+  color: var(--text-dimmer);
+  text-align: center;
+  padding: 30px;
+}
+
+/* ---------------------------------------------------------------------
+ * Tarjeta base — fondo bg-dark-2 + esquinas redondeadas. Sin sombra ni
+ * margin por defecto: cada uso añade esos dos (que sí varían entre
+ * puntos.html y el dropdown de resultados de lista.html) en su propio
+ * <style> local.
+ * ------------------------------------------------------------------- */
+.card {
+  background: var(--bg-dark-2);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+}
+
+/* ---------------------------------------------------------------------
+ * Encabezado de sección con separador — h2.categoria (tecnica.html) /
+ * h2.zona (fallos.html): mismo bloque salvo el margin, que se queda en
+ * el <style> local de cada página porque difiere (28px vs 26px).
+ * ------------------------------------------------------------------- */
+.section-heading {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--accent);
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ---------------------------------------------------------------------
+ * Label uppercase pequeño — primitiva compartida por el label de
+ * cta-thumb, el de cta-ultima y el grupo-label del buscador. Solo fija
+ * lo que de verdad es igual en los tres (mayúsculas, letter-spacing,
+ * peso); color/opacidad/tamaño/margen exactos se quedan en cada uso
+ * porque legítimamente varían (texto blanco con opacidad sobre foto vs.
+ * texto gris sobre fondo sólido).
+ * ------------------------------------------------------------------- */
+.label-upper {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------
+ * Pill de fuente/vídeo — idéntico en tecnica.html (.video-pill) y
+ * fallos.html (.video-pill); aquí como clase genérica `.pill`.
+ * ------------------------------------------------------------------- */
+.pill {
+  font-size: 10.5px;
+  color: var(--accent);
+  background: var(--bg-dark-2);
+  border: 1px solid var(--bg-dark-3);
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+}
+.pill:hover {
+  border-color: var(--accent);
+}
+
+/* ---------------------------------------------------------------------
+ * CTA con foto de fondo — usado 3 veces en lista.html (checklist,
+ * fallos, catálogo). Movido tal cual estaba, sin cambios visuales.
+ * ------------------------------------------------------------------- */
+.cta-thumb {
+  display: block;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  margin-bottom: 18px;
+  position: relative;
+  height: 130px;
+  background-size: cover;
+  background-position: center;
+}
+.cta-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 15, .15) 0%, rgba(10, 10, 15, .85) 100%);
+}
+.cta-thumb .contenido {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  z-index: 1;
+}
+.cta-thumb .titulo {
+  font-size: 15.5px;
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+/* ---------------------------------------------------------------------
+ * Badge de recuento — círculo con número. NO SE USA TODAVÍA en ninguna
+ * página real (no se encontró ningún patrón "círculo + número" existente
+ * en las tarjetas CTA de home al auditar el HTML/CSS actual — solo hay
+ * texto de recuento plano en #contador de puntos.html). Se define aquí
+ * por si el pedido original se refería a algo pendiente de construir,
+ * usando los tokens ya existentes (--accent), no un color nuevo. Avisar
+ * a Ilaria de esta discrepancia antes de usarlo en ninguna página.
+ * ------------------------------------------------------------------- */
+.badge-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}

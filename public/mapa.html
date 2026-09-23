@@ -4,30 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Clase — Examen Carnet B</title>
+  <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
-    :root {
-      --accent: #4285F4;
-      --bg-dark: #16181d;
-      --bg-dark-2: #1f2229;
-    }
+    /* mapa.html ocupa el viewport completo sin scroll de página (la vista
+       se maneja dentro del mapa de Leaflet), a diferencia de las demás
+       páginas — por eso añade esto encima de la base compartida en vez
+       de usarla tal cual. */
     html, body {
-      margin: 0; padding: 0;
       height: 100vh; height: 100dvh; /* dvh: fixes iOS Safari's shrinking/growing address bar */
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       overflow: hidden;
-      background: var(--bg-dark);
     }
     body { display: flex; flex-direction: column; }
 
+    /* Topbar propia, no la clase .topbar compartida: aquí no es sticky
+       (vive dentro de un layout de columna flex de página completa) y
+       necesita su propio z-index/padding para convivir con el mapa. */
     #topbar {
       background: var(--bg-dark); color: #fff; padding: 10px 14px 12px;
       display: flex; justify-content: space-between; align-items: center;
-      flex: 0 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,.35); z-index: 10;
+      flex: 0 0 auto; box-shadow: var(--shadow-topbar); z-index: 10;
     }
     #topbar #titulo { font-size: 14px; font-weight: 600; }
-    #topbar .sub { font-size: 11px; color: #9aa0ab; font-weight: 400; display: block; }
-    #topbar a { color: var(--accent); text-decoration: none; font-size: 13px; white-space: nowrap; }
+    #topbar .sub { font-size: 11px; color: var(--text-dim); font-weight: 400; display: block; }
 
     #layers {
       background: var(--bg-dark-2); padding: 8px 10px; display: flex; gap: 6px;
@@ -35,8 +34,8 @@
     }
     #layers label {
       display: flex; align-items: center; gap: 5px; white-space: nowrap;
-      font-size: 11px; color: #c7ccd4; background: #2a2e37; border: 1px solid #383d48;
-      border-radius: 999px; padding: 5px 10px 5px 8px; cursor: pointer;
+      font-size: 11px; color: var(--text-muted); background: var(--bg-dark-3); border: 1px solid var(--border);
+      border-radius: var(--radius-pill); padding: 5px 10px 5px 8px; cursor: pointer;
       transition: background .15s, border-color .15s;
     }
     #layers label:has(input:checked) { background: #333a4a; border-color: var(--accent); color: #fff; }
@@ -55,7 +54,7 @@
     #liveinfo.visible { display: block; }
     #liveinfo .row { display: flex; gap: 14px; }
     #liveinfo .stat b { display: block; font-size: 15px; font-weight: 700; }
-    #liveinfo .stat span { color: #9aa0ab; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; }
+    #liveinfo .stat span { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: .04em; }
     #liveinfo .next { margin-top: 6px; padding-top: 6px; border-top: 1px solid #333a4a;
                        font-size: 12px; color: #ffd166; min-height: 16px; }
 
@@ -70,13 +69,13 @@
       border-radius: 50%; width: 42px; height: 42px; cursor: pointer; flex: 0 0 auto;
       display: flex; align-items: center; justify-content: center;
     }
-    #speedBtn { border-radius: 999px; width: auto; padding: 0 12px; background: #2a2e37; font-size: 12px; font-weight: 700; }
+    #speedBtn { border-radius: var(--radius-pill); width: auto; padding: 0 12px; background: var(--bg-dark-3); font-size: 12px; font-weight: 700; }
     #controls input[type=range] {
       flex: 1 1 auto; min-width: 0; accent-color: var(--accent);
     }
-    #controls .pct { color: #9aa0ab; font-size: 11px; min-width: 32px; text-align: right; flex: 0 0 auto; }
+    #controls .pct { color: var(--text-dim); font-size: 11px; min-width: 32px; text-align: right; flex: 0 0 auto; }
 
-    #error { padding: 20px; color: #ff6b6b; background: #16181d; height: 100%; box-sizing: border-box; }
+    #error { padding: 20px; color: #ff6b6b; background: var(--bg-dark); height: 100%; box-sizing: border-box; }
 
     /* Flecha de navegación (sustituye al emoji de coche): apunta en la
        dirección real de avance, calculada por rumbo entre puntos del GPX. */
@@ -98,7 +97,7 @@
 <body>
   <div id="topbar">
     <span id="titulo">Cargando…</span>
-    <a href="lista.html">← Mis clases</a>
+    <a href="lista.html" class="topbar-link">← Mis clases</a>
   </div>
   <div id="layers">
     <label><span class="swatch" style="background:#e63946;"></span><input type="checkbox" data-layer="semaforos" checked> Semáforos</label>

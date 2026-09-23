@@ -4,41 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Catálogo de puntos críticos — Examen Carnet B</title>
+  <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
-    :root { --accent: #4285F4; --bg-dark: #16181d; --bg-dark-2: #1f2229; }
-    html, body { margin: 0; padding: 0; background: var(--bg-dark); color: #e7e9ee;
-                 font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
-    #topbar { background: var(--bg-dark); padding: 14px; display: flex; justify-content: space-between;
-              align-items: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 2px 8px rgba(0,0,0,.35);
-              position: sticky; top: 0; z-index: 5; }
-    #topbar h1 { font-size: 16px; margin: 0; flex: 1 1 auto; }
-    #topbar a { color: var(--accent); text-decoration: none; font-size: 13px; white-space: nowrap; }
-    #topbar select { background: var(--bg-dark-2); color: #e7e9ee; border: 1px solid #383d48;
-                      border-radius: 8px; padding: 6px 10px; font-size: 13px; }
-
     #map { height: 42vh; min-height: 260px; width: 100%; }
 
-    main { max-width: 640px; margin: 0 auto; padding: 16px; }
-    .intro { color: #9aa0ab; font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
+    .intro { margin-bottom: 16px; }
     h2.zona { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--accent);
               margin: 26px 0 10px; display: flex; align-items: center; gap: 6px; }
     h2.zona .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-    .punto-card { background: var(--bg-dark-2); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
-                  box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+    .punto-card { margin-bottom: 10px; box-shadow: var(--shadow-card); }
     .punto-card .nombre { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-    .punto-card .nota { font-size: 13px; line-height: 1.5; color: #c7ccd4; }
-    .punto-card .meta { margin-top: 8px; font-size: 11px; color: #767c88; display: flex; gap: 10px; flex-wrap: wrap; }
+    .punto-card .nota { font-size: 13px; line-height: 1.5; color: var(--text-muted); }
+    .punto-card .meta { margin-top: 8px; font-size: 11px; color: var(--text-dimmer); display: flex; gap: 10px; flex-wrap: wrap; }
     .punto-card .meta a { color: var(--accent); text-decoration: none; }
-    #vacio { color: #767c88; padding: 30px; text-align: center; }
-    #contador { font-size: 12px; color: #767c88; margin-bottom: 10px; }
+    #contador { font-size: 12px; color: var(--text-dimmer); margin-bottom: 10px; }
+    #topbar select { background: var(--bg-dark-2); color: var(--text); border: 1px solid var(--border);
+                      border-radius: var(--radius-sm); padding: 6px 10px; font-size: 13px; }
   </style>
 </head>
 <body>
-  <div id="topbar">
+  <div id="topbar" class="topbar topbar-row">
     <h1>Catálogo de puntos críticos</h1>
     <select id="filtroZona"><option value="">Todas las zonas</option></select>
-    <a href="lista.html">← Mis clases</a>
+    <a href="lista.html" class="topbar-link">← Mis clases</a>
   </div>
   <div id="map"></div>
   <main>
@@ -49,7 +38,7 @@
     </p>
     <div id="contador"></div>
     <div id="contenido"></div>
-    <div id="vacio" style="display:none;">No se pudo cargar el catálogo.</div>
+    <div id="vacio" class="empty-state" style="display:none;">No se pudo cargar el catálogo.</div>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
@@ -163,7 +152,7 @@
 
         porZona[zona].forEach(p => {
           const card = document.createElement('div');
-          card.className = 'punto-card';
+          card.className = 'card punto-card';
           card.innerHTML =
             '<div class="nombre">' + p.nombre + '</div>' +
             '<div class="nota">' + (p.nota || '') + '</div>' +
