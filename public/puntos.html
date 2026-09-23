@@ -76,8 +76,12 @@
 
     function initMap(points) {
       map = L.map('map');
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19, attribution: '&copy; OpenStreetMap contributors',
+      // Mismo cambio que en mapa.html: MapTiler "streets-v4" en vez de
+      // Mapnik crudo, menos ruido de numeración de portal/iconos de comercio.
+      const MAPTILER_KEY = '10thvqKVtuWBM8HAADxF';
+      L.tileLayer('https://api.maptiler.com/maps/streets-v4/256/{z}/{x}/{y}.png?key=' + MAPTILER_KEY, {
+        maxZoom: 19, tileSize: 256, crossOrigin: true,
+        attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> &copy; OpenStreetMap contributors',
       }).addTo(map);
       markersLayer = L.layerGroup().addTo(map);
       const bounds = points.map(p => [p.lat, p.lng]);

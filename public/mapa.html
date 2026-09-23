@@ -227,8 +227,15 @@
       // (distancia/tiempo), tanto en móvil como en escritorio.
       const map = L.map('map', { zoomControl: false });
       L.control.zoom({ position: 'topright' }).addTo(map);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19, attribution: '&copy; OpenStreetMap contributors',
+      // MapTiler "streets-v4" en vez de Mapnik crudo: mismos datos de calle,
+      // pero sin el ruido de numeración de portal/iconos de comercio que se
+      // veía en cada edificio — Ilaria comparó ambos en vivo antes de decidir
+      // el cambio. Key restringida por dominio (ilakan.github.io/localhost)
+      // en el propio panel de MapTiler, no hace falta ocultarla aquí.
+      const MAPTILER_KEY = '10thvqKVtuWBM8HAADxF';
+      L.tileLayer('https://api.maptiler.com/maps/streets-v4/256/{z}/{x}/{y}.png?key=' + MAPTILER_KEY, {
+        maxZoom: 19, tileSize: 256, crossOrigin: true,
+        attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> &copy; OpenStreetMap contributors',
       }).addTo(map);
       map.fitBounds(latlngs, { padding: [20, 20] });
 
