@@ -9,6 +9,8 @@ Las 5 páginas de `public/` tenían cada una su propio `<style>` inline, con los
 
 Páginas futuras deberían enlazar `styles.css` y usar las clases de aquí abajo antes de inventar un estilo nuevo.
 
+**Familia estética:** data-dense / utilitaria — modo oscuro, texto pequeño, jerarquía por tamaño/peso más que por color, sin adornos. (Etiqueta propuesta para nombrar el estilo de un vistazo; confirmar o ajustar si no describe bien la intención.)
+
 ## 2. Cómo usarlo en una página nueva
 
 ```html
@@ -29,8 +31,9 @@ El `<link>` va **antes** del `<style>` local en el `<head>`: así, si una págin
 | `--bg-dark` | `#16181d` | fondo de página |
 | `--bg-dark-2` | `#1f2229` | tarjetas, dropdowns, chips |
 | `--bg-dark-3` | `#2a2e37` | fondo de chip/pill sobre `--bg-dark-2` |
-| `--accent` | `#4285F4` | acento principal (enlaces, iconos activos) |
-| `--lila` | `#8b7cf6` | CTA "última clase" — branding aún no cerrado, no usarlo como si fuera definitivo |
+| `--accent` | `#8b7cf6` | acento principal (enlaces, iconos activos) — violeta, branding cerrado con TuCopilotoB (antes `#4285F4`) |
+| `--lila` | `#8b7cf6` | alias de `--accent`, usado explícito en el CTA "última clase"; mismo color, branding ya cerrado |
+| `--confirm` | `#34C7A3` | verde-menta — "ya repasado/confirmado" (icono, badges de estado) |
 | `--border` | `#383d48` | borde de chip/pill/select |
 | `--border-subtle` | `#23262e` | separador entre secciones (`.section-heading`) |
 | `--text` | `#e7e9ee` | texto principal |
@@ -102,3 +105,10 @@ Círculo con número, pensado como "badge de recuento". **Aviso**: al auditar la
 - Los colores por zona (`ZONA_COLORS` en `lista.html`/`puntos.html`, los `color` de cada capa en `mapa.html`) son identificadores categóricos ligados a datos, no parte del sistema de diseño — se quedan como objetos JS en cada página.
 - El CSS específico de Leaflet, del reproductor de `mapa.html` (controles, flecha de navegación, panel de copiloto) y del buscador de `lista.html` se queda en el `<style>` local de cada página: es genuinamente específico de esa página, no un patrón repetido.
 - Al migrar `lista.html` se eliminó el bloque `#navlinks` (chip de navegación con fondo/borde): no tenía ningún elemento correspondiente en el HTML de la página (código muerto de una iteración anterior), así que no se migró a ningún sitio.
+
+## 6. Do / Don't
+
+- **Do** usar los tokens de `:root` para cualquier color/radio/sombra nuevo; **don't** escribir un valor hex o `px` suelto en un `<style>` local si ya existe un token equivalente.
+- **Do** añadir una clase nueva a `styles.css` cuando el mismo patrón visual se repite en 2+ páginas; **don't** duplicar reglas de `.card`, `.pill`, `.topbar`, etc. con variaciones accidentales dentro del `<style>` local de una página.
+- **Do** dejar en el `<style>` local lo que es genuinamente específico de una página (Leaflet, el reproductor de `mapa.html`, el buscador de `lista.html`); **don't** intentar generalizar algo que solo se usa una vez.
+- **Do** actualizar esta tabla de tokens en el mismo commit que cambia un valor en `:root`; **don't** dejar que este documento quede desactualizado respecto a `styles.css` (ver el fix de `--accent`/`--lila`/`--confirm` de este mismo pase).
