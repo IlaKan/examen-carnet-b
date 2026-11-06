@@ -1,5 +1,15 @@
 [
   {
+    "id": "2026-11-06-06-nov-2026-1302",
+    "nombre": "06-nov-2026-1302",
+    "fecha": "2026-11-06",
+    "zonas": [
+      "ZONA 2 - PEDRALBES",
+      "ZONA 3 - Z. UNIVERSIT."
+    ],
+    "duracion_min": 89.92
+  },
+  {
     "id": "2026-11-05-05-nov-2026-1113--les-corts",
     "nombre": "05-nov-2026-1113 - les corts",
     "fecha": "2026-11-05",
