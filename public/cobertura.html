@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TuPilotoB — Cobertura de puntos críticos</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <style>
+    #map { height: 42vh; height: 42dvh; min-height: 260px; width: 100%; }
+
+    .topbar-link { min-height: 44px; display: inline-flex; align-items: center; }
+    .leaflet-bar a { width: 44px !important; height: 44px !important; line-height: 44px !important; }
+    .tabs { display: flex; gap: 6px; padding: 10px 16px; }
+    .tab {
+      flex: 1 1 0; min-height: 44px; font: inherit; font-size: 14px; color: var(--text-dim);
+      background: var(--bg-dark-2); border: 1px solid var(--border); border-radius: var(--radius-pill); cursor: pointer;
+    }
+    .tab.activa { color: #17102e; background: var(--accent); border-color: var(--accent); font-weight: 700; }
+    .tab:focus-visible, button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visible {
+      outline: 2px solid var(--accent); outline-offset: 2px;
+    }
+
+    .resumen { display: flex; gap: 8px; margin-bottom: 12px; }
+    .resumen .card { flex: 1; padding: 10px 12px; }
+    .resumen .num { font-size: 22px; font-weight: 700; color: var(--text); }
+    .resumen .lbl { font-size: 12px; color: var(--text-dim); line-height: 1.3; }
+    .resumen .card.alerta { background: var(--warn-bg); border: 1px solid var(--warn-border); }
+    .resumen .card.alerta .num, .resumen .card.alerta .lbl { color: var(--warn-text); }
+
+    .leyenda { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
+    .leyenda span { display: inline-flex; align-items: center; gap: 6px; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; box-sizing: border-box; }
+    .dot.nunca-mia { background: var(--warn-text); border: 2px solid var(--bg-dark); width: 14px; height: 14px; }
+    .dot.nunca-otra { background: #fff; border: 3px solid #4b5260; }
+    .dot.pisado { background: var(--confirm); }
+
+    .aviso { font-size: 12px; line-height: 1.5; color: var(--text-dim); margin: 0 0 12px; }
+
+    details.grupo { margin-top: 14px; }
+    details.grupo > summary {
+      min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      cursor: pointer; list-style: none; font-size: 14px; font-weight: 700; color: var(--text);
+      border-top: 1px solid var(--border-subtle); padding-top: 4px;
+    }
+    details.grupo > summary::-webkit-details-marker { display: none; }
+    details.grupo > summary::after { content: '▸'; color: var(--text-dim); }
+    details.grupo[open] > summary::after { content: '▾'; }
+    details.grupo.prioridad > summary { color: var(--warn-text); }
+
+    .punto { padding: 12px; margin-top: 8px; }
+    .punto.nunca-mia { border-left: 4px solid var(--warn-text); }
+    .punto .zona { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--text-dim); text-transform: uppercase; }
+    .punto h3 { margin: 2px 0 6px; font-size: 15px; line-height: 1.3; color: var(--text); }
+    .punto .nota { margin: 0; font-size: 13px; line-height: 1.5; color: var(--text-muted); }
+    .punto .nota-lbl { display: block; font-size: 11px; font-weight: 700; color: var(--text-dim); margin-bottom: 2px; }
+    .punto .clases { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .chip { font-size: 12px; color: var(--text-muted); background: var(--bg-dark-3); border-radius: var(--radius-pill); padding: 3px 9px; }
+    .acciones { display: flex; gap: 8px; margin-top: 10px; }
+    .btn {
+      flex: 1; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+      font: inherit; font-size: 13px; color: var(--text); background: var(--bg-dark-3);
+      border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none; cursor: pointer;
+    }
+
+    #selClase {
+      width: 100%; min-height: 44px; font: inherit; font-size: 15px; color: var(--text);
+      background: var(--bg-dark-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0 10px;
+    }
+    .meta-clase { font-size: 13px; color: var(--text-dim); margin: 10px 0 0; }
+  </style>
+</head>
+<body>
+  <div class="topbar topbar-row">
+    <h1>Cobertura</h1>
+    <a href="lista.html" class="topbar-link">← Inicio</a>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Vista">
+    <button type="button" class="tab activa" id="tab-cobertura" role="tab" aria-selected="true" aria-controls="vista-cobertura">Cobertura</button>
+    <button type="button" class="tab" id="tab-clase" role="tab" aria-selected="false" aria-controls="vista-clase">Por clase</button>
+  </div>
+
+  <div id="map" role="region" aria-label="Mapa de recorridos y puntos críticos"></div>
+
+  <main>
+    <p id="cargando" class="empty-state">Calculando cobertura de tus clases…</p>
+    <p id="error" class="empty-state" hidden>No se pudieron cargar los datos. Recarga la página.</p>
+
+    <div id="vista-cobertura" role="tabpanel" aria-labelledby="tab-cobertura" hidden>
+      <div class="resumen">
+        <div class="card"><div class="num" id="nTotal"></div><div class="lbl">puntos pisados de 68</div></div>
+        <div class="card"><div class="num" id="nMia"></div><div class="lbl">en Pedralbes + Universitat</div></div>
+        <div class="card alerta"><div class="num" id="nNunca"></div><div class="lbl">nunca pisados en tu zona</div></div>
+      </div>
+      <div class="leyenda" aria-hidden="true">
+        <span><i class="dot nunca-mia"></i>Nunca · tu zona</span>
+        <span><i class="dot nunca-otra"></i>Nunca · otras zonas</span>
+        <span><i class="dot pisado"></i>Pisado</span>
+      </div>
+      <p class="aviso">«Pisado» = alguna clase pasó a 60 m o menos. No dice que hicieras la maniobra: en túneles, salidas de Ronda o calles paralelas puede contar sin haberla hecho.</p>
+      <div id="grupos"></div>
+    </div>
+
+    <div id="vista-clase" role="tabpanel" aria-labelledby="tab-clase" hidden>
+      <label for="selClase" class="label-upper">Clase</label>
+      <select id="selClase"></select>
+      <p class="meta-clase" id="metaClase"></p>
+      <div id="puntosClase"></div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const MAPTILER_KEY = '10thvqKVtuWBM8HAADxF';
+    const TOLERANCIA_M = 60;
+    // Saltos de GPS (p.ej. al salir de un túnel) unen dos puntos lejanos con
+    // una recta falsa; por encima de esta velocidad el tramo no cuenta.
+    const VEL_MAX_MS = 40;
+    const MI_ZONA = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.'];
+    const C = { warn: '#e0c27a', bg: '#16181d', confirm: '#34C7A3', accent: '#8b7cf6', track: '#4b5260' };
+
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const fechaCorta = iso => new Date(iso + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+
+    // Distancia en metros de p al tramo a-b (proyección local, válida a escala de ciudad).
+    function distTramo(p, a, b) {
+      const k = Math.cos(p.lat * Math.PI / 180) * 111320, kl = 110540;
+      const ax = (a.lng - p.lng) * k, ay = (a.lat - p.lat) * kl, bx = (b.lng - p.lng) * k, by = (b.lat - p.lat) * kl;
+      const dx = bx - ax, dy = by - ay, L = dx * dx + dy * dy;
+      const t = L ? Math.max(0, Math.min(1, -(ax * dx + ay * dy) / L)) : 0;
+      return Math.hypot(ax + t * dx, ay + t * dy);
+    }
+    function tramoValido(a, b) {
+      const dt = (Date.parse(b.time) - Date.parse(a.time)) / 1000;
+      const d = distTramo(a, b, b);
+      return !(dt > 0 ? d / dt > VEL_MAX_MS : d > TOLERANCIA_M);
+    }
+    function cruza(p, pts) {
+      for (let i = 0; i < pts.length - 1; i++) {
+        // descarte barato: si ningún extremo está a <500 m no hace falta el cálculo fino
+        if (Math.abs(pts[i].lat - p.lat) > 0.005 && Math.abs(pts[i + 1].lat - p.lat) > 0.005) continue;
+        if (distTramo(p, pts[i], pts[i + 1]) <= TOLERANCIA_M && tramoValido(pts[i], pts[i + 1])) return true;
+      }
+      return false;
+    }
+    function partesNota(nota) {
+      const [alumno, prof] = nota.split('||').map(s => s.trim());
+      return prof ? { lbl: 'Nota del profesor', txt: prof.replace(/^Nota del profesor:\s*/i, '') }
+                  : { lbl: 'Sin nota del profesor · descripción del catálogo', txt: alumno };
+    }
+    const mapsLink = p => p.google_maps_link || `https://www.google.com/maps?q=${p.lat},${p.lng}`;
+
+    const map = L.map('map', { zoomControl: true });
+    L.tileLayer('https://api.maptiler.com/maps/streets-v4/256/{z}/{x}/{y}.png?key=' + MAPTILER_KEY, {
+      maxZoom: 19,
+      attribution: '<a href="https://www.maptiler.com/copyright/">&copy; MapTiler</a> &copy; OpenStreetMap contributors',
+    }).addTo(map);
+    const capaTracks = L.layerGroup().addTo(map);
+    const capaPuntos = L.layerGroup().addTo(map);
+    const marcadores = {};
+    let PUNTOS = [], CLASES = [];
+
+    function estadoDe(p) { return p.clases.length ? 'pisado' : (MI_ZONA.includes(p.zona) ? 'nunca-mia' : 'nunca-otra'); }
+    function estiloMarcador(p, resaltado) {
+      const e = estadoDe(p);
+      if (resaltado) return { radius: 9, color: C.bg, weight: 2, fillColor: C.accent, fillOpacity: 1 };
+      if (e === 'nunca-mia') return { radius: 9, color: C.bg, weight: 2, fillColor: C.warn, fillOpacity: 1 };
+      if (e === 'nunca-otra') return { radius: 6, color: C.track, weight: 3, fillColor: '#fff', fillOpacity: 1 };
+      return { radius: 5, color: C.bg, weight: 1.5, fillColor: C.confirm, fillOpacity: 1 };
+    }
+
+    function tarjeta(p) {
+      const n = partesNota(p.nota), e = estadoDe(p);
+      const chips = p.clases.map(c => `<span class="chip">${fechaCorta(c.fecha)}</span>`).join('');
+      return `<article class="card punto ${e}">
+        <div class="zona">${esc(p.zona)}</div>
+        <h3>${esc(p.nombre)}</h3>
+        <p class="nota"><span class="nota-lbl">${esc(n.lbl)}</span>${esc(n.txt)}</p>
+        ${chips ? `<div class="clases" aria-label="Clases que pasan por aquí">${chips}</div>` : ''}
+        <div class="acciones">
+          <button type="button" class="btn" data-ver="${p.idx}">Ver en mapa</button>
+          <a class="btn" href="${esc(mapsLink(p))}">Google Maps</a>
+        </div>
+      </article>`;
+    }
+    function grupo(titulo, lista, abierto, prioridad) {
+      if (!lista.length) return '';
+      return `<details class="grupo${prioridad ? ' prioridad' : ''}"${abierto ? ' open' : ''}>
+        <summary>${esc(titulo)} (${lista.length})</summary>${lista.map(tarjeta).join('')}</details>`;
+    }
+
+    function pintarCobertura() {
+      capaTracks.clearLayers(); capaPuntos.clearLayers();
+      CLASES.forEach(c => L.polyline(c.linea, { color: C.track, weight: 2, opacity: .55 }).addTo(capaTracks));
+      // los "nunca" de tu zona se dibujan los últimos para que queden encima
+      const orden = { 'pisado': 0, 'nunca-otra': 1, 'nunca-mia': 2 };
+      [...PUNTOS].sort((a, b) => orden[estadoDe(a)] - orden[estadoDe(b)]).forEach(p => {
+        marcadores[p.idx] = L.circleMarker([p.lat, p.lng], estiloMarcador(p))
+          .bindPopup(`<strong>${esc(p.nombre)}</strong><br>${esc(p.zona)}<br>${p.clases.length ? 'Pisado en ' + p.clases.length + ' clase(s)' : 'Nunca pisado'}`)
+          .addTo(capaPuntos);
+      });
+      // encuadre en tus recorridos: La Maquinista queda fuera a propósito (se ve haciendo zoom out)
+      map.fitBounds(L.latLngBounds(CLASES.flatMap(c => c.linea)), { padding: [16, 16] });
+    }
+
+    function pintarClase(id) {
+      const c = CLASES.find(x => x.id === id);
+      capaTracks.clearLayers(); capaPuntos.clearLayers();
+      const linea = L.polyline(c.linea, { color: C.accent, weight: 4, opacity: .9 }).addTo(capaTracks);
+      PUNTOS.forEach(p => {
+        const enClase = p.clases.some(x => x.id === id);
+        marcadores[p.idx] = L.circleMarker([p.lat, p.lng], enClase ? estiloMarcador(p, true) : { radius: 4, color: C.bg, weight: 1, fillColor: '#9aa0ab', fillOpacity: .8 })
+          .bindPopup(`<strong>${esc(p.nombre)}</strong><br>${esc(p.zona)}`).addTo(capaPuntos);
+      });
+      map.fitBounds(linea.getBounds(), { padding: [16, 16] });
+      const suyos = PUNTOS.filter(p => p.clases.some(x => x.id === id));
+      document.getElementById('metaClase').textContent =
+        `${Math.round(c.duracion_min)} min · ${c.zonas.join(', ')} · ${suyos.length} punto(s) crítico(s) cruzado(s)`;
+      document.getElementById('puntosClase').innerHTML = suyos.length ? suyos.map(tarjeta).join('')
+        : '<p class="empty-state">Esta clase no pasa a 60 m de ningún punto del catálogo.</p>';
+    }
+
+    function verEnMapa(idx) {
+      const m = marcadores[idx];
+      if (!m) return;
+      // el mapa está arriba del todo; scrollIntoView lo dejaba bajo la cabecera fija
+      window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      map.setView(m.getLatLng(), 17, { animate: false });
+      m.openPopup();
+    }
+
+    function cambiarVista(v) {
+      ['cobertura', 'clase'].forEach(n => {
+        const on = n === v, tab = document.getElementById('tab-' + n);
+        tab.classList.toggle('activa', on); tab.setAttribute('aria-selected', on);
+        document.getElementById('vista-' + n).hidden = !on;
+      });
+      v === 'cobertura' ? pintarCobertura() : pintarClase(document.getElementById('selClase').value);
+    }
+
+    async function init() {
+      const get = u => fetch(u).then(r => { if (!r.ok) throw new Error(u); return r.json(); });
+      const [puntos, indice] = await Promise.all([get('data/points.json'), get('data/tracks/index.json')]);
+      const tracks = await Promise.all(indice.map(t => get(`data/tracks/${t.id}.json`)));
+      PUNTOS = puntos.map((p, idx) => ({ ...p, idx, clases: [] }));
+      CLASES = indice.map((t, i) => ({ ...t, linea: tracks[i].points.filter((_, j) => j % 3 === 0).map(q => [q.lat, q.lng]) }));
+      indice.forEach((t, i) => PUNTOS.forEach(p => { if (cruza(p, tracks[i].points)) p.clases.push(t); }));
+      PUNTOS.forEach(p => p.clases.sort((a, b) => a.fecha.localeCompare(b.fecha)));
+
+      const mia = PUNTOS.filter(p => MI_ZONA.includes(p.zona));
+      const nuncaMia = mia.filter(p => !p.clases.length);
+      document.getElementById('nTotal').textContent = PUNTOS.filter(p => p.clases.length).length;
+      document.getElementById('nMia').textContent = `${mia.length - nuncaMia.length}/${mia.length}`;
+      document.getElementById('nNunca').textContent = nuncaMia.length;
+
+      const nuncaOtra = PUNTOS.filter(p => !p.clases.length && !MI_ZONA.includes(p.zona));
+      const porZona = z => nuncaOtra.filter(p => p.zona === z);
+      document.getElementById('grupos').innerHTML =
+        grupo('Nunca pisados · tu zona', nuncaMia, true, true) +
+        grupo('Nunca · Poble Sec y Montjuïc (riesgo no descartado)', [...porZona('ZONA 4 - POBLE SEC'), ...porZona('ZONA 6 - MONTJÜIC')], false) +
+        grupo('Nunca · La Maquinista', porZona('ZONA 7 - LA MAQUINISTA'), false) +
+        grupo('Pisados', PUNTOS.filter(p => p.clases.length), false);
+
+      document.getElementById('selClase').innerHTML = indice.map(t => {
+        const n = PUNTOS.filter(p => p.clases.some(x => x.id === t.id)).length;
+        return `<option value="${esc(t.id)}">${fechaCorta(t.fecha)} · ${esc(t.zonas.join(', '))} · ${n} pts</option>`;
+      }).join('');
+
+      document.getElementById('cargando').hidden = true;
+      cambiarVista('cobertura');
+    }
+
+    document.getElementById('tab-cobertura').onclick = () => cambiarVista('cobertura');
+    document.getElementById('tab-clase').onclick = () => cambiarVista('clase');
+    document.getElementById('selClase').onchange = e => pintarClase(e.target.value);
+    document.addEventListener('click', e => { const b = e.target.closest('[data-ver]'); if (b) verEnMapa(+b.dataset.ver); });
+
+    // fitBounds necesita el tamaño real del contenedor: esperar a que el layout esté aplicado.
+    init().then(() => setTimeout(() => map.invalidateSize(), 0)).catch(err => {
+      console.error(err);
+      document.getElementById('cargando').hidden = true;
+      document.getElementById('error').hidden = false;
+    });
+  </script>
+</body>
+</html>

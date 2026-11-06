@@ -10,3 +10,6 @@ gpx/
 .venv/
 __pycache__/
 *.pyc
+
+# Mockups temporales del companion visual de brainstorming (superpowers)
+.superpowers/

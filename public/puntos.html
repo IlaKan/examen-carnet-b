@@ -14,17 +14,126 @@
     #map { height: 42vh; height: 42dvh; min-height: 260px; width: 100%; }
 
     .intro { margin-bottom: 16px; }
+    .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+    /* --- Pestañas Explorar / Repasar / Lista --- */
+    .tabs { display: flex; gap: 6px; padding: 10px 16px; background: var(--bg-dark); }
+    .tab {
+      flex: 1 1 0; font-size: 13px; font-family: inherit; color: var(--text-dim); background: var(--bg-dark-2);
+      border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 8px 0; cursor: pointer;
+      min-height: 44px;
+    }
+    .tab.activa { color: #0a1f18; background: var(--accent); border-color: var(--accent); font-weight: 700; }
+    .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* --- Explorar: carrusel con peek de la siguiente tarjeta --- */
+    .carrusel-wrap { margin: 0 -16px; }
+    .carrusel {
+      display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: 12px 28px 4px; -webkit-overflow-scrolling: touch;
+    }
+    .carrusel::-webkit-scrollbar { display: none; }
+    /* Tarjeta con foto real de calle (Mapillary, búsqueda por coordenada,
+       carga diferida solo cuando la tarjeta entra en pantalla). Si no hay
+       cobertura cerca de ese punto, .ce-sin-foto lo dice explícito en vez
+       de dejar un hueco vacío o inventar una imagen. */
+    .card-explorar {
+      position: relative; flex: 0 0 calc(100% - 56px); scroll-snap-align: center;
+      border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card);
+      border: 1.5px solid transparent; box-sizing: border-box; height: 190px;
+      cursor: pointer; background: var(--bg-dark-2);
+      transition: transform 150ms cubic-bezier(0.23,1,0.32,1), border-color 150ms ease;
+    }
+    .card-explorar:active { transform: scale(0.97); }
+    .card-explorar.activa { border-color: var(--accent); }
+    .card-explorar:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .card-explorar .ce-foto { position: absolute; inset: 0; background-size: cover; background-position: center; }
+    .card-explorar .ce-sin-foto {
+      position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+      text-align: center; padding: 20px; font-size: 11.5px; color: var(--text-faint); line-height: 1.5;
+    }
+    .card-explorar .ce-scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(10,10,15,.08) 0%, rgba(10,10,15,.9) 100%);
+    }
+    .card-explorar .ce-contenido { position: absolute; left: 14px; right: 14px; bottom: 12px; z-index: 1; }
+    .card-explorar .ce-zona {
+      font-size: 10px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700;
+      color: rgba(255,255,255,.75); margin-bottom: 4px;
+    }
+    .card-explorar .ce-titulo { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.3; }
+    .card-explorar .ce-resumen {
+      font-size: 12px; color: rgba(255,255,255,.8); margin-top: 4px; line-height: 1.4;
+      display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    /* --- Lista (acordeones ya existentes) --- */
+    .zona-header { display: flex; align-items: center; gap: 10px; margin: 26px 0 10px; flex-wrap: wrap; }
     h2.zona { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--accent);
-              margin: 26px 0 10px; display: flex; align-items: center; gap: 6px; }
-    h2.zona .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-    .punto-card { margin-bottom: 10px; box-shadow: var(--shadow-card); }
-    .punto-card .nombre { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-    .punto-card .nota { font-size: 13px; line-height: 1.5; color: var(--text-muted); }
-    .punto-card .meta { margin-top: 8px; font-size: 11px; color: var(--text-dimmer); display: flex; gap: 10px; flex-wrap: wrap; }
+              margin: 0; flex: 1 1 auto; display: flex; align-items: center; gap: 6px; }
+    .zona-count { font-size: 11px; color: var(--text-dimmer); white-space: nowrap; }
+    .zona-toggle {
+      font-size: 11px; color: var(--accent); background: transparent; border: 1px solid var(--border);
+      border-radius: var(--radius-pill); padding: 5px 10px; cursor: pointer; white-space: nowrap;
+      font-family: inherit;
+    }
+    .zona-toggle:hover { border-color: var(--accent); }
+    .zona-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+    details.punto-card { margin-bottom: 10px; box-shadow: var(--shadow-card); padding: 0; overflow: hidden; }
+    details.punto-card summary {
+      list-style: none; cursor: pointer; padding: 14px 16px; display: flex; align-items: center;
+      gap: 10px; min-height: 44px; box-sizing: border-box; -webkit-tap-highlight-color: transparent;
+    }
+    details.punto-card summary::-webkit-details-marker { display: none; }
+    details.punto-card summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .summary-texto { flex: 1 1 auto; min-width: 0; }
+    .summary-texto .nombre { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+    .summary-texto .preview {
+      font-size: 12.5px; color: var(--text-dim); line-height: 1.4;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .chevron { flex-shrink: 0; color: var(--text-dimmer); transition: transform .15s ease; }
+    details.punto-card[open] .chevron { transform: rotate(180deg); }
+
+    .nota-bloque { font-size: 13px; line-height: 1.5; color: var(--text-muted); }
+    .nota-bloque + .nota-bloque { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-subtle); }
+    .nota-bloque .label { display: block; font-size: 10.5px; text-transform: uppercase;
+      letter-spacing: .05em; font-weight: 700; color: var(--text-dimmer); margin-bottom: 4px; }
+    .punto-card .cuerpo { padding: 0 16px 16px; }
+    .punto-card .meta { margin-top: 12px; font-size: 11px; color: var(--text-dimmer); display: flex; gap: 10px; flex-wrap: wrap; }
     .punto-card .meta a { color: var(--accent); text-decoration: none; }
+
+    /* Entrada del contenido al abrir: solo opacity + transform, nunca la
+       altura (que es la propia del <details>, instantánea e inevitable). */
+    .cuerpo.cuerpo-anim { opacity: 0; transform: translateY(-4px); transition: opacity .18s ease, transform .18s ease; }
+    .cuerpo.cuerpo-anim.cuerpo-in { opacity: 1; transform: translateY(0); }
+
     #contador { font-size: 12px; color: var(--text-dimmer); margin-bottom: 10px; }
     #topbar select { background: var(--bg-dark-2); color: var(--text); border: 1px solid var(--border);
                       border-radius: var(--radius-sm); padding: 6px 10px; font-size: 13px; }
+
+    /* --- Repasar: flashcards por zona --- */
+    .repaso-cabecera { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+    .repaso-progreso { font-size: 13px; color: var(--text-dim); }
+    .repaso-reset {
+      font-size: 11px; color: var(--accent); background: transparent; border: 1px solid var(--border);
+      border-radius: var(--radius-pill); padding: 5px 10px; cursor: pointer; font-family: inherit;
+    }
+    .repaso-carta {
+      background: var(--bg-dark-2); border-radius: var(--radius-lg); padding: 18px; box-shadow: var(--shadow-card);
+      box-sizing: border-box; user-select: none; touch-action: pan-y;
+    }
+    .repaso-carta:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .repaso-carta .nombre { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .repaso-botones { display: flex; gap: 10px; margin-top: 16px; }
+    .repaso-botones button {
+      flex: 1 1 0; min-height: 48px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600;
+      border: 1px solid var(--border); background: var(--bg-dark); cursor: pointer; font-family: inherit;
+    }
+    .repaso-btn-ok { border-color: var(--confirm); color: var(--confirm); }
+    .repaso-btn-repasar { border-color: var(--accent); color: var(--accent); }
+    .repaso-vacio, .repaso-elige { text-align: center; padding: 40px 16px; color: var(--text-dim); font-size: 14px; line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -33,20 +142,43 @@
     <select id="filtroZona"><option value="">Todas las zonas</option></select>
     <a href="lista.html" class="topbar-link">← Inicio</a>
   </div>
+
+  <div class="tabs" role="tablist" aria-label="Vista del catálogo">
+    <button type="button" class="tab activa" id="tab-explorar" role="tab" aria-selected="true" aria-controls="vista-explorar" data-view="explorar">Explorar</button>
+    <button type="button" class="tab" id="tab-repasar" role="tab" aria-selected="false" aria-controls="vista-repasar" data-view="repasar">Repasar</button>
+    <button type="button" class="tab" id="tab-lista" role="tab" aria-selected="false" aria-controls="vista-lista" data-view="lista">Lista</button>
+  </div>
+
   <div id="map"></div>
+
   <main>
-    <p class="intro">
-      Los 68 puntos críticos de tu autoescuela, con la nota real del profesor —
-      aunque todavía no hayas conducido cerca de ellos. Para repasar antes de ir a una zona,
-      no solo después de una clase.
-    </p>
-    <div id="contador"></div>
-    <div id="contenido"></div>
+    <div id="vista-explorar" role="tabpanel" aria-labelledby="tab-explorar">
+      <div class="carrusel-wrap">
+        <div id="carrusel" class="carrusel" aria-label="Puntos críticos — desliza para explorar, toca un punto del mapa para saltar a él"></div>
+      </div>
+    </div>
+
+    <div id="vista-repasar" role="tabpanel" aria-labelledby="tab-repasar" hidden>
+      <div id="repasoContenido"></div>
+    </div>
+
+    <div id="vista-lista" role="tabpanel" aria-labelledby="tab-lista" hidden>
+      <p class="intro">
+        Los 68 puntos críticos de tu autoescuela, con la nota real del profesor —
+        aunque todavía no hayas conducido cerca de ellos. Para repasar antes de ir a una zona,
+        no solo después de una clase.
+      </p>
+      <div id="contador"></div>
+      <div id="contenido"></div>
+    </div>
+
     <div id="vacio" class="empty-state" style="display:none;">No se pudo cargar el catálogo.</div>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Mismo tipo de paleta por zona que el resto del proyecto — un color fijo
     // por zona para que el mapa y la lista se lean juntos de un vistazo.
     const ZONA_COLORS = {
@@ -57,10 +189,77 @@
       'ZONA 7 - LA MAQUINISTA': '#8c564b',
     };
     const DEFAULT_COLOR = '#777777';
+    // Compartida entre el mapa (initMap) y las tarjetas de Explorar
+    // (renderExplorar), que usan el mismo tile de MapTiler como imagen.
+    const MAPTILER_KEY = '10thvqKVtuWBM8HAADxF';
+    // Token de cliente gratuito de Mapillary (registrado por Ilaria en
+    // mapillary.com/dashboard/developers) — pensado para usarse en el propio
+    // navegador, mismo patrón que MAPTILER_KEY. Búsqueda de foto real de
+    // calle más cercana a cada punto (radio máx. permitido por su API: 50m).
+    const MAPILLARY_TOKEN = 'MLY|29198819019702520|97b4903157468d9b7e8e3a2c123c53b1';
+    const fotoMapillaryCache = {}; // nombre del punto -> url | null (comprobado, ninguna foto válida)
+    const ORIENTACION_UMBRAL = 70; // grados máx. de diferencia cámara↔punto para considerarla útil
+
+    // Rumbo real (0-360°) desde (lat1,lng1) hacia (lat2,lng2) — fórmula
+    // estándar de navegación, la misma que usa cualquier GPS.
+    function rumbo(lat1, lng1, lat2, lng2) {
+      const toRad = d => d * Math.PI / 180;
+      const y = Math.sin(toRad(lng2 - lng1)) * Math.cos(toRad(lat2));
+      const x = Math.cos(toRad(lat1)) * Math.sin(toRad(lat2)) -
+                Math.sin(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.cos(toRad(lng2 - lng1));
+      return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+    }
+    function diferenciaAngular(a, b) {
+      const d = Math.abs(a - b) % 360;
+      return d > 180 ? 360 - d : d;
+    }
+
+    // "Cerca" no basta: una foto a 20m pero con la cámara mirando para el
+    // otro lado no enseña el punto crítico (comprobado con datos reales:
+    // primera candidata a 28.6m pero apuntando a ~200° de donde hacía
+    // falta). Se piden varias candidatas dentro del radio y se elige la que
+    // mejor apunte hacia la coordenada real del punto, no la más cercana sin más.
+    async function buscarFotoMapillary(p) {
+      if (fotoMapillaryCache[p.nombre] !== undefined) return fotoMapillaryCache[p.nombre];
+      try {
+        const url = 'https://graph.mapillary.com/images?access_token=' + MAPILLARY_TOKEN +
+          '&fields=thumb_1024_url,compass_angle,geometry&lat=' + p.lat + '&lng=' + p.lng + '&radius=50&limit=20';
+        const r = await fetch(url);
+        const data = await r.json();
+        const candidatas = (data.data || []).map(img => {
+          const [lng, lat] = img.geometry.coordinates;
+          const rumboHaciaPunto = rumbo(lat, lng, p.lat, p.lng);
+          return { url: img.thumb_1024_url, diff: diferenciaAngular(img.compass_angle, rumboHaciaPunto) };
+        }).sort((a, b) => a.diff - b.diff);
+
+        const mejor = candidatas[0] && candidatas[0].diff <= ORIENTACION_UMBRAL ? candidatas[0].url : null;
+        fotoMapillaryCache[p.nombre] = mejor;
+        return mejor;
+      } catch (e) {
+        fotoMapillaryCache[p.nombre] = null;
+        return null;
+      }
+    }
+
+    // Carga diferida: solo pide la foto cuando la tarjeta entra en pantalla
+    // (el observer que la llama ya existía para la sincronía con el mapa),
+    // no las 68 de golpe al abrir Explorar.
+    async function cargarFotoCard(card, points) {
+      if (card.dataset.fotoCargada) return;
+      card.dataset.fotoCargada = '1';
+      const p = points.find(pp => pp.nombre === card.dataset.nombre);
+      if (!p) return;
+      const foto = await buscarFotoMapillary(p);
+      if (foto) {
+        card.querySelector('.ce-foto').style.backgroundImage = 'url(\'' + foto + '\')';
+      } else {
+        card.querySelector('.ce-sin-foto').style.display = 'flex';
+      }
+    }
     function colorFor(zona) { return ZONA_COLORS[zona] || DEFAULT_COLOR; }
 
     let ALL_POINTS = [];
-    let map, markersLayer;
+    let map, markersLayer, markersByName = {};
 
     fetch('data/points.json')
       .then(r => r.json())
@@ -69,6 +268,7 @@
         initMap(pts);
         setupFilter(pts);
         render(pts);
+        renderExplorar(pts);
         // Llegada desde el buscador de la home con ?zona=... — preselecciona el
         // filtro en vez de enseñar los 68 puntos sin más contexto. En su propio
         // setTimeout para que se aplique DESPUÉS del fitBounds inicial de
@@ -88,7 +288,6 @@
       map = L.map('map');
       // Mismo cambio que en mapa.html: MapTiler "streets-v4" en vez de
       // Mapnik crudo, menos ruido de numeración de portal/iconos de comercio.
-      const MAPTILER_KEY = '10thvqKVtuWBM8HAADxF';
       L.tileLayer('https://api.maptiler.com/maps/streets-v4/256/{z}/{x}/{y}.png?key=' + MAPTILER_KEY, {
         maxZoom: 19, tileSize: 256, crossOrigin: true,
         attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> &copy; OpenStreetMap contributors',
@@ -107,6 +306,7 @@
 
     function renderMap(points) {
       markersLayer.clearLayers();
+      markersByName = {};
       points.forEach(p => {
         const color = colorFor(p.zona);
         const notaCorta = p.nota && p.nota.length > 260 ? p.nota.slice(0, 260) + '…' : (p.nota || '');
@@ -115,9 +315,16 @@
           (notaCorta ? '<div style="max-width:220px;margin-top:4px;">' + notaCorta + '</div>' : '') +
           '<div style="margin-top:6px;font-size:11px;color:#666;">' + p.zona + '</div>' +
           (p.google_maps_link ? '<a href="' + p.google_maps_link + '">Ver en Maps</a>' : '');
-        L.circleMarker([p.lat, p.lng], {
+        const marker = L.circleMarker([p.lat, p.lng], {
           radius: 7, color: '#fff', weight: 1.5, fillColor: color, fillOpacity: 0.9,
         }).bindPopup(popupHtml).addTo(markersLayer);
+        // Tocar un punto del mapa salta el carrusel de Explorar hasta su
+        // tarjeta (sincronía mapa → carrusel; la contraria va en renderExplorar).
+        marker.on('click', () => {
+          const card = document.querySelector('.card-explorar[data-nombre="' + CSS.escape(p.nombre) + '"]');
+          if (card) card.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+        });
+        markersByName[p.nombre] = marker;
       });
     }
 
@@ -131,11 +338,185 @@
         select.appendChild(opt);
       });
       select.addEventListener('change', () => {
-        const filtered = select.value ? ALL_POINTS.filter(p => p.zona === select.value) : ALL_POINTS;
+        const filtered = puntosFiltrados();
         render(filtered);
+        renderExplorar(filtered);
+        if (vistaActiva() === 'repasar') renderRepasar();
         const bounds = filtered.map(p => [p.lat, p.lng]);
         if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
       });
+    }
+
+    function puntosFiltrados() {
+      const select = document.getElementById('filtroZona');
+      return select.value ? ALL_POINTS.filter(p => p.zona === select.value) : ALL_POINTS;
+    }
+
+    // --- Pestañas ---------------------------------------------------------
+    function vistaActiva() {
+      const activa = document.querySelector('.tab.activa');
+      return activa ? activa.dataset.view : 'explorar';
+    }
+    function cambiarVista(vista) {
+      ['explorar', 'repasar', 'lista'].forEach(v => {
+        document.getElementById('vista-' + v).hidden = v !== vista;
+        const tab = document.getElementById('tab-' + v);
+        tab.classList.toggle('activa', v === vista);
+        tab.setAttribute('aria-selected', v === vista ? 'true' : 'false');
+      });
+      document.getElementById('map').style.display = vista === 'explorar' ? '' : 'none';
+      if (vista === 'explorar' && map) setTimeout(() => map.invalidateSize(), 0);
+      if (vista === 'repasar') renderRepasar();
+    }
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => cambiarVista(tab.dataset.view));
+    });
+
+    // --- Explorar: carrusel sincronizado con el mapa -----------------------
+    let explorarObserver = null;
+
+    function renderExplorar(points) {
+      const carrusel = document.getElementById('carrusel');
+      carrusel.innerHTML = '';
+      if (explorarObserver) explorarObserver.disconnect();
+
+      if (!points.length) {
+        carrusel.innerHTML = '<p class="empty-state" style="padding:20px;">Ningún punto en esta zona.</p>';
+        return;
+      }
+
+      points.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card-explorar';
+        card.dataset.nombre = p.nombre;
+        card.tabIndex = 0;
+        card.setAttribute('role', 'group');
+        card.setAttribute('aria-label', p.nombre);
+        const notaAlumno = (p.nota || '').split('||')[0].trim();
+        card.innerHTML =
+          '<div class="ce-foto"></div>' +
+          '<div class="ce-sin-foto">Sin foto de calle de Mapillary cerca de este punto</div>' +
+          '<div class="ce-scrim"></div>' +
+          '<div class="ce-contenido">' +
+            '<div class="ce-zona">' + p.zona + '</div>' +
+            '<div class="ce-titulo">' + p.nombre + '</div>' +
+            '<div class="ce-resumen">' + notaAlumno + '</div>' +
+          '</div>';
+        // Tocar la tarjeta = centrar y hacer zoom fuerte a ese punto en
+        // NUESTRO mapa (nunca salir a Google Maps). El scroll del carrusel
+        // ya sincroniza de forma ambiental con zoom 15; el tap explícito
+        // acerca más (17) y abre el popup del marcador con su nota — quien
+        // quiera el enlace externo lo tiene ahí dentro, no como acción por
+        // defecto.
+        card.addEventListener('click', () => {
+          const marker = markersByName[p.nombre];
+          const targetZoom = Math.max(map.getZoom(), 17);
+          if (prefersReducedMotion) map.setView([p.lat, p.lng], targetZoom, { animate: false });
+          else map.flyTo([p.lat, p.lng], targetZoom, { duration: 0.5 });
+          if (marker) marker.openPopup();
+        });
+        card.addEventListener('keydown', (ev) => {
+          // preventScroll en el focus(): sin él, el propio foco dispara su
+          // scroll automático (instantáneo) justo detrás del scrollIntoView
+          // "smooth" y, con scroll-snap de por medio, lo cancela a medio
+          // camino y el carrusel vuelve a la tarjeta de partida.
+          if (ev.key === 'ArrowRight' && card.nextElementSibling) {
+            ev.preventDefault();
+            card.nextElementSibling.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', inline: 'center' });
+            card.nextElementSibling.focus({ preventScroll: true });
+          }
+          if (ev.key === 'ArrowLeft' && card.previousElementSibling) {
+            ev.preventDefault();
+            card.previousElementSibling.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', inline: 'center' });
+            card.previousElementSibling.focus({ preventScroll: true });
+          }
+        });
+        carrusel.appendChild(card);
+      });
+
+      // Tarjeta más visible del carrusel -> resalta su marcador y (si supera
+      // el umbral) hace volar el mapa hasta ella. Carrusel → mapa; el sentido
+      // contrario (mapa → carrusel) va en renderMap.
+      explorarObserver = new IntersectionObserver((entries) => {
+        let mejor = null;
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            cargarFotoCard(e.target, points);
+            if (!mejor || e.intersectionRatio > mejor.intersectionRatio) mejor = e;
+          }
+        });
+        if (mejor && mejor.intersectionRatio > 0.6) activarCardExplorar(mejor.target, points, true);
+      }, { root: carrusel, threshold: [0.1, 0.3, 0.6, 0.9] });
+      carrusel.querySelectorAll('.card-explorar').forEach(c => explorarObserver.observe(c));
+
+      // Primera tarjeta marcada como activa desde el principio, pero sin
+      // mover el mapa (que ya está encuadrando todos los puntos con fitBounds).
+      const primera = carrusel.querySelector('.card-explorar');
+      if (primera) activarCardExplorar(primera, points, false);
+    }
+
+    function activarCardExplorar(card, points, moverMapa) {
+      document.querySelectorAll('.card-explorar.activa').forEach(c => c.classList.remove('activa'));
+      card.classList.add('activa');
+      const p = points.find(pp => pp.nombre === card.dataset.nombre);
+      if (!p || !map) return;
+      Object.values(markersByName).forEach(m => m.setStyle({ radius: 7, weight: 1.5 }));
+      const marker = markersByName[p.nombre];
+      if (marker) marker.setStyle({ radius: 10, weight: 3 });
+      if (!moverMapa) return;
+      const targetZoom = Math.max(map.getZoom(), 15);
+      if (prefersReducedMotion) map.setView([p.lat, p.lng], targetZoom, { animate: false });
+      else map.flyTo([p.lat, p.lng], targetZoom, { duration: 0.5 });
+    }
+
+    // --- Lista: acordeones por zona -----------------------------------------
+    // El catálogo separa nota de alumno y nota de profesor con "||" (comprobado
+    // en los 68 puntos: 59 lo tienen, siempre uno solo y seguido de "Nota del
+    // profesor"; los otros 9 no tienen "||" y son una sola nota).
+    function partirNota(nota) {
+      const partes = (nota || '').split('||');
+      return { alumno: (partes[0] || '').trim(), profesor: partes.length > 1 ? partes[1].trim() : '' };
+    }
+
+    function crearTarjeta(p) {
+      const det = document.createElement('details');
+      det.className = 'card punto-card';
+      const { alumno, profesor } = partirNota(p.nota);
+
+      const summary = document.createElement('summary');
+      summary.innerHTML =
+        '<div class="summary-texto">' +
+          '<div class="nombre">' + p.nombre + '</div>' +
+          '<div class="preview">' + alumno + '</div>' +
+        '</div>' +
+        '<svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
+      det.appendChild(summary);
+
+      const cuerpo = document.createElement('div');
+      cuerpo.className = 'cuerpo';
+      cuerpo.innerHTML =
+        (profesor
+          ? '<div class="nota-bloque"><span class="label">Nota del alumno</span>' + alumno + '</div>' +
+            '<div class="nota-bloque"><span class="label">Nota del profesor</span>' + profesor + '</div>'
+          : '<div class="nota-bloque">' + alumno + '</div>') +
+        '<div class="meta">' +
+        (p.google_maps_link ? '<a href="' + p.google_maps_link + '">Ver en Maps</a>' : '') +
+        '<span>' + (p.fuente || '') + '</span>' +
+        '</div>';
+      det.appendChild(cuerpo);
+
+      det.addEventListener('toggle', () => {
+        if (det.open && !prefersReducedMotion) {
+          cuerpo.classList.add('cuerpo-anim');
+          requestAnimationFrame(() => requestAnimationFrame(() => cuerpo.classList.add('cuerpo-in')));
+          cuerpo.addEventListener('transitionend', function limpiar() {
+            cuerpo.classList.remove('cuerpo-anim', 'cuerpo-in');
+            cuerpo.removeEventListener('transitionend', limpiar);
+          });
+        }
+      });
+
+      return det;
     }
 
     function render(points) {
@@ -148,26 +529,190 @@
       points.forEach(p => { (porZona[p.zona] = porZona[p.zona] || []).push(p); });
 
       Object.keys(porZona).sort().forEach(zona => {
-        const h2 = document.createElement('h2');
-        h2.className = 'zona';
-        h2.innerHTML = '<span class="swatch" style="background:' + colorFor(zona) + ';"></span>' + zona;
-        contenido.appendChild(h2);
+        const puntos = porZona[zona];
+        const grupo = document.createElement('div');
+        grupo.className = 'zona-grupo';
 
-        porZona[zona].forEach(p => {
-          const card = document.createElement('div');
-          card.className = 'card punto-card';
-          card.innerHTML =
-            '<div class="nombre">' + p.nombre + '</div>' +
-            '<div class="nota">' + (p.nota || '') + '</div>' +
-            '<div class="meta">' +
-            (p.google_maps_link ? '<a href="' + p.google_maps_link + '">Ver en Maps</a>' : '') +
-            '<span>' + (p.fuente || '') + '</span>' +
-            '</div>';
-          contenido.appendChild(card);
+        const header = document.createElement('div');
+        header.className = 'zona-header';
+        header.innerHTML =
+          '<h2 class="zona"><span class="swatch" style="background:' + colorFor(zona) + ';"></span>' + zona + '</h2>' +
+          '<span class="zona-count">' + puntos.length + (puntos.length === 1 ? ' punto' : ' puntos') + '</span>';
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'zona-toggle';
+        toggleBtn.textContent = 'Abrir todas';
+        header.appendChild(toggleBtn);
+        grupo.appendChild(header);
+
+        const tarjetas = puntos.map(crearTarjeta);
+        tarjetas.forEach(det => grupo.appendChild(det));
+
+        toggleBtn.addEventListener('click', () => {
+          const abrirTodo = tarjetas.some(d => !d.open);
+          tarjetas.forEach(d => { d.open = abrirTodo; });
+          toggleBtn.textContent = abrirTodo ? 'Cerrar todas' : 'Abrir todas';
         });
+
+        contenido.appendChild(grupo);
       });
 
       if (map) renderMap(points);
+    }
+
+    // --- Repasar: flashcards por zona con progreso acumulativo en el móvil --
+    // Progreso guardado en localStorage de este dispositivo, nunca en el
+    // catálogo ni compartido: { "<zona>": { "<nombre del punto>": "ok" | "repasar" } }.
+    const REPASO_KEY = 'tpb_repaso_progreso';
+
+    function leerProgreso() {
+      try { return JSON.parse(localStorage.getItem(REPASO_KEY) || '{}'); }
+      catch (e) { return {}; }
+    }
+    function guardarProgreso(data) {
+      try { localStorage.setItem(REPASO_KEY, JSON.stringify(data)); } catch (e) {}
+    }
+    function contarDominados(puntosZona, zona) {
+      const progresoZona = leerProgreso()[zona] || {};
+      return puntosZona.filter(p => progresoZona[p.nombre] === 'ok').length;
+    }
+    // Acumulativo: lo marcado "ok" no vuelve a salir hasta "Reiniciar zona".
+    // Lo marcado "repasar" se queda pendiente y sale primero la próxima vez.
+    function ordenRepaso(puntosZona, progresoZona) {
+      const pendientes = puntosZona.filter(p => (progresoZona[p.nombre] || '') !== 'ok');
+      const repasar = pendientes.filter(p => progresoZona[p.nombre] === 'repasar');
+      const nuevos = pendientes.filter(p => !progresoZona[p.nombre]);
+      return repasar.concat(nuevos);
+    }
+
+    // Sigue el dedo 1:1 (respuesta directa al gesto, no decorativa — se
+    // mantiene incluso con prefers-reduced-motion). Solo la transición de
+    // vuelta/salida al soltar se desactiva con reduced-motion.
+    function habilitarSwipe(el, onDerecha, onIzquierda) {
+      let startX = 0, startY = 0, dx = 0, dragging = false, vertical = false;
+      const umbral = 90;
+
+      el.addEventListener('pointerdown', (e) => {
+        // Si el toque empieza en uno de los botones, no capturar el puntero:
+        // setPointerCapture en la tarjeta le "robaría" el click al botón
+        // (los eventos de ratón derivados se re-destinan al elemento que
+        // capturó el puntero). El swipe es un atajo sobre la tarjeta, no
+        // debe interferir con sus propios botones.
+        if (e.target.closest('button')) return;
+        dragging = true; vertical = false; startX = e.clientX; startY = e.clientY; dx = 0;
+        el.setPointerCapture(e.pointerId);
+        el.style.transition = 'none';
+      });
+      el.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        if (!vertical && Math.abs(dy) > Math.abs(dx) * 1.5) vertical = true;
+        if (vertical) return;
+        el.style.transform = 'translateX(' + dx + 'px) rotate(' + (dx / 20) + 'deg)';
+      });
+      const soltar = () => {
+        if (!dragging) return;
+        dragging = false;
+        if (vertical) { el.style.transform = ''; return; }
+        if (!prefersReducedMotion) el.style.transition = 'transform .18s ease-out';
+        if (dx > umbral) {
+          el.style.transform = 'translateX(140%) rotate(8deg)';
+          setTimeout(onDerecha, prefersReducedMotion ? 0 : 180);
+        } else if (dx < -umbral) {
+          el.style.transform = 'translateX(-140%) rotate(-8deg)';
+          setTimeout(onIzquierda, prefersReducedMotion ? 0 : 180);
+        } else {
+          el.style.transform = 'translateX(0) rotate(0)';
+        }
+      };
+      el.addEventListener('pointerup', soltar);
+      el.addEventListener('pointercancel', soltar);
+    }
+
+    function renderRepasar() {
+      const cont = document.getElementById('repasoContenido');
+      const select = document.getElementById('filtroZona');
+      if (!select.value) {
+        cont.innerHTML = '<p class="repaso-elige">Elige una zona arriba para repasar sus puntos.</p>';
+        return;
+      }
+      const zona = select.value;
+      const puntosZona = ALL_POINTS.filter(p => p.zona === zona);
+      let cola = ordenRepaso(puntosZona, leerProgreso()[zona] || {});
+      let indice = 0;
+
+      cont.innerHTML =
+        '<div class="repaso-cabecera">' +
+          '<span class="repaso-progreso" aria-live="polite" id="repasoProgresoTexto">' +
+            contarDominados(puntosZona, zona) + '/' + puntosZona.length + ' dominados' +
+          '</span>' +
+          '<button type="button" class="repaso-reset" id="repasoReset">Reiniciar zona</button>' +
+        '</div>' +
+        '<div id="repasoPila"></div>';
+
+      document.getElementById('repasoReset').addEventListener('click', () => {
+        const progreso = leerProgreso();
+        delete progreso[zona];
+        guardarProgreso(progreso);
+        renderRepasar();
+      });
+
+      function actualizarContador() {
+        document.getElementById('repasoProgresoTexto').textContent =
+          contarDominados(puntosZona, zona) + '/' + puntosZona.length + ' dominados';
+      }
+
+      function pintarSiguiente() {
+        const pila = document.getElementById('repasoPila');
+        if (!pila) return;
+        if (indice >= cola.length) {
+          pila.innerHTML = '<div class="repaso-vacio">Ya has repasado todos los puntos de esta zona.<br>' +
+            'Pulsa "Reiniciar zona" cuando quieras volver a verlos todos.</div>';
+          return;
+        }
+        const p = cola[indice];
+        const { alumno, profesor } = partirNota(p.nota);
+
+        const carta = document.createElement('div');
+        carta.className = 'repaso-carta';
+        carta.tabIndex = 0;
+        carta.setAttribute('role', 'group');
+        carta.setAttribute('aria-label', p.nombre + ', tarjeta de repaso');
+        carta.innerHTML =
+          '<div class="nombre">' + p.nombre + '</div>' +
+          (profesor
+            ? '<div class="nota-bloque"><span class="label">Nota del alumno</span>' + alumno + '</div>' +
+              '<div class="nota-bloque"><span class="label">Nota del profesor</span>' + profesor + '</div>'
+            : '<div class="nota-bloque">' + alumno + '</div>') +
+          '<div class="repaso-botones">' +
+            '<button type="button" class="repaso-btn-repasar">Repasar</button>' +
+            '<button type="button" class="repaso-btn-ok">Lo tengo</button>' +
+          '</div>';
+        pila.innerHTML = '';
+        pila.appendChild(carta);
+
+        const marcar = (estado) => {
+          const progreso = leerProgreso();
+          progreso[zona] = progreso[zona] || {};
+          progreso[zona][p.nombre] = estado;
+          guardarProgreso(progreso);
+          indice++;
+          actualizarContador();
+          pintarSiguiente();
+        };
+
+        carta.querySelector('.repaso-btn-ok').addEventListener('click', () => marcar('ok'));
+        carta.querySelector('.repaso-btn-repasar').addEventListener('click', () => marcar('repasar'));
+        carta.addEventListener('keydown', (ev) => {
+          if (ev.key === 'ArrowRight') marcar('ok');
+          if (ev.key === 'ArrowLeft') marcar('repasar');
+        });
+        habilitarSwipe(carta, () => marcar('ok'), () => marcar('repasar'));
+        carta.focus({ preventScroll: true });
+      }
+
+      pintarSiguiente();
     }
   </script>
 </body>
