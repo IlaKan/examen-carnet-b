@@ -30,6 +30,15 @@
     "duracion_min": 61.87
   },
   {
+    "id": "2026-10-08-08-oct-2026-1308--les-corts",
+    "nombre": "08-oct-2026-1308 - les corts ",
+    "fecha": "2026-10-08",
+    "zonas": [
+      "ZONA 3 - Z. UNIVERSIT."
+    ],
+    "duracion_min": 50.25
+  },
+  {
     "id": "2026-10-07-07-oct-2026-1219",
     "nombre": "07-oct-2026-1219",
     "fecha": "2026-10-07",
