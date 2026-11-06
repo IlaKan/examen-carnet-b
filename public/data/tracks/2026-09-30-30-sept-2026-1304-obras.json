@@ -1,0 +1,303 @@
+{
+  "disponible": true,
+  "error": null,
+  "cobertura": "barcelona_ciudad_solo",
+  "obras": [
+    {
+      "lat": 41.34567740384599,
+      "lng": 2.141080905547986,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-09-27 00:00:00",
+      "data_fi": "2026-11-13 00:00:00"
+    },
+    {
+      "lat": 41.368505877021725,
+      "lng": 2.140698180181566,
+      "titol": "Carril bici a la Gran Via de les Corts Catalanes (carrer de la Mineria - plaça d'Ildefons Cerdà)",
+      "estat": "Finalitzada",
+      "data_inici": "2023-10-21 00:00:00",
+      "data_fi": "2024-01-10 00:00:00"
+    },
+    {
+      "lat": 41.36830466536009,
+      "lng": 2.131547493528239,
+      "titol": "Millora integral de diversos carrers del barri de la Bordeta",
+      "estat": "Finalitzada",
+      "data_inici": "2025-03-16 00:00:00",
+      "data_fi": "2025-10-10 00:00:00"
+    },
+    {
+      "lat": 41.368776132892215,
+      "lng": 2.1326672861782607,
+      "titol": "Ampliació de la vorera del carrer de la Constitució (rambla de Badal - Riera Blanca)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-15 00:00:00",
+      "data_fi": "2025-10-10 00:00:00"
+    },
+    {
+      "lat": 41.36605287851538,
+      "lng": 2.1375781540100607,
+      "titol": "Renovació vàlvula Agbar a la cruïlla de Gran Via de les Corts Catalanes amb el carrer de la Química",
+      "estat": "Finalitzada",
+      "data_inici": "2023-06-26 00:00:00",
+      "data_fi": "2023-08-16 00:00:00"
+    },
+    {
+      "lat": 41.35163077843124,
+      "lng": 2.1389845367277904,
+      "titol": "Canalització ECOENERGIES c. Ferro-c. Arnes",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-06 00:00:00",
+      "data_fi": "2024-03-18 00:00:00"
+    },
+    {
+      "lat": 41.35515196304529,
+      "lng": 2.1390992988744992,
+      "titol": "Urbanització Sòls PEI Sector 3 Barri Marina del Prat Vermell",
+      "estat": "Finalitzada",
+      "data_inici": "2022-04-04 00:00:00",
+      "data_fi": "2024-06-10 00:00:00"
+    },
+    {
+      "lat": 41.352323358700545,
+      "lng": 2.136544138827013,
+      "titol": "Urbanització de l'àmbit del Pla Especial d'Infraestructures del barri de la Marina de la Zona Franca",
+      "estat": "En execució",
+      "data_inici": "2025-05-26 00:00:00",
+      "data_fi": "2026-11-23 00:00:00"
+    },
+    {
+      "lat": 41.34838610128608,
+      "lng": 2.138005004276534,
+      "titol": "Xarxa troncal de DHC d'Ecoenergies des de la central de la Zona Franca fins al sector 8",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-06 00:00:00",
+      "data_fi": "2025-04-17 00:00:00"
+    },
+    {
+      "lat": 41.35855212290765,
+      "lng": 2.1352540042559554,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-06-22 00:00:00",
+      "data_fi": "2026-12-04 00:00:00"
+    },
+    {
+      "lat": 41.36959444815685,
+      "lng": 2.1306036441525,
+      "titol": "Túnel de bufat a l'estació de Santa Eulàlia",
+      "estat": "En execució",
+      "data_inici": "2025-03-31 00:00:00",
+      "data_fi": "2026-12-18 00:00:00"
+    },
+    {
+      "lat": 41.36825465622976,
+      "lng": 2.131689738099767,
+      "titol": "Canalització d'Agbar al carrer de la Constitució (carrer de Riera Blanca - rambla de Badal)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-08-01 00:00:00",
+      "data_fi": "2024-09-16 00:00:00"
+    },
+    {
+      "lat": 41.365386368937315,
+      "lng": 2.1367072244093435,
+      "titol": "Renovació de canalització d'aigua potable a la Gran Via de les Corts Catalanes (núm 142 al 158)",
+      "estat": "Finalitzada",
+      "data_inici": "2023-07-22 00:00:00",
+      "data_fi": "2023-07-23 00:00:00"
+    },
+    {
+      "lat": 41.36431194831053,
+      "lng": 2.135031709264297,
+      "titol": "Manteniment dels túnels urbans de la ciutat de Barcelona",
+      "estat": "Finalitzada",
+      "data_inici": "2025-01-01 00:00:00",
+      "data_fi": "2025-12-31 00:00:00"
+    },
+    {
+      "lat": 41.34226057424437,
+      "lng": 2.1343071773024276,
+      "titol": "Estesa de cablejat elèctric de la línia que connecta la nova la SE Cerdà i la SE Zona Franca",
+      "estat": "Finalitzada",
+      "data_inici": "2023-04-11 00:00:00",
+      "data_fi": "2023-12-18 00:00:00"
+    },
+    {
+      "lat": 41.365465689130964,
+      "lng": 2.1387264706136113,
+      "titol": "Nova canalització d'aigua potable del carrer de la Font Florida a la plaça de les Matemàtiques",
+      "estat": "Finalitzada",
+      "data_inici": "2023-06-26 00:00:00",
+      "data_fi": "2024-02-02 00:00:00"
+    },
+    {
+      "lat": 41.35219003098292,
+      "lng": 2.1379101310112016,
+      "titol": "Connexió de la xarxa d'Ecoenergies al carrer del Plom amb carrer del Ferro",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-07 00:00:00",
+      "data_fi": "2024-11-11 00:00:00"
+    },
+    {
+      "lat": 41.366723602944454,
+      "lng": 2.1382301691011807,
+      "titol": "Pavimentació de carril bus a Gran Via de les Corts Catalanes (carrers de la Química - Sant Germà)",
+      "estat": "Finalitzada",
+      "data_inici": "2023-08-11 00:00:00",
+      "data_fi": "2023-08-17 00:00:00"
+    },
+    {
+      "lat": 41.35232819301695,
+      "lng": 2.13803698622218,
+      "titol": "Urbanització del carrer d'Ascó entre els carrers del Plom i d'Arnes",
+      "estat": "Finalitzada",
+      "data_inici": "2024-04-08 00:00:00",
+      "data_fi": "2025-01-10 00:00:00"
+    },
+    {
+      "lat": 41.34339239669042,
+      "lng": 2.138867387850647,
+      "titol": "Canalització elèctrica al carrer Número 2 (carrer Número 62 - carrer A) ",
+      "estat": "En execució",
+      "data_inici": "2026-05-04 00:00:00",
+      "data_fi": "2026-11-06 00:00:00"
+    },
+    {
+      "lat": 41.3514707913264,
+      "lng": 2.138869380872172,
+      "titol": "Ocupacions per desconstrucció parcial de la nau al carrer del Ferro núm. 2-4",
+      "estat": "Finalitzada",
+      "data_inici": "2023-09-07 00:00:00",
+      "data_fi": "2024-03-28 00:00:00"
+    },
+    {
+      "lat": 41.353217747295716,
+      "lng": 2.142217727475784,
+      "titol": "Estesa de noves línies de mitja tensió del carrer del Cisell fins al carrer Cobalt",
+      "estat": "Finalitzada",
+      "data_inici": "2023-01-23 00:00:00",
+      "data_fi": "2023-02-06 00:00:00"
+    },
+    {
+      "lat": 41.351879727870376,
+      "lng": 2.1414650894787175,
+      "titol": "Treballs d'urbanització de la zona verda central de la Marina del Prat Vermell",
+      "estat": "Finalitzada",
+      "data_inici": "2022-06-15 00:00:00",
+      "data_fi": "2024-06-10 00:00:00"
+    },
+    {
+      "lat": 41.3653019442838,
+      "lng": 2.1333885330842985,
+      "titol": "Execució de línies subterrànies de baixa tensió al carrer de Juan Gris",
+      "estat": "Finalitzada",
+      "data_inici": "2026-01-26 00:00:00",
+      "data_fi": "2026-06-09 00:00:00"
+    },
+    {
+      "lat": 41.34446959795286,
+      "lng": 2.135476911636707,
+      "titol": "Canalització de la xarxa troncal d'Ecoenergies a l'avinguda del Parc Logístic",
+      "estat": "Finalitzada",
+      "data_inici": "2023-04-24 00:00:00",
+      "data_fi": "2024-12-20 00:00:00"
+    },
+    {
+      "lat": 41.36452692837535,
+      "lng": 2.1401556087554674,
+      "titol": "Pavimentació del carrer del Segura (carrer del Polvorí - carrer del Guadalquivir)",
+      "estat": "Finalitzada",
+      "data_inici": "2026-05-20 00:00:00",
+      "data_fi": "2026-06-22 00:00:00"
+    },
+    {
+      "lat": 41.366225494652674,
+      "lng": 2.134433695850534,
+      "titol": "Rehabilitació de col·lector a la rambla de Badal (carrer de Quetzal - avinguda del Carrilet) ",
+      "estat": "Finalitzada",
+      "data_inici": "2025-08-04 00:00:00",
+      "data_fi": "2025-10-27 00:00:00"
+    },
+    {
+      "lat": 41.36676771185468,
+      "lng": 2.1378406614316683,
+      "titol": "Canalització d'Endesa de la línia Sants - Hostafrancs - Mata",
+      "estat": "Finalitzada",
+      "data_inici": "2022-07-04 00:00:00",
+      "data_fi": "2024-12-12 00:00:00"
+    },
+    {
+      "lat": 41.365439646493954,
+      "lng": 2.135455428489365,
+      "titol": "Emplaçament de grua autoportant a la rambla del Badal, núm. 2",
+      "estat": "Finalitzada",
+      "data_inici": "2024-03-24 00:00:00",
+      "data_fi": "2024-05-13 00:00:00"
+    },
+    {
+      "lat": 41.367875660582584,
+      "lng": 2.1393892397630467,
+      "titol": "Remodelació del carrer de Mossèn Amadeu Oller (Gran Via de les CC - carrer de la Constitució)",
+      "estat": "En execució",
+      "data_inici": "2026-06-10 00:00:00",
+      "data_fi": "2027-03-10 00:00:00"
+    },
+    {
+      "lat": 41.36757272983648,
+      "lng": 2.1396350484218125,
+      "titol": "Nou carril bici a la Gran Via de les Corts Catalanes (plaça d'Espanya - carrer de la Mineria)",
+      "estat": "Finalitzada",
+      "data_inici": "2023-04-11 00:00:00",
+      "data_fi": "2023-10-25 00:00:00"
+    },
+    {
+      "lat": 41.34925099379397,
+      "lng": 2.139629640584451,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-11-06 00:00:00",
+      "data_fi": "2025-12-10 00:00:00"
+    },
+    {
+      "lat": 41.35814356073053,
+      "lng": 2.1355931233991723,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-10-01 00:00:00",
+      "data_fi": "2027-02-15 00:00:00"
+    },
+    {
+      "lat": 41.367236155337814,
+      "lng": 2.133616143300333,
+      "titol": "Urbanització de l'illa entre els carrers de Quetzal, de la Riera Blanca i l'avinguda del Carrilet",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-06 00:00:00",
+      "data_fi": "2025-02-28 00:00:00"
+    },
+    {
+      "lat": 41.354135725833686,
+      "lng": 2.1362369112621633,
+      "titol": "Reparació del paviment del carrer de l'Alumini, entre els carrers del Foc i dels Alts Forns",
+      "estat": "Finalitzada",
+      "data_inici": "2024-11-18 00:00:00",
+      "data_fi": "2024-11-30 00:00:00"
+    },
+    {
+      "lat": 41.3585955427958,
+      "lng": 2.140434277242401,
+      "titol": "Pavimentació del carrer dels Alts Forns (passeig de la Zona Franca-carrer de Mare de Déu del Port)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-12-04 00:00:00",
+      "data_fi": "2025-12-04 00:00:00"
+    },
+    {
+      "lat": 41.366059336009855,
+      "lng": 2.134372697875881,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-07-11 00:00:00",
+      "data_fi": "2025-08-04 00:00:00"
+    }
+  ]
+}
