@@ -20,6 +20,17 @@
     "duracion_min": 137.13
   },
   {
+    "id": "2026-10-30-30-oct-2026-1948--les-corts-zona-franca",
+    "nombre": "30-oct-2026-1948 - les corts zona franca ",
+    "fecha": "2026-10-30",
+    "zonas": [
+      "ZONA 3 - Z. UNIVERSIT.",
+      "ZONA 4 - POBLE SEC",
+      "ZONA 6 - MONTJÜIC"
+    ],
+    "duracion_min": 74.63
+  },
+  {
     "id": "2026-10-29-29-oct-2026-1350--les-corts",
     "nombre": "29-oct-2026-1350 - les corts",
     "fecha": "2026-10-29",

@@ -1,0 +1,1831 @@
+{
+  "disponible": true,
+  "error": null,
+  "cobertura": "barcelona_ciudad_solo",
+  "obras": [
+    {
+      "lat": 41.369671292088285,
+      "lng": 2.1466563375902448,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-06-29 00:00:00",
+      "data_fi": "2027-04-30 00:00:00"
+    },
+    {
+      "lat": 41.37117031582773,
+      "lng": 2.166200633209548,
+      "titol": "Remodelació integral de la xarxa de reg del parc de la Primavera",
+      "estat": "Finalitzada",
+      "data_inici": "2025-04-22 00:00:00",
+      "data_fi": "2025-10-22 00:00:00"
+    },
+    {
+      "lat": 41.380443139801315,
+      "lng": 2.1662430162262276,
+      "titol": "Canalització elèctrica als carrers de la Riera Alta i del Peu de la Creu",
+      "estat": "Finalitzada",
+      "data_inici": "2026-04-20 00:00:00",
+      "data_fi": "2026-05-18 00:00:00"
+    },
+    {
+      "lat": 41.37037818382888,
+      "lng": 2.1695518179951105,
+      "titol": "Rehabilitació del col·lector de l'avinguda de Miramar",
+      "estat": "Finalitzada",
+      "data_inici": "2025-05-26 00:00:00",
+      "data_fi": "2025-08-24 00:00:00"
+    },
+    {
+      "lat": 41.37789812348236,
+      "lng": 2.150261313414147,
+      "titol": "Nou dipòsit d'aigua freàtica al parc de Joan Miró",
+      "estat": "Finalitzada",
+      "data_inici": "2024-09-12 00:00:00",
+      "data_fi": "2026-04-20 00:00:00"
+    },
+    {
+      "lat": 41.37702474942999,
+      "lng": 2.1544442502806427,
+      "titol": "Canalització de la xarxa d'aigües al carrer d'Entença (carrer de Sepúlveda - avinguda de Mistral)",
+      "estat": "Finalitzada",
+      "data_inici": "2026-04-20 00:00:00",
+      "data_fi": "2026-05-29 00:00:00"
+    },
+    {
+      "lat": 41.37312739833064,
+      "lng": 2.130727900622666,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-09-21 00:00:00",
+      "data_fi": "2026-10-02 00:00:00"
+    },
+    {
+      "lat": 41.375508715709785,
+      "lng": 2.1350870270612123,
+      "titol": "Millora de l'accessibilitat i adaptació a PMR de l'estació Plaça de Sants de l'L1",
+      "estat": "En execució",
+      "data_inici": "2026-02-09 00:00:00",
+      "data_fi": "2028-08-09 00:00:00"
+    },
+    {
+      "lat": 41.37511926386361,
+      "lng": 2.1605855811229735,
+      "titol": "Canalització d'Agbar a l'avinguda del Paral·lel, entre els carrers de Rocafort i d'Entença",
+      "estat": "Finalitzada",
+      "data_inici": "2025-01-07 00:00:00",
+      "data_fi": "2025-06-08 00:00:00"
+    },
+    {
+      "lat": 41.370556731814794,
+      "lng": 2.146755777218718,
+      "titol": "Millora del carrer de la Guatlla i del carrer del Lotus",
+      "estat": "En execució",
+      "data_inici": "2026-05-04 00:00:00",
+      "data_fi": "2026-12-11 00:00:00"
+    },
+    {
+      "lat": 41.37821481112215,
+      "lng": 2.1748123259615153,
+      "titol": "Urbanització dels carrers de l'Arc del Teatre i de Lancaster.",
+      "estat": "Finalitzada",
+      "data_inici": "2023-05-29 00:00:00",
+      "data_fi": "2023-06-09 00:00:00"
+    },
+    {
+      "lat": 41.368505877021725,
+      "lng": 2.140698180181566,
+      "titol": "Carril bici a la Gran Via de les Corts Catalanes (carrer de la Mineria - plaça d'Ildefons Cerdà)",
+      "estat": "Finalitzada",
+      "data_inici": "2023-10-21 00:00:00",
+      "data_fi": "2024-01-10 00:00:00"
+    },
+    {
+      "lat": 41.36830466536009,
+      "lng": 2.131547493528239,
+      "titol": "Millora integral de diversos carrers del barri de la Bordeta",
+      "estat": "Finalitzada",
+      "data_inici": "2025-03-16 00:00:00",
+      "data_fi": "2025-10-10 00:00:00"
+    },
+    {
+      "lat": 41.37516637521732,
+      "lng": 2.1657009762141453,
+      "titol": "Ampliació de la xarxa freàtica del sistema de Montjuïc",
+      "estat": "Finalitzada",
+      "data_inici": "2024-11-18 00:00:00",
+      "data_fi": "2026-04-27 00:00:00"
+    },
+    {
+      "lat": 41.368776132892215,
+      "lng": 2.1326672861782607,
+      "titol": "Ampliació de la vorera del carrer de la Constitució (rambla de Badal - Riera Blanca)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-15 00:00:00",
+      "data_fi": "2025-10-10 00:00:00"
+    },
+    {
+      "lat": 41.379359718024055,
+      "lng": 2.1390837271221224,
+      "titol": "Transformació dels entorns de l'Estació de Sants",
+      "estat": "En execució",
+      "data_inici": "2025-01-20 00:00:00",
+      "data_fi": "2028-03-31 00:00:00"
+    },
+    {
+      "lat": 41.36605287851538,
+      "lng": 2.1375781540100607,
+      "titol": "Renovació vàlvula Agbar a la cruïlla de Gran Via de les Corts Catalanes amb el carrer de la Química",
+      "estat": "Finalitzada",
+      "data_inici": "2023-06-26 00:00:00",
+      "data_fi": "2023-08-16 00:00:00"
+    },
+    {
+      "lat": 41.37517080508468,
+      "lng": 2.16058471668064,
+      "titol": "Renovació de la xarxa d'Agbar a l'avinguda del Paral·lel, entre els números 134 i 148",
+      "estat": "Finalitzada",
+      "data_inici": "2025-03-08 00:00:00",
+      "data_fi": "2025-06-23 00:00:00"
+    },
+    {
+      "lat": 41.37578276669944,
+      "lng": 2.1500514235492507,
+      "titol": "Millora de la ventilació i altres actuacions a l'estació de metro Plaça Espanya (L1 i L3)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-22 00:00:00",
+      "data_fi": "2026-03-28 00:00:00"
+    },
+    {
+      "lat": 41.372549116211,
+      "lng": 2.148634270473701,
+      "titol": "Canalització AGBAR. c. St. Fructuós, 1-15",
+      "estat": "Finalitzada",
+      "data_inici": "2024-09-30 00:00:00",
+      "data_fi": "2024-11-05 00:00:00"
+    },
+    {
+      "lat": 41.37580988351852,
+      "lng": 2.1745970989707404,
+      "titol": "Canalització elèctrica als carrers del Cid i de Peracamps",
+      "estat": "Finalitzada",
+      "data_inici": "2026-03-02 00:00:00",
+      "data_fi": "2026-05-20 00:00:00"
+    },
+    {
+      "lat": 41.376713494348856,
+      "lng": 2.154054073651698,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-05-12 00:00:00",
+      "data_fi": "2025-05-28 00:00:00"
+    },
+    {
+      "lat": 41.37184371247726,
+      "lng": 2.147417420910596,
+      "titol": "Reurbanització integral del carrer d'Amposta",
+      "estat": "En execució",
+      "data_inici": "2026-02-09 00:00:00",
+      "data_fi": "2026-12-11 00:00:00"
+    },
+    {
+      "lat": 41.37474087579065,
+      "lng": 2.1750124518785583,
+      "titol": "Arranjament dels entorns de la parada de bus 1326 de l'avinguda del Paral·lel",
+      "estat": "Finalitzada",
+      "data_inici": "2024-06-25 00:00:00",
+      "data_fi": "2024-07-26 00:00:00"
+    },
+    {
+      "lat": 41.37428223523487,
+      "lng": 2.159759633626783,
+      "titol": "Reurbanització del carrer d'Elkano, entre els carrers de Jaume Fabra i de Margarit",
+      "estat": "Finalitzada",
+      "data_inici": "2024-09-09 00:00:00",
+      "data_fi": "2025-09-19 00:00:00"
+    },
+    {
+      "lat": 41.37341595463128,
+      "lng": 2.140317688127222,
+      "titol": "Clavegueró particular per a connexió a xarxa de sanejament al carrer de Gayarre núm. 50",
+      "estat": "Finalitzada",
+      "data_inici": "2024-11-20 00:00:00",
+      "data_fi": "2024-12-18 00:00:00"
+    },
+    {
+      "lat": 41.375836750437465,
+      "lng": 2.1346388966371763,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-10-13 00:00:00",
+      "data_fi": "2026-12-23 00:00:00"
+    },
+    {
+      "lat": 41.374316858888754,
+      "lng": 2.137377725661338,
+      "titol": "Millores al barri de Sants Antic",
+      "estat": "Finalitzada",
+      "data_inici": "2024-03-04 00:00:00",
+      "data_fi": "2024-05-27 00:00:00"
+    },
+    {
+      "lat": 41.37578276669944,
+      "lng": 2.1500514235492507,
+      "titol": "Millora de la ventilació i altres actuacions a l'estació de metro Plaça Espanya (L1 i L3)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-22 00:00:00",
+      "data_fi": "2026-03-28 00:00:00"
+    },
+    {
+      "lat": 41.37578276669944,
+      "lng": 2.1500514235492507,
+      "titol": "Millora de la ventilació i altres actuacions a l'estació de metro Plaça Espanya (L1 i L3)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-22 00:00:00",
+      "data_fi": "2026-03-28 00:00:00"
+    },
+    {
+      "lat": 41.37578276669944,
+      "lng": 2.1500514235492507,
+      "titol": "Millora de la ventilació i altres actuacions a l'estació de metro Plaça Espanya (L1 i L3)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-22 00:00:00",
+      "data_fi": "2026-03-28 00:00:00"
+    },
+    {
+      "lat": 41.37008644973477,
+      "lng": 2.1313546720337593,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-07-09 00:00:00",
+      "data_fi": "2026-09-04 00:00:00"
+    },
+    {
+      "lat": 41.374493319772846,
+      "lng": 2.1748838993905513,
+      "titol": "Canalització de baixa tensió a l¿avinguda del Paral·lel",
+      "estat": "Finalitzada",
+      "data_inici": "2022-10-29 00:00:00",
+      "data_fi": "2022-11-22 00:00:00"
+    },
+    {
+      "lat": 41.36031823495043,
+      "lng": 2.143026477478955,
+      "titol": "Urbanització a l'àmbit del Mas de Can Clos i el seu entorn",
+      "estat": "Finalitzada",
+      "data_inici": "2022-03-30 00:00:00",
+      "data_fi": "2025-01-30 00:00:00"
+    },
+    {
+      "lat": 41.38073459071811,
+      "lng": 2.1515530116123722,
+      "titol": "Eixos Verds LOT 1: ",
+      "estat": "Finalitzada",
+      "data_inici": "2022-08-16 00:00:00",
+      "data_fi": "2023-07-17 00:00:00"
+    },
+    {
+      "lat": 41.36793810788531,
+      "lng": 2.1426815519528413,
+      "titol": "Millora integral de diversos carrers al barri de La Font de la Guatlla",
+      "estat": "Finalitzada",
+      "data_inici": "2025-05-16 00:00:00",
+      "data_fi": "2025-12-31 00:00:00"
+    },
+    {
+      "lat": 41.37632175233652,
+      "lng": 2.1484008881094128,
+      "titol": "Pavimentació del carrer de Tarragona, entre el carrer de la Diputació i la plaça d'Espanya",
+      "estat": "Finalitzada",
+      "data_inici": "2026-05-25 00:00:00",
+      "data_fi": "2026-05-25 00:00:00"
+    },
+    {
+      "lat": 41.368973661738224,
+      "lng": 2.158880267483615,
+      "titol": "Millora de l'espai verd dels jardins de Laribal",
+      "estat": "En execució",
+      "data_inici": "2025-11-17 00:00:00",
+      "data_fi": "2026-12-11 00:00:00"
+    },
+    {
+      "lat": 41.35773028403739,
+      "lng": 2.143276725462113,
+      "titol": "Instal·lació de sistemes de generació d'ombres a diversos indrets de Sants- Montjuïc",
+      "estat": "Finalitzada",
+      "data_inici": "2025-06-11 00:00:00",
+      "data_fi": "2025-09-19 00:00:00"
+    },
+    {
+      "lat": 41.372285394615396,
+      "lng": 2.1273287274467316,
+      "titol": "Nou clavegueró al carrer de Bacardí, 11",
+      "estat": "Finalitzada",
+      "data_inici": "2024-01-29 00:00:00",
+      "data_fi": "2024-02-19 00:00:00"
+    },
+    {
+      "lat": 41.37643638327727,
+      "lng": 2.1362225359644693,
+      "titol": "Canalització elèctrica al carrer de Galileu (carrer de Valladolid - passeig de Sant Antoni)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-07 00:00:00",
+      "data_fi": "2024-12-24 00:00:00"
+    },
+    {
+      "lat": 41.360215054636754,
+      "lng": 2.152086215552721,
+      "titol": "Xarxa freàtica als entorns de Can Batlló",
+      "estat": "Finalitzada",
+      "data_inici": "2024-07-31 00:00:00",
+      "data_fi": "2025-10-30 00:00:00"
+    },
+    {
+      "lat": 41.375858585456605,
+      "lng": 2.1337654094020726,
+      "titol": "Execució d'un col·lector d'aigües residuals al carrer de Demòstenes",
+      "estat": "Finalitzada",
+      "data_inici": "2025-12-01 00:00:00",
+      "data_fi": "2026-02-13 00:00:00"
+    },
+    {
+      "lat": 41.37086156540948,
+      "lng": 2.131385518072902,
+      "titol": "Remodelació integral de l'àrea de jocs dels jardins de la rambla de Sants",
+      "estat": "Finalitzada",
+      "data_inici": "2025-08-11 00:00:00",
+      "data_fi": "2025-09-30 00:00:00"
+    },
+    {
+      "lat": 41.36672514813974,
+      "lng": 2.1675229868456736,
+      "titol": "Canalització elèctrica a l'avinguda de Miramar i al carrer dels Tarongers",
+      "estat": "Finalitzada",
+      "data_inici": "2026-03-16 00:00:00",
+      "data_fi": "2026-08-30 00:00:00"
+    },
+    {
+      "lat": 41.377168872554684,
+      "lng": 2.1749484361707414,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-05-04 00:00:00",
+      "data_fi": "2026-05-31 00:00:00"
+    },
+    {
+      "lat": 41.372131235874654,
+      "lng": 2.1324310435024794,
+      "titol": "Remodelació de l'àrea esportiva al carrer d'Antoni de Capmany",
+      "estat": "Finalitzada",
+      "data_inici": "2026-04-20 00:00:00",
+      "data_fi": "2026-05-21 00:00:00"
+    },
+    {
+      "lat": 41.36833906394236,
+      "lng": 2.167774538451155,
+      "titol": "Ampliació de la xarxa freàtica del sistema de Montjuïc als jardins de Joan Brossa i al Poble Sec",
+      "estat": "Finalitzada",
+      "data_inici": "2024-12-12 00:00:00",
+      "data_fi": "2026-04-30 00:00:00"
+    },
+    {
+      "lat": 41.37356641618966,
+      "lng": 2.133325861367814,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-09-07 00:00:00",
+      "data_fi": "2026-10-19 00:00:00"
+    },
+    {
+      "lat": 41.37448750547429,
+      "lng": 2.145594219254633,
+      "titol": "Millora integral en diversos trams dels carrers de Muntadas i de Sant Roc",
+      "estat": "Finalitzada",
+      "data_inici": "2025-11-17 00:00:00",
+      "data_fi": "2026-08-23 00:00:00"
+    },
+    {
+      "lat": 41.3738208889735,
+      "lng": 2.137224025956596,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-09-14 00:00:00",
+      "data_fi": "2026-09-25 00:00:00"
+    },
+    {
+      "lat": 41.367773255553686,
+      "lng": 2.1429690897403004,
+      "titol": "Estabilització i millora de quatre talussos al districte de Sants-Montjuïc",
+      "estat": "Finalitzada",
+      "data_inici": "2023-10-30 00:00:00",
+      "data_fi": "2024-05-30 00:00:00"
+    },
+    {
+      "lat": 41.374542773268885,
+      "lng": 2.1416206241701086,
+      "titol": "Rehabilitació del col·lector del carrer Vilardell (carrers del 26 de Gener de 1641 - del Moianès)",
+      "estat": "Finalitzada",
+      "data_inici": "2026-03-02 00:00:00",
+      "data_fi": "2026-04-13 00:00:00"
+    },
+    {
+      "lat": 41.37067222118902,
+      "lng": 2.155508991481715,
+      "titol": "Actuacions de millora de la via pública al barri del Poble Sec",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-28 00:00:00",
+      "data_fi": "2024-12-18 00:00:00"
+    },
+    {
+      "lat": 41.37274791192272,
+      "lng": 2.160673814656783,
+      "titol": "Canalització elèctrica al carrer de Radas, núm. 37",
+      "estat": "Finalitzada",
+      "data_inici": "2026-03-16 00:00:00",
+      "data_fi": "2026-04-30 00:00:00"
+    },
+    {
+      "lat": 41.366660713306935,
+      "lng": 2.1592069265330447,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-10-22 00:00:00",
+      "data_fi": "2026-12-18 00:00:00"
+    },
+    {
+      "lat": 41.371630499407345,
+      "lng": 2.1601536681651163,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-04-22 00:00:00",
+      "data_fi": "2025-05-09 00:00:00"
+    },
+    {
+      "lat": 41.35855212290765,
+      "lng": 2.1352540042559554,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-06-22 00:00:00",
+      "data_fi": "2026-12-04 00:00:00"
+    },
+    {
+      "lat": 41.36959444815685,
+      "lng": 2.1306036441525,
+      "titol": "Túnel de bufat a l'estació de Santa Eulàlia",
+      "estat": "En execució",
+      "data_inici": "2025-03-31 00:00:00",
+      "data_fi": "2026-12-18 00:00:00"
+    },
+    {
+      "lat": 41.370964829591856,
+      "lng": 2.131525967133462,
+      "titol": "Remodelació de l'àrea esportiva del calaix de Sants, al carrer d'Antoni de Capmany",
+      "estat": "Finalitzada",
+      "data_inici": "2025-10-27 00:00:00",
+      "data_fi": "2025-12-15 00:00:00"
+    },
+    {
+      "lat": 41.35829315831478,
+      "lng": 2.1433030893594984,
+      "titol": "Reurbanització dels entorns del futur Centre d'Atenció Integral de La Marina",
+      "estat": "Finalitzada",
+      "data_inici": "2022-10-31 00:00:00",
+      "data_fi": "2023-05-12 00:00:00"
+    },
+    {
+      "lat": 41.37328867,
+      "lng": 2.1723328499999965,
+      "titol": "Execució de col·lector al carrer de Vila i Vilà (carrer de Palaudàries - plaça de la Bella Dorita)",
+      "estat": "En execució",
+      "data_inici": "2023-11-20 00:00:00",
+      "data_fi": "2027-01-29 00:00:00"
+    },
+    {
+      "lat": 41.37507262021339,
+      "lng": 2.1475513320807593,
+      "titol": "Ocupacions per la construcció d¿una edificació al carrer de la Creu Coberta número 19",
+      "estat": "Finalitzada",
+      "data_inici": "2021-05-30 00:00:00",
+      "data_fi": "2023-06-30 00:00:00"
+    },
+    {
+      "lat": 41.37257330666669,
+      "lng": 2.146242661609301,
+      "titol": "Reparació de col·lector al carrer de Sant Germà a la cruïlla amb Gran Via de les Corts Catalanes",
+      "estat": "Finalitzada",
+      "data_inici": "2024-08-05 00:00:00",
+      "data_fi": "2024-08-19 00:00:00"
+    },
+    {
+      "lat": 41.36825465622976,
+      "lng": 2.131689738099767,
+      "titol": "Canalització d'Agbar al carrer de la Constitució (carrer de Riera Blanca - rambla de Badal)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-08-01 00:00:00",
+      "data_fi": "2024-09-16 00:00:00"
+    },
+    {
+      "lat": 41.379085251669586,
+      "lng": 2.1632674214141345,
+      "titol": "Deconstrucció de la llosa de fonamentació sota les carpes provisionals del mercat de Sant Antoni",
+      "estat": "Finalitzada",
+      "data_inici": "2022-11-14 00:00:00",
+      "data_fi": "2023-03-14 00:00:00"
+    },
+    {
+      "lat": 41.379085251669586,
+      "lng": 2.1632674214141345,
+      "titol": "Deconstrucció de la llosa de fonamentació sota les carpes provisionals del mercat de Sant Antoni",
+      "estat": "Finalitzada",
+      "data_inici": "2022-11-14 00:00:00",
+      "data_fi": "2023-03-14 00:00:00"
+    },
+    {
+      "lat": 41.365386368937315,
+      "lng": 2.1367072244093435,
+      "titol": "Renovació de canalització d'aigua potable a la Gran Via de les Corts Catalanes (núm 142 al 158)",
+      "estat": "Finalitzada",
+      "data_inici": "2023-07-22 00:00:00",
+      "data_fi": "2023-07-23 00:00:00"
+    },
+    {
+      "lat": 41.36995589035869,
+      "lng": 2.159568155854202,
+      "titol": "Col·lector d'aigües residuals al passatge de Martras als carrers de Sancho Marraco i de la Concòrdia",
+      "estat": "Finalitzada",
+      "data_inici": "2025-06-02 00:00:00",
+      "data_fi": "2026-02-20 00:00:00"
+    },
+    {
+      "lat": 41.38034545297868,
+      "lng": 2.131379820449776,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-06-02 00:00:00",
+      "data_fi": "2025-07-18 00:00:00"
+    },
+    {
+      "lat": 41.37702739835588,
+      "lng": 2.162911741623958,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-06-25 00:00:00",
+      "data_fi": "2027-06-25 00:00:00"
+    },
+    {
+      "lat": 41.36431194831053,
+      "lng": 2.135031709264297,
+      "titol": "Manteniment dels túnels urbans de la ciutat de Barcelona",
+      "estat": "Finalitzada",
+      "data_inici": "2025-01-01 00:00:00",
+      "data_fi": "2025-12-31 00:00:00"
+    },
+    {
+      "lat": 41.36694062800735,
+      "lng": 2.149769960276608,
+      "titol": "Estabilització talussos a Sants-Montjuïc (Sots de la Foixarda, l'Estany i la Masia)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-02-12 00:00:00",
+      "data_fi": "2025-02-28 00:00:00"
+    },
+    {
+      "lat": 41.37584924752952,
+      "lng": 2.1739093025217677,
+      "titol": "Obres de construcció de residència d'estudiants al Portal de Santa Madrona",
+      "estat": "Finalitzada",
+      "data_inici": "2024-04-02 00:00:00",
+      "data_fi": "2024-11-14 00:00:00"
+    },
+    {
+      "lat": 41.37028990017504,
+      "lng": 2.16416427632197,
+      "titol": "Nous horts urbans de la Font Trobada",
+      "estat": "Finalitzada",
+      "data_inici": "2023-04-03 00:00:00",
+      "data_fi": "2023-09-30 00:00:00"
+    },
+    {
+      "lat": 41.37819559831856,
+      "lng": 2.1711195299309103,
+      "titol": "Canalització fibra òptica per connectar la Filmoteca de Catalunya",
+      "estat": "Finalitzada",
+      "data_inici": "2023-02-27 00:00:00",
+      "data_fi": "2023-05-10 00:00:00"
+    },
+    {
+      "lat": 41.375423925857525,
+      "lng": 2.165352006284206,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-06-25 00:00:00",
+      "data_fi": "2027-06-25 00:00:00"
+    },
+    {
+      "lat": 41.365465689130964,
+      "lng": 2.1387264706136113,
+      "titol": "Nova canalització d'aigua potable del carrer de la Font Florida a la plaça de les Matemàtiques",
+      "estat": "Finalitzada",
+      "data_inici": "2023-06-26 00:00:00",
+      "data_fi": "2024-02-02 00:00:00"
+    },
+    {
+      "lat": 41.372537795352585,
+      "lng": 2.1719423531921564,
+      "titol": "Urbanització del carrer de Piquer entre els carrers de Fontrodona i de Palaudàries",
+      "estat": "Finalitzada",
+      "data_inici": "2022-08-01 00:00:00",
+      "data_fi": "2023-07-14 00:00:00"
+    },
+    {
+      "lat": 41.37538907379653,
+      "lng": 2.140508235516973,
+      "titol": "Rehabilitació del col·lector del carrer Joanot Martorell, entre els carrers de Sants i de Leiva",
+      "estat": "Finalitzada",
+      "data_inici": "2026-04-07 00:00:00",
+      "data_fi": "2026-07-03 00:00:00"
+    },
+    {
+      "lat": 41.36297478423549,
+      "lng": 2.1575352525748226,
+      "titol": "Execució d'un prisma formigonat i estesa de fibra òptica al castell de Montjuïc",
+      "estat": "Finalitzada",
+      "data_inici": "2022-11-21 00:00:00",
+      "data_fi": "2023-04-28 00:00:00"
+    },
+    {
+      "lat": 41.37806250840564,
+      "lng": 2.1684639306103994,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-01 00:00:00",
+      "data_fi": "2025-11-24 00:00:00"
+    },
+    {
+      "lat": 41.37805748635902,
+      "lng": 2.162357331829203,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-03-10 00:00:00",
+      "data_fi": "2025-07-25 00:00:00"
+    },
+    {
+      "lat": 41.366723602944454,
+      "lng": 2.1382301691011807,
+      "titol": "Pavimentació de carril bus a Gran Via de les Corts Catalanes (carrers de la Química - Sant Germà)",
+      "estat": "Finalitzada",
+      "data_inici": "2023-08-11 00:00:00",
+      "data_fi": "2023-08-17 00:00:00"
+    },
+    {
+      "lat": 41.37229021952341,
+      "lng": 2.1601905342926977,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-09-07 00:00:00",
+      "data_fi": "2026-11-20 00:00:00"
+    },
+    {
+      "lat": 41.37405324283127,
+      "lng": 2.1473346737542953,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-08-03 00:00:00",
+      "data_fi": "2026-11-27 00:00:00"
+    },
+    {
+      "lat": 41.373650892859345,
+      "lng": 2.14421719306028,
+      "titol": "Canalització elèctrica del carrer de Leiva núm. 42",
+      "estat": "Finalitzada",
+      "data_inici": "2026-05-18 00:00:00",
+      "data_fi": "2026-06-05 00:00:00"
+    },
+    {
+      "lat": 41.3714035984523,
+      "lng": 2.136169682465302,
+      "titol": "Nou pas elevat a la cruïlla dels carrers dels Jocs Florals i del Manzanares",
+      "estat": "Finalitzada",
+      "data_inici": "2023-05-08 00:00:00",
+      "data_fi": "2023-05-17 00:00:00"
+    },
+    {
+      "lat": 41.37942532875942,
+      "lng": 2.1624159436153367,
+      "titol": "Reurbanització de la ronda de Sant Antoni, carrer de Tamarit, places del Dubte i del Pes de la Palla",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-23 00:00:00",
+      "data_fi": "2025-11-28 00:00:00"
+    },
+    {
+      "lat": 41.37942532875942,
+      "lng": 2.1624159436153367,
+      "titol": "Reurbanització de la ronda de Sant Antoni, carrer de Tamarit, places del Dubte i del Pes de la Palla",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-23 00:00:00",
+      "data_fi": "2025-11-28 00:00:00"
+    },
+    {
+      "lat": 41.37942532875942,
+      "lng": 2.1624159436153367,
+      "titol": "Reurbanització de la ronda de Sant Antoni, carrer de Tamarit, places del Dubte i del Pes de la Palla",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-23 00:00:00",
+      "data_fi": "2025-11-28 00:00:00"
+    },
+    {
+      "lat": 41.37942532875942,
+      "lng": 2.1624159436153367,
+      "titol": "Reurbanització de la ronda de Sant Antoni, carrer de Tamarit, places del Dubte i del Pes de la Palla",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-23 00:00:00",
+      "data_fi": "2025-11-28 00:00:00"
+    },
+    {
+      "lat": 41.3607420656573,
+      "lng": 2.151793851254495,
+      "titol": "Pavimentació del passeig Olímpic (passeig del Migdia - avinguda de l'Estadi)",
+      "estat": "Finalitzada",
+      "data_inici": "2026-05-18 00:00:00",
+      "data_fi": "2026-06-22 00:00:00"
+    },
+    {
+      "lat": 41.37321788292667,
+      "lng": 2.1627988654653665,
+      "titol": "Renovació de la xarxa d'Agbar al carrer de Blasco de Garay, entre els números 34 i 43",
+      "estat": "Finalitzada",
+      "data_inici": "2023-01-30 00:00:00",
+      "data_fi": "2023-02-13 00:00:00"
+    },
+    {
+      "lat": 41.37515036073035,
+      "lng": 2.165189567275282,
+      "titol": "Canalització per renovació de la xarxa d'Agbar a l'avinguda del Paral·lel,  100 - 116 ",
+      "estat": "Finalitzada",
+      "data_inici": "2024-02-16 00:00:00",
+      "data_fi": "2024-04-11 00:00:00"
+    },
+    {
+      "lat": 41.357714272772,
+      "lng": 2.143755971075098,
+      "titol": "Reparació de clavegueram a la cruïlla dels carrers de la Mare de Déu del Port i del Foc",
+      "estat": "Finalitzada",
+      "data_inici": "2023-08-01 00:00:00",
+      "data_fi": "2023-08-18 00:00:00"
+    },
+    {
+      "lat": 41.37815619477938,
+      "lng": 2.1746858174225925,
+      "titol": "Ocupacions Edificació C/Arc del Teatre, 7",
+      "estat": "Finalitzada",
+      "data_inici": "2020-12-07 00:00:00",
+      "data_fi": "2023-05-08 00:00:00"
+    },
+    {
+      "lat": 41.37427614658488,
+      "lng": 2.132729356379759,
+      "titol": "Rehabilitació del col·lector de la Riera d'Escuder entre la carretera de Sants i el carrer de Pavia",
+      "estat": "Finalitzada",
+      "data_inici": "2023-01-09 00:00:00",
+      "data_fi": "2023-06-30 00:00:00"
+    },
+    {
+      "lat": 41.371847525337536,
+      "lng": 2.1473999561017716,
+      "titol": "Cales per a la remodelació del carrer d'Amposta (carrers de Sant Fructuós - dels Montfar)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-01-08 00:00:00",
+      "data_fi": "2025-01-31 00:00:00"
+    },
+    {
+      "lat": 41.37220065639661,
+      "lng": 2.155872490484225,
+      "titol": "Millora de la xarxa d'aigües al carrer de Lleida, entre els carrers de l'Olivera i de la França Xica",
+      "estat": "Finalitzada",
+      "data_inici": "2023-07-09 00:00:00",
+      "data_fi": "2023-09-04 00:00:00"
+    },
+    {
+      "lat": 41.37214919701741,
+      "lng": 2.1734558322076207,
+      "titol": "Arranjament de l'entorn de les Hortes de Sant Bertran",
+      "estat": "Finalitzada",
+      "data_inici": "2024-01-15 00:00:00",
+      "data_fi": "2025-01-15 00:00:00"
+    },
+    {
+      "lat": 41.372479171276304,
+      "lng": 2.1410995190311186,
+      "titol": "Millora de la plaça de la Vidriera",
+      "estat": "Finalitzada",
+      "data_inici": "2023-05-08 00:00:00",
+      "data_fi": "2023-12-21 00:00:00"
+    },
+    {
+      "lat": 41.378735199264526,
+      "lng": 2.1634451032740887,
+      "titol": "Reurbanització del carrer de Sant Antoni Abat, entre els carrers de la Cendra i del Comte d'Urgell",
+      "estat": "Finalitzada",
+      "data_inici": "2024-01-08 00:00:00",
+      "data_fi": "2024-06-25 00:00:00"
+    },
+    {
+      "lat": 41.357827621165725,
+      "lng": 2.143764609742767,
+      "titol": "Canalització de xarxa elèctrica del carrer del Foc fins al carrer de la Mare de Déu del Port",
+      "estat": "Finalitzada",
+      "data_inici": "2023-04-03 00:00:00",
+      "data_fi": "2023-04-13 00:00:00"
+    },
+    {
+      "lat": 41.374008103192466,
+      "lng": 2.17207352647466,
+      "titol": "Millora puntual dels Jardins de les Tres Xemeneies",
+      "estat": "Finalitzada",
+      "data_inici": "2023-10-30 00:00:00",
+      "data_fi": "2024-05-29 00:00:00"
+    },
+    {
+      "lat": 41.3787132413848,
+      "lng": 2.149641886624885,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-09-28 00:00:00",
+      "data_fi": "2026-12-14 00:00:00"
+    },
+    {
+      "lat": 41.3787132413848,
+      "lng": 2.149641886624885,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-09-28 00:00:00",
+      "data_fi": "2026-12-14 00:00:00"
+    },
+    {
+      "lat": 41.3722731893312,
+      "lng": 2.1586374370071946,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-09-21 00:00:00",
+      "data_fi": "2026-11-30 00:00:00"
+    },
+    {
+      "lat": 41.379664688812994,
+      "lng": 2.1678070761799253,
+      "titol": "Canalització als carrers de l'Hospital, de la Cera, de la Riereta, de Vistalegre i de Carretes",
+      "estat": "Finalitzada",
+      "data_inici": "2026-01-26 00:00:00",
+      "data_fi": "2026-10-04 00:00:00"
+    },
+    {
+      "lat": 41.378642653406885,
+      "lng": 2.1299201058101,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-11-02 00:00:00",
+      "data_fi": "2026-11-23 00:00:00"
+    },
+    {
+      "lat": 41.3782302749831,
+      "lng": 2.1461044308416883,
+      "titol": "Renovació de les escales de pedra a la sortida del carrer de València de l'estació Tarragona de l'L3",
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-29 00:00:00",
+      "data_fi": "2025-10-20 00:00:00"
+    },
+    {
+      "lat": 41.371515579824035,
+      "lng": 2.170011531478282,
+      "titol": "Remodelació integral del reg al Parc del Mirador de Poble Sec",
+      "estat": "Finalitzada",
+      "data_inici": "2025-04-22 00:00:00",
+      "data_fi": "2025-11-22 00:00:00"
+    },
+    {
+      "lat": 41.36462245213525,
+      "lng": 2.1430627810563623,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-05-11 00:00:00",
+      "data_fi": "2026-05-15 00:00:00"
+    },
+    {
+      "lat": 41.373922556051355,
+      "lng": 2.1493405157919367,
+      "titol": "Retirada d'amiant al Palau del Vestit",
+      "estat": "En execució",
+      "data_inici": "2026-06-15 00:00:00",
+      "data_fi": "2026-10-23 00:00:00"
+    },
+    {
+      "lat": 41.37715102649738,
+      "lng": 2.1610554598289133,
+      "titol": "Arranjament de vorera del carrer de Manso entre els carrers del Comte Borrell i de Viladomat",
+      "estat": "Finalitzada",
+      "data_inici": "2026-06-08 00:00:00",
+      "data_fi": "2026-08-07 00:00:00"
+    },
+    {
+      "lat": 41.372946496094,
+      "lng": 2.1355646392862906,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-06-25 00:00:00",
+      "data_fi": "2026-09-16 00:00:00"
+    },
+    {
+      "lat": 41.374813465930906,
+      "lng": 2.16116701468903,
+      "titol": "Canalització de la xarxa d'aigües al carrer de la Concòrdia",
+      "estat": "Finalitzada",
+      "data_inici": "2026-06-01 00:00:00",
+      "data_fi": "2026-06-19 00:00:00"
+    },
+    {
+      "lat": 41.3653019442838,
+      "lng": 2.1333885330842985,
+      "titol": "Execució de línies subterrànies de baixa tensió al carrer de Juan Gris",
+      "estat": "Finalitzada",
+      "data_inici": "2026-01-26 00:00:00",
+      "data_fi": "2026-06-09 00:00:00"
+    },
+    {
+      "lat": 41.372587771835065,
+      "lng": 2.1389095487632934,
+      "titol": "Remodelació integral de les dues àrees de jocs de la plaça de la Farga",
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-15 00:00:00",
+      "data_fi": "2025-11-21 00:00:00"
+    },
+    {
+      "lat": 41.37036184840516,
+      "lng": 2.1467980666277455,
+      "titol": "Remodelació àrea esportiva del Parc de Montjuïc",
+      "estat": "Finalitzada",
+      "data_inici": "2025-10-21 00:00:00",
+      "data_fi": "2025-12-19 00:00:00"
+    },
+    {
+      "lat": 41.37832790488304,
+      "lng": 2.1689829651762706,
+      "titol": "Canalització de línia de baixa tensió al carrer de la Riereta 22 i al carrer de Sant Martí 22",
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-01 00:00:00",
+      "data_fi": "2025-11-24 00:00:00"
+    },
+    {
+      "lat": 41.38010486985696,
+      "lng": 2.1429176739565965,
+      "titol": "Adequació de la mobilitat als entorns de l'estació de Sants",
+      "estat": "Finalitzada",
+      "data_inici": "2023-09-13 00:00:00",
+      "data_fi": "2025-04-25 00:00:00"
+    },
+    {
+      "lat": 41.37315860612485,
+      "lng": 2.125381228681973,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-10-26 00:00:00",
+      "data_fi": "2026-12-18 00:00:00"
+    },
+    {
+      "lat": 41.37755187322558,
+      "lng": 2.1641111489210108,
+      "titol": "Canalització d'aigües al carrer del Parlament (carrer del Comte Borrell - ronda de Sant Pau)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-07-21 00:00:00",
+      "data_fi": "2025-08-31 00:00:00"
+    },
+    {
+      "lat": 41.375049580231284,
+      "lng": 2.139914009433899,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-07-06 00:00:00",
+      "data_fi": "2026-08-21 00:00:00"
+    },
+    {
+      "lat": 41.37605614380993,
+      "lng": 2.1262219559962534,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-06-30 00:00:00",
+      "data_fi": "2025-07-11 00:00:00"
+    },
+    {
+      "lat": 41.3777672576645,
+      "lng": 2.150073052281576,
+      "titol": "Canalització d'aigües al carrer Diputació, entre els carrers de Vilamarí i de Llançà",
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-01 00:00:00",
+      "data_fi": "2025-09-26 00:00:00"
+    },
+    {
+      "lat": 41.3800086976863,
+      "lng": 2.1308937774686254,
+      "titol": "Pla de cales per a l'execució de l'avantprojecte de reurbanització del carrer de Tenor Masini",
+      "estat": "Finalitzada",
+      "data_inici": "2024-09-16 00:00:00",
+      "data_fi": "2024-10-28 00:00:00"
+    },
+    {
+      "lat": 41.3776474367161,
+      "lng": 2.1703595187158835,
+      "titol": "Renovació del paviment del carrer de Sant Pau, entre el carrer de les Carretes i la rambla del Raval",
+      "estat": "Finalitzada",
+      "data_inici": "2024-11-04 00:00:00",
+      "data_fi": "2024-11-07 00:00:00"
+    },
+    {
+      "lat": 41.37725287139482,
+      "lng": 2.135432880047718,
+      "titol": "Renovació vàlvula AGBAR. c. Galileu - c. Valladolid",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-07 00:00:00",
+      "data_fi": "2024-12-02 00:00:00"
+    },
+    {
+      "lat": 41.3712773427829,
+      "lng": 2.1403476810282345,
+      "titol": "Canalització de telecomunicacions a la vorera del carrer de Gavà núm. 27",
+      "estat": "Finalitzada",
+      "data_inici": "2024-01-29 00:00:00",
+      "data_fi": "2024-02-12 00:00:00"
+    },
+    {
+      "lat": 41.368318420402694,
+      "lng": 2.1578540373116155,
+      "titol": "Millores als Jardins Laribal",
+      "estat": "Finalitzada",
+      "data_inici": "2023-03-07 00:00:00",
+      "data_fi": "2023-06-30 00:00:00"
+    },
+    {
+      "lat": 41.375970273114106,
+      "lng": 2.1506979359190694,
+      "titol": "Perllongament de l'L8 entre Espanya i Gràcia (àmbit plaça d'Espanya)",
+      "estat": "Finalitzada",
+      "data_inici": "2022-07-04 00:00:00",
+      "data_fi": "2023-11-29 00:00:00"
+    },
+    {
+      "lat": 41.375970273114106,
+      "lng": 2.1506979359190694,
+      "titol": "Perllongament de l'L8 entre Espanya i Gràcia (àmbit plaça d'Espanya)",
+      "estat": "Finalitzada",
+      "data_inici": "2022-07-04 00:00:00",
+      "data_fi": "2023-11-29 00:00:00"
+    },
+    {
+      "lat": 41.375970273114106,
+      "lng": 2.1506979359190694,
+      "titol": "Perllongament de l'L8 entre Espanya i Gràcia (àmbit plaça d'Espanya)",
+      "estat": "Finalitzada",
+      "data_inici": "2022-07-04 00:00:00",
+      "data_fi": "2023-11-29 00:00:00"
+    },
+    {
+      "lat": 41.37627198709928,
+      "lng": 2.1300890830092816,
+      "titol": "Reparació de filtracions en l'aparcament de la rambla del Brasil",
+      "estat": "Finalitzada",
+      "data_inici": "2024-11-11 00:00:00",
+      "data_fi": "2025-05-09 00:00:00"
+    },
+    {
+      "lat": 41.358427970626096,
+      "lng": 2.148419784415459,
+      "titol": "Estabilització del talús Sot del Migdia",
+      "estat": "Finalitzada",
+      "data_inici": "2024-09-30 00:00:00",
+      "data_fi": "2025-11-28 00:00:00"
+    },
+    {
+      "lat": 41.37094504853763,
+      "lng": 2.132403032266219,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-11-02 00:00:00",
+      "data_fi": "2026-11-30 00:00:00"
+    },
+    {
+      "lat": 41.36452692837535,
+      "lng": 2.1401556087554674,
+      "titol": "Pavimentació del carrer del Segura (carrer del Polvorí - carrer del Guadalquivir)",
+      "estat": "Finalitzada",
+      "data_inici": "2026-05-20 00:00:00",
+      "data_fi": "2026-06-22 00:00:00"
+    },
+    {
+      "lat": 41.37758654584538,
+      "lng": 2.1360137889578352,
+      "titol": "Reparació de la claveguera del carrer de Valladolid, entre els carrers del Vallespir i de Galileu",
+      "estat": "Finalitzada",
+      "data_inici": "2024-03-04 00:00:00",
+      "data_fi": "2024-07-26 00:00:00"
+    },
+    {
+      "lat": 41.366225494652674,
+      "lng": 2.134433695850534,
+      "titol": "Rehabilitació de col·lector a la rambla de Badal (carrer de Quetzal - avinguda del Carrilet) ",
+      "estat": "Finalitzada",
+      "data_inici": "2025-08-04 00:00:00",
+      "data_fi": "2025-10-27 00:00:00"
+    },
+    {
+      "lat": 41.378917238188095,
+      "lng": 2.1364407059789614,
+      "titol": "Nova infraestructura de telecomunicacions al carrer Bethencourt amb el carrer de Santa Caterina",
+      "estat": "Finalitzada",
+      "data_inici": "2026-01-12 00:00:00",
+      "data_fi": "2026-01-31 00:00:00"
+    },
+    {
+      "lat": 41.37785596897363,
+      "lng": 2.1705748123694026,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-06-18 00:00:00",
+      "data_fi": "2025-06-20 00:00:00"
+    },
+    {
+      "lat": 41.362463269905305,
+      "lng": 2.1474578445340873,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-07-30 00:00:00",
+      "data_fi": "2026-12-05 00:00:00"
+    },
+    {
+      "lat": 41.37579270347373,
+      "lng": 2.1251219185373507,
+      "titol": "Renovació d¿abastament d¿aigua potable al carrer de Sants, entre avinguda Madrid i carrer d'Arizala",
+      "estat": "Finalitzada",
+      "data_inici": "2022-10-24 00:00:00",
+      "data_fi": "2022-11-24 00:00:00"
+    },
+    {
+      "lat": 41.36676771185468,
+      "lng": 2.1378406614316683,
+      "titol": "Canalització d'Endesa de la línia Sants - Hostafrancs - Mata",
+      "estat": "Finalitzada",
+      "data_inici": "2022-07-04 00:00:00",
+      "data_fi": "2024-12-12 00:00:00"
+    },
+    {
+      "lat": 41.377490816662124,
+      "lng": 2.1592663502138967,
+      "titol": "Millora de l'espai verd l'avinguda de Mistral (avinguda del Paral·lel - carrer de Viladomat)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-05-26 00:00:00",
+      "data_fi": "2026-02-26 00:00:00"
+    },
+    {
+      "lat": 41.36996789152584,
+      "lng": 2.145196673805249,
+      "titol": "Clavegueró particular per a connexió a xarxa de sanejament, al carrer de la Guatlla núm. 23",
+      "estat": "Finalitzada",
+      "data_inici": "2024-01-22 00:00:00",
+      "data_fi": "2024-03-01 00:00:00"
+    },
+    {
+      "lat": 41.37877825868852,
+      "lng": 2.1360191636401953,
+      "titol": "Canalització elèctrica als carrers d'Alcolea i de Santa Cecília",
+      "estat": "Finalitzada",
+      "data_inici": "2025-11-17 00:00:00",
+      "data_fi": "2026-01-05 00:00:00"
+    },
+    {
+      "lat": 41.365439646493954,
+      "lng": 2.135455428489365,
+      "titol": "Emplaçament de grua autoportant a la rambla del Badal, núm. 2",
+      "estat": "Finalitzada",
+      "data_inici": "2024-03-24 00:00:00",
+      "data_fi": "2024-05-13 00:00:00"
+    },
+    {
+      "lat": 41.37936900030278,
+      "lng": 2.1733004439715504,
+      "titol": "Canalització d'Endesa al carrer de la Unió núm. 28",
+      "estat": "Finalitzada",
+      "data_inici": "2024-02-19 00:00:00",
+      "data_fi": "2024-03-18 00:00:00"
+    },
+    {
+      "lat": 41.37219901174946,
+      "lng": 2.12854303255899,
+      "titol": "Remodelació de la plaça de l'Olivereta",
+      "estat": "En execució",
+      "data_inici": "2026-04-27 00:00:00",
+      "data_fi": "2027-06-25 00:00:00"
+    },
+    {
+      "lat": 41.3721228848757,
+      "lng": 2.13570897384162,
+      "titol": "Construcció de clavegueró al carrer dels Jocs Florals, núm. 111",
+      "estat": "Finalitzada",
+      "data_inici": "2026-03-16 00:00:00",
+      "data_fi": "2026-04-17 00:00:00"
+    },
+    {
+      "lat": 41.374143108521025,
+      "lng": 2.129954833886906,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-10-19 00:00:00",
+      "data_fi": "2027-03-05 00:00:00"
+    },
+    {
+      "lat": 41.372943451414216,
+      "lng": 2.135560596402841,
+      "titol": "Enderroc d'edificació al carrer de Burgos a la cruïlla amb el carrer de Sagunt ",
+      "estat": "Finalitzada",
+      "data_inici": "2024-07-08 00:00:00",
+      "data_fi": "2024-08-08 00:00:00"
+    },
+    {
+      "lat": 41.38074141847602,
+      "lng": 2.167675958894367,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-09-14 00:00:00",
+      "data_fi": "2026-12-18 00:00:00"
+    },
+    {
+      "lat": 41.378271690005064,
+      "lng": 2.1460889773266194,
+      "titol": "Construcció d'un clavegueró particular al carrer d'Aragó, 1-5",
+      "estat": "Finalitzada",
+      "data_inici": "2025-11-10 00:00:00",
+      "data_fi": "2025-12-12 00:00:00"
+    },
+    {
+      "lat": 41.38016659251106,
+      "lng": 2.140921436105079,
+      "titol": "Millora de l'accessibilitat dels intercanviadors de Sants Estació",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-27 00:00:00",
+      "data_fi": "2024-12-23 00:00:00"
+    },
+    {
+      "lat": 41.36918050012382,
+      "lng": 2.170027496054278,
+      "titol": "Remodelació integral del reg dels jardins de Joan Brossa",
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-08 00:00:00",
+      "data_fi": "2026-03-11 00:00:00"
+    },
+    {
+      "lat": 41.378000323250845,
+      "lng": 2.1685557194479914,
+      "titol": "Construcció del clavegueró particular al carrer de la Riereta núm. 18-22",
+      "estat": "Finalitzada",
+      "data_inici": "2024-07-15 00:00:00",
+      "data_fi": "2024-09-15 00:00:00"
+    },
+    {
+      "lat": 41.37643726485123,
+      "lng": 2.1356867305913934,
+      "titol": "Nou col·lector d'aigües residuals i reforma de voreres al passatge de Serra i Arola",
+      "estat": "Finalitzada",
+      "data_inici": "2026-01-07 00:00:00",
+      "data_fi": "2026-04-30 00:00:00"
+    },
+    {
+      "lat": 41.38007977788435,
+      "lng": 2.1690978936750285,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-07-23 00:00:00",
+      "data_fi": "2026-07-23 00:00:00"
+    },
+    {
+      "lat": 41.3623607212071,
+      "lng": 2.148075502749517,
+      "titol": "Millores a talussos del carrer de la Pedrera del Mussol (c. dels Jocs del 92 - escola de Can Clos)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-14 00:00:00",
+      "data_fi": "2025-04-04 00:00:00"
+    },
+    {
+      "lat": 41.35972176939862,
+      "lng": 2.1657362694385576,
+      "titol": "Reparació de les juntes de dilatació del viaducte del Morrot (B-10)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-06-29 00:00:00",
+      "data_fi": "2025-07-31 00:00:00"
+    },
+    {
+      "lat": 41.37767688277749,
+      "lng": 2.1632778857408645,
+      "titol": "Remodelació de l'àrea esportiva i circuit per a la gent gran dels Jardins de Càndida Pérez",
+      "estat": "Finalitzada",
+      "data_inici": "2025-11-10 00:00:00",
+      "data_fi": "2025-12-19 00:00:00"
+    },
+    {
+      "lat": 41.38103691391949,
+      "lng": 2.142501309409739,
+      "titol": "Renovació d'espais verds a l'avinguda de Josep Tarradellas (carrers de Numància - de Berlín)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-29 00:00:00",
+      "data_fi": "2026-03-31 00:00:00"
+    },
+    {
+      "lat": 41.37883391691945,
+      "lng": 2.1258031377381026,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-01-13 00:00:00",
+      "data_fi": "2025-08-08 00:00:00"
+    },
+    {
+      "lat": 41.37867772718931,
+      "lng": 2.1324175935348637,
+      "titol": "Remodelació integral de les àrees d'esbarjo de gossos dels jardins Can Mantega i de Màlaga",
+      "estat": "Finalitzada",
+      "data_inici": "2026-05-18 00:00:00",
+      "data_fi": "2026-08-26 00:00:00"
+    },
+    {
+      "lat": 41.37540516919679,
+      "lng": 2.170374308088457,
+      "titol": "Rehabilitació i adequació del teatre Arnau",
+      "estat": "En execució",
+      "data_inici": "2025-05-05 00:00:00",
+      "data_fi": "2027-01-05 00:00:00"
+    },
+    {
+      "lat": 41.37236040411845,
+      "lng": 2.156689137602156,
+      "titol": "Construcció de clavegueró al carrer de Grasses núm. 24",
+      "estat": "Finalitzada",
+      "data_inici": "2026-02-02 00:00:00",
+      "data_fi": "2026-02-16 00:00:00"
+    },
+    {
+      "lat": 41.37883391691945,
+      "lng": 2.1258031377381026,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-01-13 00:00:00",
+      "data_fi": "2025-08-08 00:00:00"
+    },
+    {
+      "lat": 41.37917687507659,
+      "lng": 2.1647947611529785,
+      "titol": "Reurbanització del carrer de Sant Antoni Abat (carrer de la Cendra -plaça del Pedró)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-08-19 00:00:00",
+      "data_fi": "2025-02-21 00:00:00"
+    },
+    {
+      "lat": 41.370462519013536,
+      "lng": 2.1450504883287294,
+      "titol": "Soterrament de línies als carrers de la Font Florida i del Crisantem",
+      "estat": "En execució",
+      "data_inici": "2026-02-02 00:00:00",
+      "data_fi": "2026-11-11 00:00:00"
+    },
+    {
+      "lat": 41.37506553731171,
+      "lng": 2.16842733829188,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-08-04 00:00:00",
+      "data_fi": "2025-08-17 00:00:00"
+    },
+    {
+      "lat": 41.37159045979974,
+      "lng": 2.1580647451829003,
+      "titol": "Millora integral de diversos carrers al barri del Poble Sec",
+      "estat": "Finalitzada",
+      "data_inici": "2025-03-17 00:00:00",
+      "data_fi": "2025-11-03 00:00:00"
+    },
+    {
+      "lat": 41.372467813575,
+      "lng": 2.135539226970545,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-10-26 00:00:00",
+      "data_fi": "2026-12-07 00:00:00"
+    },
+    {
+      "lat": 41.377669931534236,
+      "lng": 2.170490813728508,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-08-20 00:00:00",
+      "data_fi": "2026-08-21 00:00:00"
+    },
+    {
+      "lat": 41.373996774622995,
+      "lng": 2.1372655926567035,
+      "titol": "Reparació de paviment del carrer de Rossend Arús, entre la plaça de la Farga i el carrer de Gavà",
+      "estat": "Finalitzada",
+      "data_inici": "2023-04-17 00:00:00",
+      "data_fi": "2023-07-11 00:00:00"
+    },
+    {
+      "lat": 41.370371411456844,
+      "lng": 2.1478024552270076,
+      "titol": "Reurbanització dels entorns de vuit escoles de Sants-Montjuic, en el marc \"Protegim les Escoles\"",
+      "estat": "Finalitzada",
+      "data_inici": "2023-02-06 00:00:00",
+      "data_fi": "2023-06-05 00:00:00"
+    },
+    {
+      "lat": 41.37641300474832,
+      "lng": 2.1398430915916458,
+      "titol": "Canalització NEDGIA. c. Watt, 19",
+      "estat": "Finalitzada",
+      "data_inici": "2024-06-17 00:00:00",
+      "data_fi": "2024-07-08 00:00:00"
+    },
+    {
+      "lat": 41.367875660582584,
+      "lng": 2.1393892397630467,
+      "titol": "Remodelació del carrer de Mossèn Amadeu Oller (Gran Via de les CC - carrer de la Constitució)",
+      "estat": "En execució",
+      "data_inici": "2026-06-10 00:00:00",
+      "data_fi": "2027-03-10 00:00:00"
+    },
+    {
+      "lat": 41.36757272983648,
+      "lng": 2.1396350484218125,
+      "titol": "Nou carril bici a la Gran Via de les Corts Catalanes (plaça d'Espanya - carrer de la Mineria)",
+      "estat": "Finalitzada",
+      "data_inici": "2023-04-11 00:00:00",
+      "data_fi": "2023-10-25 00:00:00"
+    },
+    {
+      "lat": 41.371490157929756,
+      "lng": 2.151320786140777,
+      "titol": "Implantació d'elements tecnològics a Montjuïc",
+      "estat": "Finalitzada",
+      "data_inici": "2024-03-18 00:00:00",
+      "data_fi": "2025-02-18 00:00:00"
+    },
+    {
+      "lat": 41.371490157929756,
+      "lng": 2.151320786140777,
+      "titol": "Implantació d'elements tecnològics a Montjuïc",
+      "estat": "Finalitzada",
+      "data_inici": "2024-03-18 00:00:00",
+      "data_fi": "2025-02-18 00:00:00"
+    },
+    {
+      "lat": 41.371490157929756,
+      "lng": 2.151320786140777,
+      "titol": "Implantació d'elements tecnològics a Montjuïc",
+      "estat": "Finalitzada",
+      "data_inici": "2024-03-18 00:00:00",
+      "data_fi": "2025-02-18 00:00:00"
+    },
+    {
+      "lat": 41.377749649627845,
+      "lng": 2.163463504130188,
+      "titol": "Remodelació de l'àrea esportiva dels Jardins de Cándida Pérez",
+      "estat": "Finalitzada",
+      "data_inici": "2025-12-11 00:00:00",
+      "data_fi": "2026-01-15 00:00:00"
+    },
+    {
+      "lat": 41.362098533997866,
+      "lng": 2.1541903217894447,
+      "titol": "Remodelació integral de la xarxa de reg del passeig Olímpic",
+      "estat": "En execució",
+      "data_inici": "2025-10-13 00:00:00",
+      "data_fi": "2026-10-30 00:00:00"
+    },
+    {
+      "lat": 41.37581514351783,
+      "lng": 2.133826036886508,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-10-19 00:00:00",
+      "data_fi": "2026-11-22 00:00:00"
+    },
+    {
+      "lat": 41.36676506652264,
+      "lng": 2.144740991528612,
+      "titol": "Pavimentació de l'avinguda de l'Estadi, entre la plaça de Sant Jordi i el passeig de Santa Madrona",
+      "estat": "Finalitzada",
+      "data_inici": "2026-04-20 00:00:00",
+      "data_fi": "2026-06-22 00:00:00"
+    },
+    {
+      "lat": 41.36365033042672,
+      "lng": 2.144576917394391,
+      "titol": "Reforma del camp esportiu municipal Julià de Capmany",
+      "estat": "Finalitzada",
+      "data_inici": "2023-05-29 00:00:00",
+      "data_fi": "2024-02-29 00:00:00"
+    },
+    {
+      "lat": 41.375457835231444,
+      "lng": 2.135373143179241,
+      "titol": "Reparació de clavegueram al carrer de Sants, entre la plaça de Sants i el carrer de Premià",
+      "estat": "Finalitzada",
+      "data_inici": "2025-09-01 00:00:00",
+      "data_fi": "2026-04-01 00:00:00"
+    },
+    {
+      "lat": 41.37890714211653,
+      "lng": 2.1451100384992827,
+      "titol": "Ocupacions per nova base d'operacions per al personal a l'estació de metro de Tarragona",
+      "estat": "Finalitzada",
+      "data_inici": "2023-12-19 00:00:00",
+      "data_fi": "2024-07-15 00:00:00"
+    },
+    {
+      "lat": 41.359244998234196,
+      "lng": 2.1445363229128405,
+      "titol": "Pavimentació del carrer del Foc (passeig de la Zona Franca - carrer dels Ferrocarrils Catalans)",
+      "estat": "Finalitzada",
+      "data_inici": "2026-04-27 00:00:00",
+      "data_fi": "2026-06-22 00:00:00"
+    },
+    {
+      "lat": 41.380968511570686,
+      "lng": 2.1323979735617637,
+      "titol": "Joan Güell ",
+      "estat": "Finalitzada",
+      "data_inici": "2023-07-03 00:00:00",
+      "data_fi": "2023-10-06 00:00:00"
+    },
+    {
+      "lat": 41.373980439389236,
+      "lng": 2.1382498404602424,
+      "titol": "Canalització per a nou subministrament elèctric al carrer de Cros, número 24",
+      "estat": "Finalitzada",
+      "data_inici": "2025-07-28 00:00:00",
+      "data_fi": "2025-08-18 00:00:00"
+    },
+    {
+      "lat": 41.367264852869624,
+      "lng": 2.1606920439826314,
+      "titol": "Millora dels camins escolar als entorns de la muntanya de Montjuïc",
+      "estat": "Finalitzada",
+      "data_inici": "2023-04-18 00:00:00",
+      "data_fi": "2023-11-30 00:00:00"
+    },
+    {
+      "lat": 41.37962089143372,
+      "lng": 2.1420070002668417,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-09-29 00:00:00",
+      "data_fi": "2027-04-30 00:00:00"
+    },
+    {
+      "lat": 41.37981176782675,
+      "lng": 2.1680791162517545,
+      "titol": "Millora de paviments a la rambla del Raval",
+      "estat": "Finalitzada",
+      "data_inici": "2023-06-28 00:00:00",
+      "data_fi": "2023-08-23 00:00:00"
+    },
+    {
+      "lat": 41.37691689873192,
+      "lng": 2.169939654545849,
+      "titol": "Arranjament i millora als jardins Sant Pau del Camp (Fase 3)",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-07 00:00:00",
+      "data_fi": "2025-08-07 00:00:00"
+    },
+    {
+      "lat": 41.371803655063744,
+      "lng": 2.1651429477178925,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2023-01-09 00:00:00",
+      "data_fi": "2023-02-07 00:00:00"
+    },
+    {
+      "lat": 41.35814356073053,
+      "lng": 2.1355931233991723,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-10-01 00:00:00",
+      "data_fi": "2027-02-15 00:00:00"
+    },
+    {
+      "lat": 41.377409750108804,
+      "lng": 2.1354089653296273,
+      "titol": "Canalització d'enllumenat al carrer de Valladolid (carrer de Vallespir- carrer de Galileu)",
+      "estat": "Finalitzada",
+      "data_inici": "2026-05-18 00:00:00",
+      "data_fi": "2026-06-15 00:00:00"
+    },
+    {
+      "lat": 41.375206228371304,
+      "lng": 2.150727069532903,
+      "titol": "Millora de l¿accessibilitat de les estacions de metro d'Espanya de l¿L1 i L3",
+      "estat": "Finalitzada",
+      "data_inici": "2020-07-13 00:00:00",
+      "data_fi": "2025-03-20 00:00:00"
+    },
+    {
+      "lat": 41.376726681309414,
+      "lng": 2.1416196420553697,
+      "titol": "Millora Parc Espanya Industrial",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-13 00:00:00",
+      "data_fi": "2024-09-09 00:00:00"
+    },
+    {
+      "lat": 41.36943682856032,
+      "lng": 2.173386800508643,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-01-01 00:00:00",
+      "data_fi": "2025-12-31 00:00:00"
+    },
+    {
+      "lat": 41.367236155337814,
+      "lng": 2.133616143300333,
+      "titol": "Urbanització de l'illa entre els carrers de Quetzal, de la Riera Blanca i l'avinguda del Carrilet",
+      "estat": "Finalitzada",
+      "data_inici": "2023-11-06 00:00:00",
+      "data_fi": "2025-02-28 00:00:00"
+    },
+    {
+      "lat": 41.374804487408426,
+      "lng": 2.135184612343995,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2026-06-29 00:00:00",
+      "data_fi": "2026-08-14 00:00:00"
+    },
+    {
+      "lat": 41.37846981414195,
+      "lng": 2.138992098985173,
+      "titol": "Reparació de filtracions a l'estació de Sants",
+      "estat": "Finalitzada",
+      "data_inici": "2024-02-05 00:00:00",
+      "data_fi": "2026-04-05 00:00:00"
+    },
+    {
+      "lat": 41.3711440716523,
+      "lng": 2.1415811404429235,
+      "titol": "Reforma de l'àrea de jocs existent als Jardins de Celestina Vigneaux",
+      "estat": "Finalitzada",
+      "data_inici": "2025-02-12 00:00:00",
+      "data_fi": "2025-07-23 00:00:00"
+    },
+    {
+      "lat": 41.370116307886285,
+      "lng": 2.1541473293939566,
+      "titol": "Renovació d'escales mecàniques a Montjuïc ",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-24 00:00:00",
+      "data_fi": "2026-06-22 00:00:00"
+    },
+    {
+      "lat": 41.371039321283774,
+      "lng": 2.139680087383597,
+      "titol": "Rehabilitació de col·lector al carrer d'Almeria, entre els carrers de Gavà i de Juan Bravo",
+      "estat": "Finalitzada",
+      "data_inici": "2025-10-27 00:00:00",
+      "data_fi": "2025-12-05 00:00:00"
+    },
+    {
+      "lat": 41.37441133663823,
+      "lng": 2.1306981200702353,
+      "titol": "Canalització d'Agbar a la rambla de Badal entre els carrers de Casteràs i de Canalejas",
+      "estat": "Finalitzada",
+      "data_inici": "2024-05-06 00:00:00",
+      "data_fi": "2024-06-26 00:00:00"
+    },
+    {
+      "lat": 41.36804649730512,
+      "lng": 2.17107126377882,
+      "titol": "Remodelació de la xarxa de reg interior del parc dels jardins de Mossèn Costa i Llobera",
+      "estat": "Finalitzada",
+      "data_inici": "2025-03-31 00:00:00",
+      "data_fi": "2025-10-31 00:00:00"
+    },
+    {
+      "lat": 41.3585955427958,
+      "lng": 2.140434277242401,
+      "titol": "Pavimentació del carrer dels Alts Forns (passeig de la Zona Franca-carrer de Mare de Déu del Port)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-12-04 00:00:00",
+      "data_fi": "2025-12-04 00:00:00"
+    },
+    {
+      "lat": 41.3789313590515,
+      "lng": 2.1435261236617333,
+      "titol": "Ocupacions per rehabilitació de l'edifici del carrer de Tarragona núm. 173",
+      "estat": "Finalitzada",
+      "data_inici": "2024-02-05 00:00:00",
+      "data_fi": "2024-10-09 00:00:00"
+    },
+    {
+      "lat": 41.37112628848491,
+      "lng": 2.154516188396885,
+      "titol": "Canalització de línies elèctriques al carrer de la Guàrdia Urbana i carrer de Joaquim Blume",
+      "estat": "Finalitzada",
+      "data_inici": "2026-04-08 00:00:00",
+      "data_fi": "2026-08-07 00:00:00"
+    },
+    {
+      "lat": 41.37343026913496,
+      "lng": 2.147639301560607,
+      "titol": "Perllongament de l'L8 dels FGC des de Plaça d'Espanya fins a Gràcia (àmbit plaça d'Espanya)",
+      "estat": "En execució",
+      "data_inici": "2024-01-10 00:00:00",
+      "data_fi": "2028-08-31 00:00:00"
+    },
+    {
+      "lat": 41.375668220738135,
+      "lng": 2.1305891993540125,
+      "titol": "Reforç estructural d'accés Sants del Túnel de Badal ascendent",
+      "estat": "Finalitzada",
+      "data_inici": "2023-06-11 00:00:00",
+      "data_fi": "2023-08-11 00:00:00"
+    },
+    {
+      "lat": 41.37701998714419,
+      "lng": 2.131835893226541,
+      "titol": "Embornals al carrer de Cerdanyola entre el carrer del Tenor Masini i la Riera d'Escuder",
+      "estat": "Finalitzada",
+      "data_inici": "2024-10-07 00:00:00",
+      "data_fi": "2024-10-28 00:00:00"
+    },
+    {
+      "lat": 41.37939844542939,
+      "lng": 2.1318813397250875,
+      "titol": "Nou clavegueró particular al carrer de Violant d'Hongria Reina d'Aragó núm. 105",
+      "estat": "Finalitzada",
+      "data_inici": "2026-03-23 00:00:00",
+      "data_fi": "2026-04-01 00:00:00"
+    },
+    {
+      "lat": 41.366059336009855,
+      "lng": 2.134372697875881,
+      "titol": null,
+      "estat": "Finalitzada",
+      "data_inici": "2025-07-11 00:00:00",
+      "data_fi": "2025-08-04 00:00:00"
+    },
+    {
+      "lat": 41.375732042444724,
+      "lng": 2.1359578067750298,
+      "titol": "Reparació de junts al passeig de Sant Antoni (carretera de Sants - carrer de l'Autonomia)",
+      "estat": "Finalitzada",
+      "data_inici": "2025-11-30 00:00:00",
+      "data_fi": "2025-12-01 00:00:00"
+    },
+    {
+      "lat": 41.37598249913423,
+      "lng": 2.150222077537684,
+      "titol": "Perllongament de la línia d'FGC des de plaça d'Espanya fins a Gràcia (àmbit pou d'atac Gran Via)",
+      "estat": "En execució",
+      "data_inici": "2026-01-07 00:00:00",
+      "data_fi": "2028-08-03 00:00:00"
+    },
+    {
+      "lat": 41.37467085504041,
+      "lng": 2.141432830391498,
+      "titol": "Rehabilitació del col·lector del carrer del Vint-i-sis de Gener de 1641",
+      "estat": "En execució",
+      "data_inici": "2026-02-16 00:00:00",
+      "data_fi": "2026-12-16 00:00:00"
+    },
+    {
+      "lat": 41.38121289301354,
+      "lng": 2.1290276392630014,
+      "titol": "Xarxa Freàtica. Cloració de 4 dipòsits",
+      "estat": "Finalitzada",
+      "data_inici": "2024-07-22 00:00:00",
+      "data_fi": "2024-08-12 00:00:00"
+    },
+    {
+      "lat": 41.380695463555305,
+      "lng": 2.1323224658974334,
+      "titol": "Millora de l'enllumenat al carrer de Joan Güell (avinguda de Madrid - passatge de Serra i Arola)",
+      "estat": "Finalitzada",
+      "data_inici": "2026-02-09 00:00:00",
+      "data_fi": "2026-05-11 00:00:00"
+    },
+    {
+      "lat": 41.378588316607235,
+      "lng": 2.1739612808974207,
+      "titol": "Canalització elèctrica des de la placeta d'Anna Murià fins al carrer de Lancaster",
+      "estat": "Finalitzada",
+      "data_inici": "2025-11-10 00:00:00",
+      "data_fi": "2026-03-13 00:00:00"
+    },
+    {
+      "lat": 41.369671292088285,
+      "lng": 2.1466563375902448,
+      "titol": null,
+      "estat": "En execució",
+      "data_inici": "2026-06-29 00:00:00",
+      "data_fi": "2027-04-30 00:00:00"
+    }
+  ]
+}
