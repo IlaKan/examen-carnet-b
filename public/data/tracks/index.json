@@ -30,6 +30,16 @@
     "duracion_min": 61.87
   },
   {
+    "id": "2026-10-02-02-oct-2026-1435",
+    "nombre": "02-oct-2026-1435",
+    "fecha": "2026-10-02",
+    "zonas": [
+      "ZONA 2 - PEDRALBES",
+      "ZONA 3 - Z. UNIVERSIT."
+    ],
+    "duracion_min": 40.6
+  },
+  {
     "id": "2026-09-30-30-sept-2026-1304",
     "nombre": "30-sept-2026-1304",
     "fecha": "2026-09-30",
