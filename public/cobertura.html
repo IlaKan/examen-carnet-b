@@ -52,6 +52,7 @@
     .punto.nunca-mia { border-left: 4px solid var(--warn-text); }
     .punto .zona { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--text-dim); text-transform: uppercase; }
     .punto h3 { margin: 2px 0 6px; font-size: 15px; line-height: 1.3; color: var(--text); }
+    .punto .habilidad { margin: 0 0 6px; font-size: 12px; font-weight: 700; color: var(--warn-text); }
     .punto .nota { margin: 0; font-size: 13px; line-height: 1.5; color: var(--text-muted); }
     .punto .nota-lbl { display: block; font-size: 11px; font-weight: 700; color: var(--text-dim); margin-bottom: 2px; }
     .punto .clases { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
@@ -90,15 +91,16 @@
     <div id="vista-cobertura" role="tabpanel" aria-labelledby="tab-cobertura" hidden>
       <div class="resumen">
         <div class="card"><div class="num" id="nTotal"></div><div class="lbl">puntos pisados de 68</div></div>
-        <div class="card"><div class="num" id="nMia"></div><div class="lbl">en Pedralbes + Universitat</div></div>
+        <div class="card"><div class="num" id="nMia"></div><div class="lbl">en tu zona (Les Corts, Poble Sec, Montjuïc)</div></div>
         <div class="card alerta"><div class="num" id="nNunca"></div><div class="lbl">nunca pisados en tu zona</div></div>
       </div>
       <div class="leyenda" aria-hidden="true">
         <span><i class="dot nunca-mia"></i>Nunca · tu zona</span>
-        <span><i class="dot nunca-otra"></i>Nunca · otras zonas</span>
+        <span><i class="dot nunca-otra"></i>Nunca · La Maquinista</span>
         <span><i class="dot pisado"></i>Pisado</span>
       </div>
       <p class="aviso">«Pisado» = alguna clase pasó a 60 m o menos. No dice que hicieras la maniobra: en túneles, salidas de Ronda o calles paralelas puede contar sin haberla hecho.</p>
+      <a class="btn" href="puntos.html?zona=__faltan">Estudiar los que me faltan →</a>
       <div id="grupos"></div>
     </div>
 
@@ -118,9 +120,7 @@
     // una recta falsa; por encima de esta velocidad el tramo no cuenta.
     const VEL_MAX_MS = 40;
     // Poble Sec y Montjuïc confirmados como zona de examen por Ilaria (2026-11-07)
-    const MI_ZONA = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.', 'ZONA 4 - POBLE SEC', 'ZONA 6 - MONTJÜIC'];
-    const LES_CORTS = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.'];
-    const C = { warn: '#e0c27a', bg: '#16181d', confirm: '#34C7A3', accent: '#8b7cf6', track: '#4b5260' };
+    const MI_ZONA = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.', 'ZONA 4 - POBLE SEC', 'ZONA 6 - MONTJÜIC'];    const C = { warn: '#e0c27a', bg: '#16181d', confirm: '#34C7A3', accent: '#8b7cf6', track: '#4b5260' };
 
     const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const fechaCorta = iso => new Date(iso + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
@@ -176,8 +176,9 @@
       const n = partesNota(p.nota), e = estadoDe(p);
       const chips = p.clases.map(c => `<span class="chip">${fechaCorta(c.fecha)}</span>`).join('');
       return `<article class="card punto ${e}">
-        <div class="zona">${esc(p.zona)}</div>
+        <div class="zona">${esc(p.sector || p.zona)}</div>
         <h3>${esc(p.nombre)}</h3>
+        ${p.habilidad && !p.clases.length ? `<p class="habilidad">Habilidad: ${esc(p.habilidad)}</p>` : ''}
         <p class="nota"><span class="nota-lbl">${esc(n.lbl)}</span>${esc(n.txt)}</p>
         ${chips ? `<div class="clases" aria-label="Clases que pasan por aquí">${chips}</div>` : ''}
         <div class="acciones">
@@ -189,7 +190,7 @@
     function grupo(titulo, lista, abierto, prioridad) {
       if (!lista.length) return '';
       return `<details class="grupo${prioridad ? ' prioridad' : ''}"${abierto ? ' open' : ''}>
-        <summary>${esc(titulo)} (${lista.length})</summary>${lista.map(tarjeta).join('')}</details>`;
+        <summary>${esc(titulo)}</summary>${lista.map(tarjeta).join('')}</details>`;
     }
 
     function pintarCobertura() {
@@ -256,13 +257,16 @@
       document.getElementById('nMia').textContent = `${mia.length - nuncaMia.length}/${mia.length}`;
       document.getElementById('nNunca').textContent = nuncaMia.length;
 
-      const nuncaOtra = PUNTOS.filter(p => !p.clases.length && !MI_ZONA.includes(p.zona));
-      const porZona = z => nuncaOtra.filter(p => p.zona === z);
+      // Un grupo por sector (scripts/sectores.py), los menos cubiertos primero;
+      // dentro, lo que falta va antes de lo pisado.
+      const sectores = [...new Set(mia.map(p => p.sector))].map(s => {
+        const ps = mia.filter(p => p.sector === s), ok = ps.filter(p => p.clases.length).length;
+        return { s, ok, ps: [...ps.filter(p => !p.clases.length), ...ps.filter(p => p.clases.length)] };
+      }).sort((a, b) => a.ok / a.ps.length - b.ok / b.ps.length);
+      const icono = (ok, n) => ok === n ? '🟢' : ok / n >= .5 ? '🟡' : '🔴';
       document.getElementById('grupos').innerHTML =
-        grupo('Nunca pisados · Les Corts', nuncaMia.filter(p => LES_CORTS.includes(p.zona)), true, true) +
-        grupo('Nunca pisados · Poble Sec y Montjuïc', nuncaMia.filter(p => !LES_CORTS.includes(p.zona)), true, true) +
-        grupo('Nunca · La Maquinista', porZona('ZONA 7 - LA MAQUINISTA'), false) +
-        grupo('Pisados', PUNTOS.filter(p => p.clases.length), false);
+        sectores.map(({ s, ok, ps }) => grupo(`${icono(ok, ps.length)} ${s} · ${ok}/${ps.length}`, ps, ok < ps.length, ok < ps.length)).join('') +
+        grupo('La Maquinista (fuera de tu examen)', PUNTOS.filter(p => !MI_ZONA.includes(p.zona)), false);
 
       document.getElementById('selClase').innerHTML = indice.map(t => {
         const n = PUNTOS.filter(p => p.clases.some(x => x.id === t.id)).length;

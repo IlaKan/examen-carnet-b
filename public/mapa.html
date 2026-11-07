@@ -208,12 +208,13 @@
         return;
       }
 
-      const [track, osm, obras, overrides, points] = await Promise.all([
+      const [track, osm, obras, overrides, points, indice] = await Promise.all([
         fetchJsonOrNull('data/tracks/' + trackId + '.json'),
         fetchJsonOrNull('data/tracks/' + trackId + '-osm.json'),
         fetchJsonOrNull('data/tracks/' + trackId + '-obras.json'),
         fetchJsonOrNull('data/tracks/' + trackId + '-overrides.json'),
         fetchJsonOrNull('data/points.json'),
+        fetchJsonOrNull('data/tracks/index.json'),
       ]);
 
       if (!track) {
@@ -221,9 +222,12 @@
         return;
       }
 
-      document.getElementById('titulo').innerHTML =
-        track.nombre + '<span class="sub">' + track.fecha +
-        (track.zonas.length ? ' · ' + track.zonas.join(', ') : '') + '</span>';
+      // Título legible del índice (scripts/lib/titulo_clase.py); si falta, el nombre del GPX.
+      const entrada = (indice || []).find(e => e.id === trackId);
+      document.getElementById('titulo').innerHTML = entrada && entrada.titulo
+        ? entrada.titulo + '<span class="sub">' + Math.round(track.duracion_min || 0) + ' min · ' + track.nombre + '</span>'
+        : track.nombre + '<span class="sub">' + track.fecha +
+          (track.zonas.length ? ' · ' + track.zonas.join(', ') : '') + '</span>';
 
       const latlngs = track.points.map(p => [p.lat, p.lng]);
       // Zoom en la esquina superior derecha, no la izquierda — ahí es donde

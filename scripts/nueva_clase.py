@@ -18,6 +18,7 @@ from scripts.lib.obras_fetcher import fetch_obras
 from scripts.lib.track_index import upsert_track_entry, load_index
 from scripts.lib.zone_suggest import collect_known_zones
 from scripts.lib.titulo_clase import titular
+from scripts.actualizar_pisados import actualizar as actualizar_pisados
 
 ROOT = Path(__file__).resolve().parent.parent
 TRACKS_DIR = ROOT / "public" / "data" / "tracks"
@@ -121,6 +122,8 @@ def main():
         "zonas": zonas,
         "duracion_min": track_data["duracion_min"],
     })
+
+    actualizar_pisados()
 
     print("Archivos escritos. Publicando (git add + commit + push)...")
     subprocess.run(["git", "add", "public/data"], cwd=ROOT, check=True)

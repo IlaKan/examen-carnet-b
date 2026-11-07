@@ -8,7 +8,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.386285,2.107888"
+    "google_maps_link": "https://www.google.com/maps?q=41.386285,2.107888",
+    "sector": "Les Corts · Pedralbes Sur–Esplugues"
   },
   {
     "nombre": "Z2 - 11.Rotonda entrada 9 Rda Dalt.",
@@ -19,7 +20,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.40069,2.114608"
+    "google_maps_link": "https://www.google.com/maps?q=41.40069,2.114608",
+    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)"
   },
   {
     "nombre": "Z2 - 12. Av. Pedralbes - Diagonal.",
@@ -30,7 +32,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.387829,2.12181"
+    "google_maps_link": "https://www.google.com/maps?q=41.387829,2.12181",
+    "sector": "Les Corts · Eje Diagonal–Dr. Marañón"
   },
   {
     "nombre": "Z2 - 13.Stop sin visibilidad.",
@@ -41,7 +44,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.394381,2.110618"
+    "google_maps_link": "https://www.google.com/maps?q=41.394381,2.110618",
+    "sector": "Les Corts · Pedralbes Norte (Pearson)",
+    "habilidad": "Stop y semáforo: para siempre"
   },
   {
     "nombre": "Z2 - 14.Paneles complementarios",
@@ -52,7 +57,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.395619,2.107597"
+    "google_maps_link": "https://www.google.com/maps?q=41.395619,2.107597",
+    "sector": "Les Corts · Pedralbes Norte (Pearson)",
+    "habilidad": "Lee la señal y su panel"
   },
   {
     "nombre": "Z2 - 15.Calle sin salida",
@@ -63,7 +70,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.39544,2.103568"
+    "google_maps_link": "https://www.google.com/maps?q=41.39544,2.103568",
+    "sector": "Les Corts · Pedralbes Norte (Pearson)",
+    "habilidad": "Lee la señal y su panel"
   },
   {
     "nombre": "Z2 - 16.Avd Pearson - Panamá.",
@@ -74,7 +83,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.394734,2.104808"
+    "google_maps_link": "https://www.google.com/maps?q=41.394734,2.104808",
+    "sector": "Les Corts · Pedralbes Norte (Pearson)",
+    "habilidad": "Posición y giro en L"
   },
   {
     "nombre": "Z2 - 17.Entrada 10 Rda Dalt (Llobregat)",
@@ -85,7 +96,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.389976,2.107738"
+    "google_maps_link": "https://www.google.com/maps?q=41.389976,2.107738",
+    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)"
   },
   {
     "nombre": "Z2 - 18. Avda Pearson - Joan d'Alòs.",
@@ -96,7 +108,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.39171,2.103869"
+    "google_maps_link": "https://www.google.com/maps?q=41.39171,2.103869",
+    "sector": "Les Corts · Pedralbes Norte (Pearson)",
+    "habilidad": "Lee la señal y su panel"
   },
   {
     "nombre": "Z2 - 19.Salida de BCN por Diagonal",
@@ -107,7 +121,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.382554,2.103772"
+    "google_maps_link": "https://www.google.com/maps?q=41.382554,2.103772",
+    "sector": "Les Corts · Pedralbes Sur–Esplugues"
   },
   {
     "nombre": "Z2 - 20.Salida 13 Ronda de Dalt",
@@ -118,7 +133,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.371404,2.093184"
+    "google_maps_link": "https://www.google.com/maps?q=41.371404,2.093184",
+    "sector": "Les Corts · Ronda de Dalt Sur (salidas 13-15)",
+    "habilidad": "Velocidad y control"
   },
   {
     "nombre": "Z2 - 21. B-23 salida Sant Just/Sant Joan Despí",
@@ -129,7 +146,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.376559,2.076408"
+    "google_maps_link": "https://www.google.com/maps?q=41.376559,2.076408",
+    "sector": "Les Corts · Pedralbes Sur–Esplugues"
   },
   {
     "nombre": "Z2 - 22.Salida 14 Ronda",
@@ -140,7 +158,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.363912,2.088335"
+    "google_maps_link": "https://www.google.com/maps?q=41.363912,2.088335",
+    "sector": "Les Corts · Ronda de Dalt Sur (salidas 13-15)",
+    "habilidad": "Túnel = luces"
   },
   {
     "nombre": "Z2 - 23.Salida 15 Ronda",
@@ -151,7 +171,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.353636,2.089918"
+    "google_maps_link": "https://www.google.com/maps?q=41.353636,2.089918",
+    "sector": "Les Corts · Ronda de Dalt Sur (salidas 13-15)",
+    "habilidad": "Posición y giro en L"
   },
   {
     "nombre": "Z2 - 3.Salida desde zona 2 (2)",
@@ -162,7 +184,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.391221,2.111213"
+    "google_maps_link": "https://www.google.com/maps?q=41.391221,2.111213",
+    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)"
   },
   {
     "nombre": "Z2 - 4.Salida desde zona 2 (3)",
@@ -173,7 +196,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.390963,2.113767"
+    "google_maps_link": "https://www.google.com/maps?q=41.390963,2.113767",
+    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)"
   },
   {
     "nombre": "Z2 - 5.Llegada a zona 2.",
@@ -184,7 +208,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.389484,2.111269"
+    "google_maps_link": "https://www.google.com/maps?q=41.389484,2.111269",
+    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)"
   },
   {
     "nombre": "Z2 - 6.Entrada 10 ronda de dalt (Besós)",
@@ -195,7 +220,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.391314,2.108705"
+    "google_maps_link": "https://www.google.com/maps?q=41.391314,2.108705",
+    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)"
   },
   {
     "nombre": "Z2 - 7.carrer dels Moneders",
@@ -206,7 +232,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.39182,2.109998"
+    "google_maps_link": "https://www.google.com/maps?q=41.39182,2.109998",
+    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)",
+    "habilidad": "Lee la señal y su panel"
   },
   {
     "nombre": "Z2 - 8.Rotonda en Crta. Esplgues.",
@@ -217,7 +245,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.389222,2.108395"
+    "google_maps_link": "https://www.google.com/maps?q=41.389222,2.108395",
+    "sector": "Les Corts · Pedralbes Sur–Esplugues"
   },
   {
     "nombre": "Z2 - 9.Av. Esplugues - González Tapias.",
@@ -228,7 +257,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.387091,2.1064"
+    "google_maps_link": "https://www.google.com/maps?q=41.387091,2.1064",
+    "sector": "Les Corts · Pedralbes Sur–Esplugues"
   },
   {
     "nombre": "Z3 - 1.Avda Diagona hacia Camp Nou",
@@ -239,7 +269,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.382773,2.119321"
+    "google_maps_link": "https://www.google.com/maps?q=41.382773,2.119321",
+    "sector": "Les Corts · Eje Diagonal–Dr. Marañón"
   },
   {
     "nombre": "Z3 - 10.Giro obligatorio Avda Madrid",
@@ -250,7 +281,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.37892,2.128198"
+    "google_maps_link": "https://www.google.com/maps?q=41.37892,2.128198",
+    "sector": "Les Corts · Ctra. de Sants–L'Hospitalet"
   },
   {
     "nombre": "Z3 - 11.Carril Bus Gran Vía Carles III",
@@ -261,7 +293,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.382538,2.127866"
+    "google_maps_link": "https://www.google.com/maps?q=41.382538,2.127866",
+    "sector": "Les Corts · Joan XXIII–Dexeus"
   },
   {
     "nombre": "Z3 - 12.Salida y llegada Zona 3",
@@ -272,7 +305,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.38204,2.113865"
+    "google_maps_link": "https://www.google.com/maps?q=41.38204,2.113865",
+    "sector": "Les Corts · Eje Diagonal–Dr. Marañón"
   },
   {
     "nombre": "Z3 - 13.Incorporación Avda Diagonal",
@@ -283,7 +317,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.385408,2.118193"
+    "google_maps_link": "https://www.google.com/maps?q=41.385408,2.118193",
+    "sector": "Les Corts · Eje Diagonal–Dr. Marañón"
   },
   {
     "nombre": "Z3 - 14.Cruce Diagonal - Hotel Sofía",
@@ -294,7 +329,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.387502,2.123151"
+    "google_maps_link": "https://www.google.com/maps?q=41.387502,2.123151",
+    "sector": "Les Corts · Eje Diagonal–Dr. Marañón"
   },
   {
     "nombre": "Z3 - 15.Avda Diagonal",
@@ -305,7 +341,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.384639,2.112525"
+    "google_maps_link": "https://www.google.com/maps?q=41.384639,2.112525",
+    "sector": "Les Corts · Eje Diagonal–Dr. Marañón"
   },
   {
     "nombre": "Z3 - 16.Túnel Ctra Sants a Hospitalet",
@@ -316,7 +353,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.375804,2.107723"
+    "google_maps_link": "https://www.google.com/maps?q=41.375804,2.107723",
+    "sector": "Les Corts · Ctra. de Sants–L'Hospitalet",
+    "habilidad": "Túnel = luces"
   },
   {
     "nombre": "Z3 - 17.Crude Diagonal - Dr Marañón",
@@ -327,7 +366,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.38396,2.112429"
+    "google_maps_link": "https://www.google.com/maps?q=41.38396,2.112429",
+    "sector": "Les Corts · Eje Diagonal–Dr. Marañón"
   },
   {
     "nombre": "Z3 - 18.Stop Joan XXIII",
@@ -338,7 +378,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.384471,2.122753"
+    "google_maps_link": "https://www.google.com/maps?q=41.384471,2.122753",
+    "sector": "Les Corts · Joan XXIII–Dexeus"
   },
   {
     "nombre": "Z3 - 19.Salida Rotonda Joan XXIII",
@@ -349,7 +390,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.384756,2.122346"
+    "google_maps_link": "https://www.google.com/maps?q=41.384756,2.122346",
+    "sector": "Les Corts · Joan XXIII–Dexeus"
   },
   {
     "nombre": "Z3 - 3.Incorporación Ctra Sants",
@@ -360,7 +402,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.376543,2.102075"
+    "google_maps_link": "https://www.google.com/maps?q=41.376543,2.102075",
+    "sector": "Les Corts · Ctra. de Sants–L'Hospitalet",
+    "habilidad": "Stop y semáforo: para siempre"
   },
   {
     "nombre": "Z3 - 4.Túnel Esplugues",
@@ -371,7 +415,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.380245,2.086409"
+    "google_maps_link": "https://www.google.com/maps?q=41.380245,2.086409",
+    "sector": "Les Corts · Pedralbes Sur–Esplugues"
   },
   {
     "nombre": "Z3 - 5.Ctra Sants - CC. Finestrelles",
@@ -382,7 +427,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.376777,2.099777"
+    "google_maps_link": "https://www.google.com/maps?q=41.376777,2.099777",
+    "sector": "Les Corts · Ctra. de Sants–L'Hospitalet",
+    "habilidad": "Stop y semáforo: para siempre"
   },
   {
     "nombre": "Z3 - 6.Cambio sentido Cardenal Reig",
@@ -393,7 +440,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.376069,2.113561"
+    "google_maps_link": "https://www.google.com/maps?q=41.376069,2.113561",
+    "sector": "Les Corts · Ctra. de Sants–L'Hospitalet",
+    "habilidad": "Posición y giro en L"
   },
   {
     "nombre": "Z3 - 7.Giro Izquierda Avda Joan XXIII",
@@ -404,7 +453,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.385328,2.122695"
+    "google_maps_link": "https://www.google.com/maps?q=41.385328,2.122695",
+    "sector": "Les Corts · Joan XXIII–Dexeus"
   },
   {
     "nombre": "Z3 - 8.Túnel Hospital Dexeus",
@@ -415,7 +465,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.385225,2.125461"
+    "google_maps_link": "https://www.google.com/maps?q=41.385225,2.125461",
+    "sector": "Les Corts · Joan XXIII–Dexeus"
   },
   {
     "nombre": "Z3 - 9.Riera Blanca Hospitalet",
@@ -426,7 +477,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.374021,2.123942"
+    "google_maps_link": "https://www.google.com/maps?q=41.374021,2.123942",
+    "sector": "Les Corts · Ctra. de Sants–L'Hospitalet",
+    "habilidad": "Posición y giro en L"
   },
   {
     "nombre": "Z4 - 11 Túnel Hotel Miramar",
@@ -437,7 +490,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.369542,2.171335"
+    "google_maps_link": "https://www.google.com/maps?q=41.369542,2.171335",
+    "sector": "Poble Sec",
+    "habilidad": "Túnel = luces"
   },
   {
     "nombre": "Z4 - 12 Semáforo calle Lleida",
@@ -448,7 +503,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.37209,2.155615"
+    "google_maps_link": "https://www.google.com/maps?q=41.37209,2.155615",
+    "sector": "Montjuïc · Plaça d'Espanya–Fira",
+    "habilidad": "Stop y semáforo: para siempre"
   },
   {
     "nombre": "Z4 - 2.Semáforo Basuras",
@@ -459,7 +516,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.371639,2.168641"
+    "google_maps_link": "https://www.google.com/maps?q=41.371639,2.168641",
+    "sector": "Poble Sec",
+    "habilidad": "Stop y semáforo: para siempre"
   },
   {
     "nombre": "Z4 - 3.Circulación prohibida Castillo",
@@ -470,7 +529,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.364532,2.163517"
+    "google_maps_link": "https://www.google.com/maps?q=41.364532,2.163517",
+    "sector": "Montjuïc · Cima y Sur",
+    "habilidad": "Lee la señal y su panel"
   },
   {
     "nombre": "Z4 - 6.Stop Poeta Cabanes",
@@ -481,7 +542,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.37132,2.163695"
+    "google_maps_link": "https://www.google.com/maps?q=41.37132,2.163695",
+    "sector": "Poble Sec"
   },
   {
     "nombre": "Z4 - 7.Stop de la muerte",
@@ -492,7 +554,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.371565,2.162809"
+    "google_maps_link": "https://www.google.com/maps?q=41.371565,2.162809",
+    "sector": "Poble Sec"
   },
   {
     "nombre": "Z4 - 8.Calle Annibal",
@@ -503,7 +566,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.371618,2.162889"
+    "google_maps_link": "https://www.google.com/maps?q=41.371618,2.162889",
+    "sector": "Poble Sec"
   },
   {
     "nombre": "Z4 - 9.1 Isleta Palmeras II",
@@ -514,7 +578,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.370709,2.167362"
+    "google_maps_link": "https://www.google.com/maps?q=41.370709,2.167362",
+    "sector": "Poble Sec"
   },
   {
     "nombre": "Z4 - 9.Isleta de las Palmeras",
@@ -525,7 +590,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.370709,2.167362"
+    "google_maps_link": "https://www.google.com/maps?q=41.370709,2.167362",
+    "sector": "Poble Sec"
   },
   {
     "nombre": "Z4 -10 Hotel Intercontinental",
@@ -536,7 +602,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.37294,2.155224"
+    "google_maps_link": "https://www.google.com/maps?q=41.37294,2.155224",
+    "sector": "Montjuïc · Plaça d'Espanya–Fira",
+    "habilidad": "Stop y semáforo: para siempre"
   },
   {
     "nombre": "Z4 -5.Cambio sentido zona Esbarjo",
@@ -547,7 +615,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.360613,2.160068"
+    "google_maps_link": "https://www.google.com/maps?q=41.360613,2.160068",
+    "sector": "Montjuïc · Cima y Sur",
+    "habilidad": "Velocidad y control"
   },
   {
     "nombre": "Z6 - 1.Plaza Europa",
@@ -558,7 +628,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.353899,2.121599"
+    "google_maps_link": "https://www.google.com/maps?q=41.353899,2.121599",
+    "sector": "Gran Via · Plaza Europa"
   },
   {
     "nombre": "Z6 - 2.Plaza del Caballo",
@@ -569,7 +640,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.367039,2.144794"
+    "google_maps_link": "https://www.google.com/maps?q=41.367039,2.144794",
+    "sector": "Montjuïc · Oeste (giros a la izquierda)",
+    "habilidad": "Posición y giro en L"
   },
   {
     "nombre": "Z6 - 3.Derecha prohibida camiones",
@@ -580,7 +653,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.356755,2.144167"
+    "google_maps_link": "https://www.google.com/maps?q=41.356755,2.144167",
+    "sector": "Montjuïc · Cima y Sur",
+    "habilidad": "Lee la señal y su panel"
   },
   {
     "nombre": "Z6 - 4.Acondicionamientos antena Montjuic",
@@ -591,7 +666,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.36072,2.151761"
+    "google_maps_link": "https://www.google.com/maps?q=41.36072,2.151761",
+    "sector": "Montjuïc · Cima y Sur"
   },
   {
     "nombre": "Z6 - 5.Calle la Guatlla",
@@ -602,7 +678,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.369853,2.144965"
+    "google_maps_link": "https://www.google.com/maps?q=41.369853,2.144965",
+    "sector": "Montjuïc · Oeste (giros a la izquierda)",
+    "habilidad": "Velocidad y control"
   },
   {
     "nombre": "Z6 - 6.Giro izquierda Polvorín",
@@ -613,7 +691,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.364035,2.143827"
+    "google_maps_link": "https://www.google.com/maps?q=41.364035,2.143827",
+    "sector": "Montjuïc · Oeste (giros a la izquierda)",
+    "habilidad": "Posición y giro en L"
   },
   {
     "nombre": "Z6 - 7.Giro izquierda Calle Segura",
@@ -624,7 +704,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.363231,2.146142"
+    "google_maps_link": "https://www.google.com/maps?q=41.363231,2.146142",
+    "sector": "Montjuïc · Oeste (giros a la izquierda)",
+    "habilidad": "Lee la señal y su panel"
   },
   {
     "nombre": "Z6 - 8. Giro izquierda INEFC",
@@ -635,7 +717,9 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.365463,2.146247"
+    "google_maps_link": "https://www.google.com/maps?q=41.365463,2.146247",
+    "sector": "Montjuïc · Oeste (giros a la izquierda)",
+    "habilidad": "Posición y giro en L"
   },
   {
     "nombre": "Z7 - 1.Puente Potosí (1)",
@@ -646,7 +730,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.443541,2.205479"
+    "google_maps_link": "https://www.google.com/maps?q=41.443541,2.205479",
+    "sector": "La Maquinista"
   },
   {
     "nombre": "Z7 - 10.C/Lima - CEBREADO (Bon Pastor)",
@@ -657,7 +742,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.439139,2.204173"
+    "google_maps_link": "https://www.google.com/maps?q=41.439139,2.204173",
+    "sector": "La Maquinista"
   },
   {
     "nombre": "Z7 - 12.Fernando Pessoa - Passeig Sta Coloma",
@@ -668,7 +754,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.445852,2.192805"
+    "google_maps_link": "https://www.google.com/maps?q=41.445852,2.192805",
+    "sector": "La Maquinista"
   },
   {
     "nombre": "Z7 - 2.Puente Potosí (2)",
@@ -679,7 +766,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.443686,2.206837"
+    "google_maps_link": "https://www.google.com/maps?q=41.443686,2.206837",
+    "sector": "La Maquinista"
   },
   {
     "nombre": "Z7 - 3.Puente Potosí (3)",
@@ -690,7 +778,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.443686,2.206837"
+    "google_maps_link": "https://www.google.com/maps?q=41.443686,2.206837",
+    "sector": "La Maquinista"
   },
   {
     "nombre": "Z7 - 4.Puente Potosí (4)",
@@ -701,7 +790,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.443927,2.205431"
+    "google_maps_link": "https://www.google.com/maps?q=41.443927,2.205431",
+    "sector": "La Maquinista"
   },
   {
     "nombre": "Z7 - 5.Glorieta Bon Pastor",
@@ -712,7 +802,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.436535,2.200945"
+    "google_maps_link": "https://www.google.com/maps?q=41.436535,2.200945",
+    "sector": "La Maquinista"
   },
   {
     "nombre": "Z7 - 6.Sta Coloma (Avda Generalitat)",
@@ -723,7 +814,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.447877,2.21049"
+    "google_maps_link": "https://www.google.com/maps?q=41.447877,2.21049",
+    "sector": "La Maquinista"
   },
   {
     "nombre": "Z7 - 7.Sta Coloma (Avda Generalitat) II",
@@ -734,7 +826,8 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.447877,2.21049"
+    "google_maps_link": "https://www.google.com/maps?q=41.447877,2.21049",
+    "sector": "La Maquinista"
   },
   {
     "nombre": "Z7 - 8.St Andreu - Torras i Bages",
@@ -745,6 +838,7 @@
     "fuente": "Catálogo autoescuela (HoyVoy) - Puntos Críticos, https://es.hoy-voy.com/intranet/barcelona-lescorts/b/puntos-criticos",
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
-    "google_maps_link": "https://www.google.com/maps?q=41.440887,2.191176"
+    "google_maps_link": "https://www.google.com/maps?q=41.440887,2.191176",
+    "sector": "La Maquinista"
   }
 ]
