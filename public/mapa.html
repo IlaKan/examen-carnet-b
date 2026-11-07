@@ -130,7 +130,7 @@
   <div id="controls">
     <div class="row">
       <button id="playBtn">▶</button>
-      <button id="speedBtn">0.5x</button>
+      <button id="speedBtn" aria-label="Velocidad, veces más rápido que la clase real">×10</button>
       <input type="range" id="scrubber" min="0" max="100" value="0" />
       <span class="pct" id="progressLabel">0%</span>
     </div>
@@ -460,9 +460,12 @@
         }),
       }).addTo(map);
 
-      let idx = 0, playing = false, timer = null;
-      const SPEEDS = [0.5, 1, 2, 4];
-      let speedIdx = 0; // arranca en 0.5x — a petición, para poder leer los nombres de calle
+      // reloj: segundos de clase reproducidos; idx: el punto GPS que se pinta.
+      let reloj = 0, ultimoTick = 0, idx = 0, playing = false, timer = null;
+      // Veces más rápido que la clase real. Arranca en ×10 (48 min ≈ 5 min),
+      // a petición: antes iba a ~×40 y el 0.5x no frenaba nada.
+      const SPEEDS = [5, 10, 20, 40];
+      let speedIdx = 1;
       const NAV_ZOOM = 18;
       const scrubber = document.getElementById('scrubber');
       const playBtn = document.getElementById('playBtn');
@@ -476,10 +479,17 @@
 
       statTotal.textContent = formatKm(totalDist);
 
-      // Full route plays back in ~90 real seconds at 1x (was ~16s before —
-      // too fast to follow, per feedback testing on a real device).
-      const BASE_STEPS_PER_TICK = Math.max(1, Math.round(N / 2200));
-      const TICK_MS = 55; // un pelín más lento que antes (40ms), a petición
+      const TICK_MS = 55;
+      // Se avanza por el tiempo real de la clase, no por puntos: el GPS graba
+      // pocos puntos con el coche parado, así que "por puntos" iba de ×10 a ×44.
+      // Cada pausa cuenta como máximo 15 s (un semáforo se ve, un rato aparcado no).
+      // Sin horas en el GPX, se asumen 2 s por punto.
+      const PAUSA_MAX_S = 15;
+      const tClase = [0];
+      for (let i = 1; i < N; i++) {
+        const dt = pointTimes[i] && pointTimes[i - 1] ? (pointTimes[i] - pointTimes[i - 1]) / 1000 : 2;
+        tClase.push(tClase[i - 1] + Math.min(Math.max(dt, 0), PAUSA_MAX_S));
+      }
 
       // Por debajo de esto, dos puntos del GPX están tan cerca que la
       // "dirección" entre ellos es solo ruido del GPS, no movimiento real
@@ -516,11 +526,8 @@
       }
 
       function setIndex(i) {
-        // Redondear SIEMPRE a entero: con velocidades no enteras (0.5x)
-        // BASE_STEPS_PER_TICK*SPEEDS[speedIdx] da un idx fraccionario, y
-        // smoothedLatlngs[idx] con un índice tipo 0.5 devuelve undefined —
-        // eso rompía carMarker.setLatLng() y mataba el bucle de tick() sin
-        // avisar, congelando la reproducción para siempre en esa velocidad.
+        // Redondear SIEMPRE: smoothedLatlngs[0.5] es undefined y eso
+        // congelaba la reproducción.
         idx = Math.max(0, Math.min(N - 1, Math.round(i)));
         const pos = smoothedLatlngs[idx];
         carMarker.setLatLng(pos);
@@ -552,11 +559,18 @@
 
       scrubber.addEventListener('input', () => {
         setIndex(Math.round((Number(scrubber.value) / 100) * (N - 1)));
+        reloj = tClase[idx];
       });
 
       function tick() {
         if (!playing) return;
-        setIndex(idx + BASE_STEPS_PER_TICK * SPEEDS[speedIdx]);
+        // Tiempo real transcurrido, no TICK_MS: en un móvil lento los ticks llegan tarde.
+        const ahora = performance.now();
+        reloj += SPEEDS[speedIdx] * Math.min(ahora - ultimoTick, 250) / 1000;
+        ultimoTick = ahora;
+        let j = idx;
+        while (j < N - 1 && tClase[j + 1] <= reloj) j++;
+        setIndex(j);
         if (idx >= N - 1) { playing = false; playBtn.textContent = '▶'; return; }
         timer = setTimeout(tick, TICK_MS);
       }
@@ -566,8 +580,9 @@
         playBtn.textContent = playing ? '⏸' : '▶';
         liveinfo.classList.toggle('visible', playing);
         if (playing) {
-          if (idx >= N - 1) setIndex(0);
+          if (idx >= N - 1) { setIndex(0); reloj = 0; }
           map.setView(smoothedLatlngs[idx], NAV_ZOOM, { animate: true });
+          ultimoTick = performance.now();
           tick();
         } else {
           clearTimeout(timer);
@@ -576,7 +591,7 @@
 
       speedBtn.addEventListener('click', () => {
         speedIdx = (speedIdx + 1) % SPEEDS.length;
-        speedBtn.textContent = SPEEDS[speedIdx] + 'x';
+        speedBtn.textContent = '×' + SPEEDS[speedIdx];
       });
 
       setIndex(0);
