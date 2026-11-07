@@ -264,7 +264,7 @@
 
       document.getElementById('selClase').innerHTML = indice.map(t => {
         const n = PUNTOS.filter(p => p.clases.some(x => x.id === t.id)).length;
-        return `<option value="${esc(t.id)}">${fechaCorta(t.fecha)} · ${esc(t.zonas.join(', '))} · ${n} pts</option>`;
+        return `<option value="${esc(t.id)}">${esc(t.titulo || fechaCorta(t.fecha) + ' · ' + t.zonas.join(', '))} · ${n} ${n === 1 ? 'punto' : 'puntos'}</option>`;
       }).join('');
 
       document.getElementById('cargando').hidden = true;

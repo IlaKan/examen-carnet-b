@@ -79,6 +79,22 @@
     .cta-ultima .titulo { font-size: 17px; font-weight: 800; margin-top: 5px; }
     .cta-ultima .sub { font-size: 12.5px; margin-top: 3px; opacity: .85; }
 
+    #tusClases { margin-bottom: 18px; }
+    .clase-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      min-height: 52px; padding: 6px 0; text-decoration: none; color: var(--text);
+      border-top: 1px solid var(--border-subtle);
+    }
+    .clase-row:first-child { border-top: 0; }
+    .clase-row[hidden] { display: none; }
+    .clase-row .t { font-size: 14px; font-weight: 600; line-height: 1.35; }
+    .clase-row .s { font-size: 12px; color: var(--text-dim); white-space: nowrap; }
+    .clase-row:focus-visible, .ver-todas:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .ver-todas {
+      width: 100%; min-height: 44px; margin-top: 8px; font: inherit; font-size: 13px; color: var(--accent);
+      background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer;
+    }
+
     .cta-thumb .label { opacity: .8; }
     .cta-thumb .badge-count { position: absolute; top: 12px; right: 12px; z-index: 1; }
 
@@ -118,6 +134,12 @@
       <div class="label-upper" style="color:var(--warn-text);">Cobertura</div>
       <div style="font-size:16px; font-weight:700; color:var(--text); margin-top:4px;">Qué puntos críticos no has pisado nunca →</div>
     </a>
+
+    <section id="tusClases" aria-labelledby="tusClasesTitulo" hidden>
+      <h2 id="tusClasesTitulo" class="label-upper" style="color:var(--text-dim); margin:0 0 6px;"></h2>
+      <div id="clasesLista" class="card" style="padding:4px 16px;"></div>
+      <button type="button" id="verTodas" class="ver-todas" hidden></button>
+    </section>
 
     <a class="cta-thumb" href="tecnica.html"
        style="background-image:url('https://images.unsplash.com/photo-1722500342362-f05c2bf325c1?auto=format&amp;fit=crop&amp;w=900&amp;q=60');">
@@ -194,11 +216,38 @@
       a.href = 'mapa.html?track=' + encodeURIComponent(ultima.id);
       a.innerHTML =
         '<div class="label-upper label">Tu última clase</div>' +
-        '<div class="titulo">Repasar ' + ultima.fecha + ' →</div>' +
+        '<div class="titulo">Repasar ' + (ultima.titulo || ultima.fecha) + ' →</div>' +
         '<div class="sub">' + (ultima.zonas || []).join(', ') +
         (ultima.duracion_min ? ' · ' + Math.round(ultima.duracion_min) + ' min' : '') + '</div>';
       cont.innerHTML = '';
       cont.appendChild(a);
+    }
+
+    // Todas las clases, de la más reciente a la más antigua: 5 visibles y el
+    // resto tras "Ver todas". El título viene de scripts/lib/titulo_clase.py.
+    const CLASES_VISIBLES = 5;
+    function renderClases(tracks) {
+      if (!tracks.length) return;
+      const lista = document.getElementById('clasesLista');
+      document.getElementById('tusClasesTitulo').textContent = 'Tus clases (' + tracks.length + ')';
+      tracks.forEach((t, i) => {
+        const a = document.createElement('a');
+        a.className = 'clase-row';
+        a.href = 'mapa.html?track=' + encodeURIComponent(t.id);
+        a.hidden = i >= CLASES_VISIBLES;
+        const tt = document.createElement('span'); tt.className = 't'; tt.textContent = t.titulo || t.nombre;
+        const s = document.createElement('span'); s.className = 's';
+        s.textContent = t.duracion_min ? Math.round(t.duracion_min) + ' min' : '';
+        a.append(tt, s);
+        lista.appendChild(a);
+      });
+      const btn = document.getElementById('verTodas');
+      if (tracks.length > CLASES_VISIBLES) {
+        btn.hidden = false;
+        btn.textContent = 'Ver todas (' + tracks.length + ')';
+        btn.onclick = () => { lista.querySelectorAll('.clase-row[hidden]').forEach(a => a.hidden = false); btn.hidden = true; };
+      }
+      document.getElementById('tusClases').hidden = false;
     }
 
     // Buscador transversal: clases + catálogo de puntos + checklist de técnica,
@@ -214,7 +263,7 @@
       if (!q) { resultadosDiv.style.display = 'none'; resultadosDiv.innerHTML = ''; return; }
 
       const clases = ALL_TRACKS.filter(t =>
-        (t.nombre || '').toLowerCase().includes(q) || (t.zonas || []).some(z => z.toLowerCase().includes(q)));
+        (t.titulo || t.nombre || '').toLowerCase().includes(q) || (t.zonas || []).some(z => z.toLowerCase().includes(q)));
       const puntos = ALL_POINTS.filter(p =>
         (p.nombre || '').toLowerCase().includes(q) || (p.nota || '').toLowerCase().includes(q) ||
         (p.zona || '').toLowerCase().includes(q)).slice(0, 8);
@@ -228,7 +277,7 @@
       html += clases.length
         ? clases.map(t => '<a class="res" href="mapa.html?track=' + encodeURIComponent(t.id) + '">' +
             '<span class="res-dot" style="background:var(--accent);"></span>' +
-            '<span>' + t.nombre + '<span class="res-sub">' + t.fecha + '</span></span></a>').join('')
+            '<span>' + (t.titulo || t.nombre) + '<span class="res-sub">' + t.fecha + '</span></span></a>').join('')
         : '<div class="res-vacio">Ninguna clase coincide.</div>';
 
       html += '<div class="label-upper grupo-label">Puntos críticos · ' + puntos.length + '</div>';
@@ -267,6 +316,7 @@
 
       renderSemana(tracks);
       renderCtaUltima(tracks);
+      renderClases(tracks);
     }
 
     // Tira de los últimos 7 días (hoy incluido, no la semana de calendario Lun-Dom) —

@@ -17,6 +17,7 @@ from scripts.lib.osm_fetcher import fetch_osm_infrastructure
 from scripts.lib.obras_fetcher import fetch_obras
 from scripts.lib.track_index import upsert_track_entry, load_index
 from scripts.lib.zone_suggest import collect_known_zones
+from scripts.lib.titulo_clase import titular
 
 ROOT = Path(__file__).resolve().parent.parent
 TRACKS_DIR = ROOT / "public" / "data" / "tracks"
@@ -105,9 +106,17 @@ def main():
         json.dumps(obras_data, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
+    print("Poniendo título a la clase (OpenStreetMap si no pisa ningún punto nuevo)...")
+    previos_idx = [e for e in load_index(str(INDEX_PATH)) if e["id"] != track_id]
+    previos = [json.loads((TRACKS_DIR / f"{e['id']}.json").read_text(encoding="utf-8")) for e in previos_idx]
+    previos = [t for t in previos if (t["hora_inicio"] or t["fecha"]) < (track_data["hora_inicio"] or date_str)]
+    titulo = titular(track_data, previos, catalog, [e["titulo"] for e in previos_idx if e.get("titulo")])
+    print(f"  {titulo}")
+
     upsert_track_entry(str(INDEX_PATH), {
         "id": track_id,
         "nombre": track_data["nombre"],
+        "titulo": titulo,
         "fecha": date_str,
         "zonas": zonas,
         "duracion_min": track_data["duracion_min"],
