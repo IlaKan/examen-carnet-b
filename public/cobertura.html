@@ -117,7 +117,9 @@
     // Saltos de GPS (p.ej. al salir de un túnel) unen dos puntos lejanos con
     // una recta falsa; por encima de esta velocidad el tramo no cuenta.
     const VEL_MAX_MS = 40;
-    const MI_ZONA = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.'];
+    // Poble Sec y Montjuïc confirmados como zona de examen por Ilaria (2026-11-07)
+    const MI_ZONA = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.', 'ZONA 4 - POBLE SEC', 'ZONA 6 - MONTJÜIC'];
+    const LES_CORTS = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.'];
     const C = { warn: '#e0c27a', bg: '#16181d', confirm: '#34C7A3', accent: '#8b7cf6', track: '#4b5260' };
 
     const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -257,8 +259,8 @@
       const nuncaOtra = PUNTOS.filter(p => !p.clases.length && !MI_ZONA.includes(p.zona));
       const porZona = z => nuncaOtra.filter(p => p.zona === z);
       document.getElementById('grupos').innerHTML =
-        grupo('Nunca pisados · tu zona', nuncaMia, true, true) +
-        grupo('Nunca · Poble Sec y Montjuïc (riesgo no descartado)', [...porZona('ZONA 4 - POBLE SEC'), ...porZona('ZONA 6 - MONTJÜIC')], false) +
+        grupo('Nunca pisados · Les Corts', nuncaMia.filter(p => LES_CORTS.includes(p.zona)), true, true) +
+        grupo('Nunca pisados · Poble Sec y Montjuïc', nuncaMia.filter(p => !LES_CORTS.includes(p.zona)), true, true) +
         grupo('Nunca · La Maquinista', porZona('ZONA 7 - LA MAQUINISTA'), false) +
         grupo('Pisados', PUNTOS.filter(p => p.clases.length), false);
 
