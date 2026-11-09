@@ -1,5 +1,16 @@
 [
   {
+    "id": "2026-11-09-09-nov-2026-1134--les-corts",
+    "nombre": "09-nov-2026-1134 - les corts",
+    "titulo": "9 nov · Les Corts · Avinguda de Madrid",
+    "fecha": "2026-11-09",
+    "zonas": [
+      "ZONA 2 - PEDRALBES",
+      "ZONA 3 - Z. UNIVERSIT."
+    ],
+    "duracion_min": 42.82
+  },
+  {
     "id": "2026-11-06-06-nov-2026-1302",
     "nombre": "06-nov-2026-1302",
     "fecha": "2026-11-06",
