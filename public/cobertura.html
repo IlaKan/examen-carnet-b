@@ -17,6 +17,18 @@
       background: var(--bg-dark-2); border: 1px solid var(--border); border-radius: var(--radius-pill); cursor: pointer;
     }
     .tab.activa { color: #17102e; background: var(--accent); border-color: var(--accent); font-weight: 700; }
+    .filtro-zona { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+    .filtro-zona button {
+      flex: 0 0 auto; min-height: 44px; padding: 0 14px; font: inherit; font-size: 13px; color: var(--text-dim);
+      background: transparent; border: 1px solid var(--border); border-radius: var(--radius-pill); cursor: pointer;
+    }
+    .filtro-zona button[aria-pressed="true"] { color: var(--text); border-color: var(--accent); background: var(--bg-dark-3); font-weight: 700; }
+    .fila-clase {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; padding: 6px 0;
+      border-bottom: 1px solid var(--border-subtle); color: var(--text); text-decoration: none; font-size: 14px; line-height: 1.3;
+    }
+    .fila-clase .n { font-size: 12px; color: var(--text-dim); white-space: nowrap; }
+    .nota-zona { font-size: 13px; line-height: 1.5; color: var(--text-dim); margin: 8px 0; }
     .tab:focus-visible, button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visible {
       outline: 2px solid var(--accent); outline-offset: 2px;
     }
@@ -82,6 +94,13 @@
     <button type="button" class="tab" id="tab-clase" role="tab" aria-selected="false" aria-controls="vista-clase">Por clase</button>
   </div>
 
+  <div class="filtro-zona" role="group" aria-label="Zona">
+    <button type="button" data-zona="lc">Les Corts</button>
+    <button type="button" data-zona="zf">Zona Franca</button>
+    <button type="button" data-zona="psm">Poble Sec y Montjuïc</button>
+    <button type="button" data-zona="todo">Todo</button>
+  </div>
+
   <div id="map" role="region" aria-label="Mapa de recorridos y puntos críticos"></div>
 
   <main>
@@ -90,10 +109,14 @@
 
     <div id="vista-cobertura" role="tabpanel" aria-labelledby="tab-cobertura" hidden>
       <div class="resumen">
-        <div class="card"><div class="num" id="nTotal"></div><div class="lbl">puntos pisados de 68</div></div>
-        <div class="card"><div class="num" id="nMia"></div><div class="lbl">en tu zona (Les Corts, Poble Sec, Montjuïc)</div></div>
-        <div class="card alerta"><div class="num" id="nNunca"></div><div class="lbl">nunca pisados en tu zona</div></div>
+        <div class="card"><div class="num" id="nMia"></div><div class="lbl" id="lblMia"></div></div>
+        <div class="card alerta"><div class="num" id="nNunca"></div><div class="lbl">nunca pisados</div></div>
+        <div class="card"><div class="num" id="nClases"></div><div class="lbl">clases grabadas aquí</div></div>
       </div>
+      <details class="grupo" id="clasesZona" open>
+        <summary id="clasesZonaTitulo"></summary>
+        <div id="clasesZonaLista"></div>
+      </details>
       <div class="leyenda" aria-hidden="true">
         <span><i class="dot nunca-mia"></i>Nunca · tu zona</span>
         <span><i class="dot nunca-otra"></i>Nunca · La Maquinista</span>
@@ -163,6 +186,20 @@
     const marcadores = {};
     let PUNTOS = [], CLASES = [];
 
+    // Filtro por zona: qué clases (por su etiqueta de zona) y qué puntos del catálogo entran.
+    const LC = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.'], PSM = ['ZONA 4 - POBLE SEC', 'ZONA 6 - MONTJÜIC'];
+    const FILTROS = {
+      lc: { nombre: 'Les Corts', clase: z => LC.includes(z), punto: p => LC.includes(p.zona) },
+      zf: { nombre: 'Zona Franca', clase: z => z.toLowerCase() === 'zona franca', punto: () => false },
+      psm: { nombre: 'Poble Sec y Montjuïc', clase: z => PSM.includes(z), punto: p => PSM.includes(p.zona) },
+      todo: { nombre: 'tu zona', clase: () => true, punto: p => MI_ZONA.includes(p.zona) },
+    };
+    const ZONA_KEY = 'tpb_cobertura_zona';
+    let zona = (() => { try { return FILTROS[localStorage.getItem(ZONA_KEY)] ? localStorage.getItem(ZONA_KEY) : 'lc'; } catch (e) { return 'lc'; } })();
+    const clasesDeZona = () => CLASES.filter(c => c.zonas.some(FILTROS[zona].clase));
+    // puntos de la zona que cruza una clase: para ordenar «la que más cubre primero»
+    const cubre = c => PUNTOS.filter(p => FILTROS[zona].punto(p) && p.clases.some(x => x.id === c.id)).length;
+
     function estadoDe(p) { return p.clases.length ? 'pisado' : (MI_ZONA.includes(p.zona) ? 'nunca-mia' : 'nunca-otra'); }
     function estiloMarcador(p, resaltado) {
       const e = estadoDe(p);
@@ -194,21 +231,59 @@
     }
 
     function pintarCobertura() {
+      const f = FILTROS[zona], clases = clasesDeZona();
       capaTracks.clearLayers(); capaPuntos.clearLayers();
-      CLASES.forEach(c => L.polyline(c.linea, { color: C.track, weight: 2, opacity: .55 }).addTo(capaTracks));
+      clases.forEach(c => L.polyline(c.linea, { color: C.track, weight: 2, opacity: .55 }).addTo(capaTracks));
       // los "nunca" de tu zona se dibujan los últimos para que queden encima
       const orden = { 'pisado': 0, 'nunca-otra': 1, 'nunca-mia': 2 };
-      [...PUNTOS].sort((a, b) => orden[estadoDe(a)] - orden[estadoDe(b)]).forEach(p => {
+      const visibles = zona === 'todo' ? PUNTOS : PUNTOS.filter(f.punto);
+      [...visibles].sort((a, b) => orden[estadoDe(a)] - orden[estadoDe(b)]).forEach(p => {
         marcadores[p.idx] = L.circleMarker([p.lat, p.lng], estiloMarcador(p))
-          .bindPopup(`<strong>${esc(p.nombre)}</strong><br>${esc(p.zona)}<br>${p.clases.length ? 'Pisado en ' + p.clases.length + ' clase(s)' : 'Nunca pisado'}`)
+          .bindPopup(`<strong>${esc(p.nombre)}</strong><br>${esc(p.sector || p.zona)}<br>${p.clases.length ? 'Pisado en ' + p.clases.length + ' clase(s)' : 'Nunca pisado'}`)
           .addTo(capaPuntos);
       });
-      // encuadre en tus recorridos: La Maquinista queda fuera a propósito (se ve haciendo zoom out)
-      map.fitBounds(L.latLngBounds(CLASES.flatMap(c => c.linea)), { padding: [16, 16] });
+      // encuadre en los recorridos de la zona: La Maquinista queda fuera a propósito (se ve haciendo zoom out)
+      const encuadre = clases.length ? clases.flatMap(c => c.linea) : visibles.map(p => [p.lat, p.lng]);
+      if (encuadre.length) map.fitBounds(L.latLngBounds(encuadre), { padding: [16, 16] });
+
+      const mia = PUNTOS.filter(f.punto), ok = mia.filter(p => p.clases.length).length;
+      document.getElementById('nMia').textContent = mia.length ? `${ok}/${mia.length}` : '—';
+      document.getElementById('lblMia').textContent = 'pisados en ' + f.nombre;
+      document.getElementById('nNunca').textContent = mia.length ? mia.length - ok : '—';
+      document.getElementById('nClases').textContent = clases.length;
+
+      document.getElementById('clasesZonaTitulo').textContent = `Tus clases en ${f.nombre} (${clases.length}) · la que más cubre primero`;
+      document.getElementById('clasesZonaLista').innerHTML =
+        (zona === 'zf' ? '<p class="nota-zona">Zona Franca no tiene puntos en el catálogo de tu autoescuela: repasa con estos recorridos y el vídeo del RACC.</p>' : '') +
+        [...clases].sort((a, b) => cubre(b) - cubre(a) || b.duracion_min - a.duracion_min).map(c => {
+          const n = cubre(c);
+          return `<a class="fila-clase" href="mapa.html?track=${encodeURIComponent(c.id)}"><span>${esc(c.titulo || c.nombre)}</span>
+            <span class="n">${zona === 'zf' ? Math.round(c.duracion_min) + ' min' : n + (n === 1 ? ' punto' : ' puntos')} →</span></a>`;
+        }).join('');
+
+      // Un grupo por sector (scripts/sectores.py), los menos cubiertos primero;
+      // dentro, lo que falta va antes de lo pisado.
+      const sectores = [...new Set(mia.map(p => p.sector))].map(s => {
+        const ps = mia.filter(p => p.sector === s), n = ps.filter(p => p.clases.length).length;
+        return { s, ok: n, ps: [...ps.filter(p => !p.clases.length), ...ps.filter(p => p.clases.length)] };
+      }).sort((a, b) => a.ok / a.ps.length - b.ok / b.ps.length);
+      const icono = (n, t) => n === t ? '🟢' : n / t >= .5 ? '🟡' : '🔴';
+      document.getElementById('grupos').innerHTML =
+        sectores.map(({ s, ok: n, ps }) => grupo(`${icono(n, ps.length)} ${s} · ${n}/${ps.length}`, ps, n < ps.length, n < ps.length)).join('') +
+        (zona === 'todo' ? grupo('La Maquinista (fuera de tu examen)', PUNTOS.filter(p => !MI_ZONA.includes(p.zona)), false) : '');
+
+      document.querySelectorAll('.filtro-zona button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.zona === zona)));
+      const sel = document.getElementById('selClase'), antes = sel.value;
+      sel.innerHTML = [...clases].sort((a, b) => cubre(b) - cubre(a)).map(t => {
+        const n = PUNTOS.filter(p => p.clases.some(x => x.id === t.id)).length;
+        return `<option value="${esc(t.id)}">${esc(t.titulo || fechaCorta(t.fecha) + ' · ' + t.zonas.join(', '))} · ${n} ${n === 1 ? 'punto' : 'puntos'}</option>`;
+      }).join('');
+      if (clases.some(c => c.id === antes)) sel.value = antes;
     }
 
     function pintarClase(id) {
       const c = CLASES.find(x => x.id === id);
+      if (!c) return;
       capaTracks.clearLayers(); capaPuntos.clearLayers();
       const linea = L.polyline(c.linea, { color: C.accent, weight: 4, opacity: .9 }).addTo(capaTracks);
       PUNTOS.forEach(p => {
@@ -251,31 +326,19 @@
       indice.forEach((t, i) => PUNTOS.forEach(p => { if (cruza(p, tracks[i].points)) p.clases.push(t); }));
       PUNTOS.forEach(p => p.clases.sort((a, b) => a.fecha.localeCompare(b.fecha)));
 
-      const mia = PUNTOS.filter(p => MI_ZONA.includes(p.zona));
-      const nuncaMia = mia.filter(p => !p.clases.length);
-      document.getElementById('nTotal').textContent = PUNTOS.filter(p => p.clases.length).length;
-      document.getElementById('nMia').textContent = `${mia.length - nuncaMia.length}/${mia.length}`;
-      document.getElementById('nNunca').textContent = nuncaMia.length;
-
-      // Un grupo por sector (scripts/sectores.py), los menos cubiertos primero;
-      // dentro, lo que falta va antes de lo pisado.
-      const sectores = [...new Set(mia.map(p => p.sector))].map(s => {
-        const ps = mia.filter(p => p.sector === s), ok = ps.filter(p => p.clases.length).length;
-        return { s, ok, ps: [...ps.filter(p => !p.clases.length), ...ps.filter(p => p.clases.length)] };
-      }).sort((a, b) => a.ok / a.ps.length - b.ok / b.ps.length);
-      const icono = (ok, n) => ok === n ? '🟢' : ok / n >= .5 ? '🟡' : '🔴';
-      document.getElementById('grupos').innerHTML =
-        sectores.map(({ s, ok, ps }) => grupo(`${icono(ok, ps.length)} ${s} · ${ok}/${ps.length}`, ps, ok < ps.length, ok < ps.length)).join('') +
-        grupo('La Maquinista (fuera de tu examen)', PUNTOS.filter(p => !MI_ZONA.includes(p.zona)), false);
-
-      document.getElementById('selClase').innerHTML = indice.map(t => {
-        const n = PUNTOS.filter(p => p.clases.some(x => x.id === t.id)).length;
-        return `<option value="${esc(t.id)}">${esc(t.titulo || fechaCorta(t.fecha) + ' · ' + t.zonas.join(', '))} · ${n} ${n === 1 ? 'punto' : 'puntos'}</option>`;
-      }).join('');
-
       document.getElementById('cargando').hidden = true;
       cambiarVista('cobertura');
     }
+
+    document.querySelectorAll('.filtro-zona button').forEach(b => b.onclick = () => {
+      zona = b.dataset.zona;
+      try { localStorage.setItem(ZONA_KEY, zona); } catch (e) {}
+      pintarCobertura();
+      if (!document.getElementById('vista-clase').hidden) {
+        const sel = document.getElementById('selClase');
+        sel.value ? pintarClase(sel.value) : (capaTracks.clearLayers(), document.getElementById('puntosClase').innerHTML = '');
+      }
+    });
 
     document.getElementById('tab-cobertura').onclick = () => cambiarVista('cobertura');
     document.getElementById('tab-clase').onclick = () => cambiarVista('clase');

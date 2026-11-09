@@ -265,7 +265,12 @@
 
     // Zonas de tu examen (igual que cobertura.html); "Me faltan" = nunca pisados en ellas.
     const MI_ZONA = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.', 'ZONA 4 - POBLE SEC', 'ZONA 6 - MONTJÜIC'];
-    const FALTAN = '__faltan';
+    // Opciones "Me faltan" del filtro: valor → zonas que incluye.
+    const FALTAN = {
+      '__faltan': { nombre: '⭐ Me faltan', zonas: MI_ZONA },
+      '__faltan_lc': { nombre: '⭐ Me faltan · Les Corts', zonas: MI_ZONA.slice(0, 2) },
+      '__faltan_psm': { nombre: '⭐ Me faltan · Poble Sec y Montjuïc', zonas: MI_ZONA.slice(2) },
+    };
     let PISADOS = null; // { nombre: [fechas] } de scripts/actualizar_pisados.py; null si no carga
 
     Promise.all([
@@ -342,10 +347,12 @@
       const zonas = Array.from(new Set(points.map(p => p.zona))).sort();
       const select = document.getElementById('filtroZona');
       if (PISADOS) {
-        const opt = document.createElement('option');
-        opt.value = FALTAN;
-        opt.textContent = '⭐ Me faltan (' + puntosQueFaltan().length + ')';
-        select.appendChild(opt);
+        Object.entries(FALTAN).forEach(([valor, f]) => {
+          const opt = document.createElement('option');
+          opt.value = valor;
+          opt.textContent = f.nombre + ' (' + puntosQueFaltan(f.zonas).length + ')';
+          select.appendChild(opt);
+        });
       }
       zonas.forEach(z => {
         const opt = document.createElement('option');
@@ -364,14 +371,14 @@
     }
 
     // Ordenados por sector, para repasar zona a zona.
-    function puntosQueFaltan() {
-      return ALL_POINTS.filter(p => MI_ZONA.includes(p.zona) && !PISADOS[p.nombre])
+    function puntosQueFaltan(zonas) {
+      return ALL_POINTS.filter(p => zonas.includes(p.zona) && !PISADOS[p.nombre])
         .sort((a, b) => (a.sector || '').localeCompare(b.sector || ''));
     }
 
     function puntosFiltrados() {
       const select = document.getElementById('filtroZona');
-      if (select.value === FALTAN) return puntosQueFaltan();
+      if (FALTAN[select.value]) return puntosQueFaltan(FALTAN[select.value].zonas);
       return select.value ? ALL_POINTS.filter(p => p.zona === select.value) : ALL_POINTS;
     }
 

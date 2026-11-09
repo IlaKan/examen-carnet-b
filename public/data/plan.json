@@ -1,0 +1,140 @@
+{
+  "examen": "2026-11-17",
+  "dias": [
+    {
+      "fecha": "2026-11-07", "titulo": "Sáb 7", "clase": null,
+      "objetivo": "Base: las 8 reglas y el sector Pearson",
+      "tareas": [
+        { "t": "Leer las 8 reglas (al final de esta página)", "href": "#reglas" },
+        { "t": "Me faltan · Les Corts → Repasar (empieza por Pearson)", "href": "puntos.html?zona=__faltan_lc" },
+        { "t": "Vídeo RACC Montjuïc (28 min) con Cobertura abierta", "href": "https://www.youtube.com/watch?v=RJmdbl52fsk" }
+      ]
+    },
+    {
+      "fecha": "2026-11-08", "titulo": "Dom 8", "clase": null,
+      "objetivo": "Base: Plaça d'Espanya y los giros de Montjuïc",
+      "tareas": [
+        { "t": "Me faltan · Poble Sec y Montjuïc → Repasar", "href": "puntos.html?zona=__faltan_psm" },
+        { "t": "Street View de los giros a la izquierda de Montjuïc (Cobertura → Google Maps)", "href": "cobertura.html" },
+        { "t": "Las 8 reglas, una vez", "href": "#reglas" }
+      ]
+    },
+    {
+      "fecha": "2026-11-09", "titulo": "Lun 9", "clase": "Les Corts · 10:50 · Yoli", "contar": true,
+      "objetivo": "Pedralbes Norte · Barrio Pearson",
+      "tareas": [
+        { "t": "Conducción comentada en voz alta desde el primer minuto" },
+        { "t": "Pasar por Pearson: paneles, calle sin salida, Panamá, stop sin visibilidad, Joan d'Alòs" },
+        { "t": "Preguntar a Yoli: ¿tengo otra clase el martes 10 a las 10:50 (#68)?" },
+        { "t": "Subir el GPX y apuntar las cosas que no viste" }
+      ]
+    },
+    {
+      "fecha": "2026-11-10", "titulo": "Mar 10", "clase": "Zona Franca · 9:45 · Yoli", "contar": true,
+      "objetivo": "Plaça Cerdà → Paseo de la Zona Franca → Plaça d'Espanya–Fira",
+      "tareas": [
+        { "t": "Paseo de la Zona Franca: el carril bus no cuenta → un carril = 30" },
+        { "t": "Plaça d'Espanya–Fira: Hotel Intercontinental y semáforo calle Lleida" },
+        { "t": "Subir el GPX y apuntar las cosas que no viste" }
+      ]
+    },
+    {
+      "fecha": "2026-11-11", "titulo": "Mié 11", "clase": "Zona Franca · 9:45 + 10:50 · Yoli", "contar": true,
+      "objetivo": "Simulacro 1 + Montjuïc (giros a la izquierda, Cima y Sur)",
+      "tareas": [
+        { "t": "Simulacro: profe en silencio, solo órdenes" },
+        { "t": "Giros izq.: INEFC, Polvorín, Calle Segura · Plaza del Caballo · Guatlla" },
+        { "t": "Castillo, Esbarjo, derecha prohibida camiones" },
+        { "t": "Pedir la calificación DGT: eliminatoria / deficiente / leve" }
+      ]
+    },
+    {
+      "fecha": "2026-11-12", "titulo": "Jue 12", "clase": "Les Corts · 13:00 + 13:45 · Yoli", "contar": true,
+      "objetivo": "Ctra. de Sants–L'Hospitalet + Ronda de Dalt Sur (salidas 13-15)",
+      "tareas": [
+        { "t": "Incorporación Ctra. Sants: el stop manda sobre el ámbar intermitente" },
+        { "t": "Túnel Ctra. Sants (luces) · Finestrelles · Cardenal Reig · Riera Blanca" },
+        { "t": "Salidas 13, 14 y 15: baja la velocidad antes, luces en túnel, ceda al final" },
+        { "t": "Subir el GPX y apuntar las cosas que no viste" }
+      ]
+    },
+    {
+      "fecha": "2026-11-13", "titulo": "Vie 13", "clase": "Les Corts · 12:15 · Yoli", "contar": true,
+      "objetivo": "Repetir lo que fallaste el 9 y el 12 + Diagonal–Dr. Marañón",
+      "tareas": [
+        { "t": "Repetir los fallos de la semana" },
+        { "t": "Salida oficial: Diagonal–Doctor Marañón" },
+        { "t": "Esta noche o mañana temprano: ¿han publicado tu zona?" }
+      ]
+    },
+    {
+      "fecha": "2026-11-14", "titulo": "Sáb 14 · Sprint 1/3", "clase": "12:15 · Ángel (pide que sea en tu zona)", "contar": true, "sprint": true,
+      "objetivo": "Zona publicada → simulacro en TU zona, desde tu salida oficial",
+      "tareas": [
+        { "t": "Mirar la zona publicada y elegirla abajo, en «Sprint final»", "href": "#sprint" },
+        { "t": "Llamar a la autoescuela: hoy y el lunes, clases en tu zona" },
+        { "t": "Simulacro con Ángel: profe en silencio + calificación DGT" },
+        { "t": "Si hay eliminatoria por no ver algo → el lunes solo stops, semáforos y paneles" }
+      ]
+    },
+    {
+      "fecha": "2026-11-15", "titulo": "Dom 15", "clase": null, "sprint": true,
+      "objetivo": "Descanso + 20 min de repaso solo de tu zona",
+      "tareas": [
+        { "t": "Me faltan de tu zona → Repasar", "href": "#sprint" },
+        { "t": "Ver a ×10 la clase grabada que más cubre tu zona", "href": "#sprint" },
+        { "t": "Las 8 reglas, una vez", "href": "#reglas" }
+      ]
+    },
+    {
+      "fecha": "2026-11-16", "titulo": "Lun 16 · Sprint 2-3/3", "clase": "11:30 + 12:15 · Yoli (pide que sea en tu zona)", "contar": true, "sprint": true,
+      "objetivo": "Los rojos de tu zona + último simulacro completo",
+      "tareas": [
+        { "t": "1ª clase: sectores en rojo de tu zona + lo que falló el sábado", "href": "cobertura.html" },
+        { "t": "2ª clase: simulacro completo desde tu salida oficial, nada nuevo" },
+        { "t": "Noche: preparar DNI/NIE, confirmar hora y salida, y dormir" }
+      ]
+    },
+    {
+      "fecha": "2026-11-17", "titulo": "Mar 17 · EXAMEN", "clase": null,
+      "objetivo": "Desayuna, llega pronto, conduce como en los simulacros",
+      "tareas": [
+        { "t": "Un error leve no suspende: respira y sigue" }
+      ]
+    }
+  ],
+  "sprint": {
+    "lc": {
+      "nombre": "Les Corts", "salida": "Avinguda del Doctor Marañón",
+      "faltan": "puntos.html?zona=__faltan_lc",
+      "sectores": "Pedralbes Norte (Pearson) · Ctra. de Sants–L'Hospitalet · Ronda de Dalt Sur",
+      "clases": [
+        { "id": "2026-11-05-05-nov-2026-1113--les-corts", "t": "5 nov · la que más cubre (137 min)" },
+        { "id": "2026-11-06-06-nov-2026-1302", "t": "6 nov · Pedralbes Sur y Esplugues" },
+        { "id": "2026-10-29-29-oct-2026-1350--les-corts", "t": "29 oct · Diagonal y Joan XXIII" }
+      ],
+      "nota": "Tu clase de Les Corts del 30 oct bajó a Poble Sec y Montjuïc: si te sobra tiempo, repasa también ese grupo."
+    },
+    "zf": {
+      "nombre": "Zona Franca (con Montjuïc y Poble Sec)", "salida": "Carrer de la Mineria",
+      "faltan": "puntos.html?zona=__faltan_psm",
+      "sectores": "Montjuïc Oeste (giros a la izquierda) · Plaça d'Espanya–Fira · Montjuïc Cima y Sur",
+      "clases": [
+        { "id": "2026-10-30-30-oct-2026-1948--les-corts-zona-franca", "t": "30 oct · Poble Sec y Montjuïc (min 30-35: Santa Madrona → Exposició)" },
+        { "id": "2026-10-31-31-oct-2026-1345", "t": "31 oct · salida desde Mineria" },
+        { "id": "2026-10-07-07-oct-2026-1219", "t": "7 oct · Paseo de la Zona Franca" }
+      ],
+      "nota": "Vídeo RACC (Plaça Cerdà → Montjuïc → Ronda Litoral): https://www.youtube.com/watch?v=RJmdbl52fsk"
+    }
+  },
+  "reglas": [
+    "Ámbar intermitente + stop: paras siempre.",
+    "El carril bus no cuenta: un carril + bus = 30.",
+    "Al carril bus solo entras en su tramo discontinuo, para girar a la derecha.",
+    "Montjuïc a 30 y pegada a la derecha donde no hay líneas.",
+    "Giro a la izquierda en «L»: pégate al centro y pasa la isleta antes de girar.",
+    "Ves la señal de túnel y enciendes las luces (Miramar: 50 m antes).",
+    "Lee el panel de debajo de la señal antes de decidir.",
+    "Al incorporarte el ceda es tuyo: primero acelera, luego el intermitente."
+  ]
+}

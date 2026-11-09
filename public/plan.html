@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TuPilotoB — Plan de examen</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .topbar-link { min-height: 44px; display: inline-flex; align-items: center; }
+    a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .cuenta { font-size: 13px; color: var(--text-dim); margin: 4px 0 12px; }
+    .cuenta strong { color: var(--text); font-size: 15px; }
+    h2.sec { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-dim); margin: 26px 0 8px; }
+
+    .dia { padding: 14px; }
+    .dia.hoy { border: 1px solid var(--accent); }
+    .dia .fecha { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
+    .dia .clase { font-size: 13px; color: var(--text-dim); margin-top: 2px; }
+    .dia .obj { font-size: 16px; font-weight: 700; color: var(--text); margin: 6px 0 8px; line-height: 1.3; }
+    .tarea { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; color: var(--text-muted); line-height: 1.35; }
+    .tarea input { width: 22px; height: 22px; flex: 0 0 auto; accent-color: var(--confirm); }
+    .tarea.hecha span { text-decoration: line-through; color: var(--text-dim); }
+    .tarea a { color: var(--accent); }
+    .sinver { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; color: var(--warn-text); margin-top: 4px; }
+    .sinver input { width: 64px; min-height: 40px; font: inherit; color: var(--text); background: var(--bg-dark); border: 1px solid var(--border); border-radius: var(--radius-sm); text-align: center; }
+
+    details.otro { margin-top: 8px; }
+    details.otro > summary {
+      min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer;
+      list-style: none; font-size: 14px; color: var(--text); padding: 0 14px;
+    }
+    details.otro > summary::-webkit-details-marker { display: none; }
+    details.otro > summary .marca { color: var(--confirm); font-size: 12px; white-space: nowrap; }
+    details.otro.pasado > summary { color: var(--text-dim); }
+
+    .zonas { display: flex; gap: 8px; margin: 10px 0; }
+    .zonas button {
+      flex: 1; min-height: 44px; font: inherit; font-size: 14px; color: var(--text-dim);
+      background: var(--bg-dark-2); border: 1px solid var(--border); border-radius: var(--radius-pill); cursor: pointer;
+    }
+    .zonas button[aria-pressed="true"] { color: #17102e; background: var(--accent); border-color: var(--accent); font-weight: 700; }
+    .sprint p { font-size: 14px; line-height: 1.5; color: var(--text-muted); margin: 6px 0; }
+    .sprint .btn {
+      display: flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 8px; font-size: 14px;
+      color: var(--text); background: var(--bg-dark-3); border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none;
+    }
+    .sprint .btn.principal { color: #17102e; background: var(--accent); border-color: var(--accent); font-weight: 700; }
+    ol.reglas { margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.5; color: var(--text-muted); }
+    ol.reglas li { margin: 6px 0; }
+  </style>
+</head>
+<body>
+  <div class="topbar topbar-row">
+    <h1>Plan · examen 17 nov</h1>
+    <a href="lista.html" class="topbar-link">← Inicio</a>
+  </div>
+
+  <main>
+    <p id="error" class="empty-state" hidden>No se pudo cargar el plan. Recarga la página.</p>
+    <p class="cuenta" id="cuenta"></p>
+
+    <h2 class="sec" id="hoyTitulo">Hoy</h2>
+    <div id="hoy"></div>
+
+    <h2 class="sec" id="sprint">Sprint final · cuando publiquen la zona (3 días antes)</h2>
+    <div class="card sprint">
+      <p>¿Qué zona te han asignado? Las clases del sábado 14 y el lunes 16 pídelas en esa zona.</p>
+      <div class="zonas" role="group" aria-label="Tu zona de examen">
+        <button type="button" data-zona="lc" aria-pressed="false">Les Corts</button>
+        <button type="button" data-zona="zf" aria-pressed="false">Zona Franca</button>
+      </div>
+      <div id="sprintDetalle"><p>Elige tu zona cuando la sepas.</p></div>
+    </div>
+
+    <h2 class="sec">Los 10 días</h2>
+    <div id="dias"></div>
+
+    <h2 class="sec" id="reglas">Las 8 reglas</h2>
+    <div class="card"><ol class="reglas" id="listaReglas"></ol></div>
+  </main>
+
+  <script>
+    // Lo que marques se guarda solo en este móvil (localStorage).
+    const KEY = 'tpb_plan';
+    const leer = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } };
+    const guardar = d => { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {} };
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const hoyISO = new Date().toLocaleDateString('sv-SE'); // AAAA-MM-DD en hora local
+    let PLAN;
+
+    function tareas(d, estado) {
+      const checks = estado.checks || {};
+      return d.tareas.map((t, i) => {
+        const k = d.fecha + '#' + i, hecha = !!checks[k];
+        const texto = t.href
+          ? `<a href="${esc(t.href)}"${t.href.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${esc(t.t)}</a>`
+          : esc(t.t);
+        return `<label class="tarea${hecha ? ' hecha' : ''}"><input type="checkbox" data-k="${k}"${hecha ? ' checked' : ''}><span>${texto}</span></label>`;
+      }).join('') + (d.contar
+        ? `<label class="sinver">Cosas que no viste: <input type="number" min="0" max="50" inputmode="numeric" data-sinver="${d.fecha}" value="${esc((estado.sinver || {})[d.fecha] ?? '')}"></label>`
+        : '');
+    }
+    function tarjeta(d, estado, hoy) {
+      return `<div class="card dia${hoy ? ' hoy' : ''}">
+        <div class="fecha">${esc(d.titulo)}</div>
+        ${d.clase ? `<div class="clase">🚗 ${esc(d.clase)}</div>` : ''}
+        <div class="obj">${esc(d.objetivo)}</div>
+        ${tareas(d, estado)}
+      </div>`;
+    }
+
+    function pintar() {
+      const estado = leer();
+      const dias = PLAN.dias;
+      const dHoy = dias.find(d => d.fecha === hoyISO) || dias.find(d => d.fecha > hoyISO) || dias[dias.length - 1];
+      const faltan = Math.round((new Date(PLAN.examen + 'T12:00') - new Date(hoyISO + 'T12:00')) / 86400000);
+      document.getElementById('cuenta').innerHTML = faltan > 0
+        ? `Faltan <strong>${faltan} ${faltan === 1 ? 'día' : 'días'}</strong> para el examen.`
+        : faltan === 0 ? '<strong>Hoy es el examen.</strong> Conduce como en los simulacros.' : 'El examen ya pasó. ¿Qué tal fue?';
+      document.getElementById('hoyTitulo').textContent = dHoy.fecha === hoyISO ? 'Hoy' : 'Próximo día';
+      document.getElementById('hoy').innerHTML = tarjeta(dHoy, estado, true);
+
+      document.getElementById('dias').innerHTML = dias.filter(d => d !== dHoy).map(d => {
+        const n = d.tareas.filter((_, i) => (estado.checks || {})[d.fecha + '#' + i]).length;
+        return `<details class="card otro${d.fecha < hoyISO ? ' pasado' : ''}" style="padding:0">
+          <summary><span>${esc(d.titulo)} · ${esc(d.objetivo)}</span><span class="marca">${n ? n + '/' + d.tareas.length + ' ✓' : ''}</span></summary>
+          <div style="padding:0 14px 12px">${tarjeta(d, estado, false).replace(/^<div class="card dia">/, '<div>')}</div>
+        </details>`;
+      }).join('');
+
+      document.querySelectorAll('.zonas button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.zona === estado.zona)));
+      const z = PLAN.sprint[estado.zona];
+      document.getElementById('sprintDetalle').innerHTML = !z ? '<p>Elige tu zona cuando la sepas.</p>' : `
+        <p><strong>${esc(z.nombre)}</strong> · salida oficial: ${esc(z.salida)}</p>
+        <p>Sectores que vigilar: ${esc(z.sectores)}</p>
+        <a class="btn principal" href="${esc(z.faltan)}">⭐ Me faltan de esta zona →</a>
+        <a class="btn" href="cobertura.html">Cobertura: sectores en rojo</a>
+        ${z.clases.map(c => `<a class="btn" href="mapa.html?track=${encodeURIComponent(c.id)}">Ver a ×10: ${esc(c.t)}</a>`).join('')}
+        <p>${esc(z.nota)}</p>`;
+    }
+
+    // Se mantiene lo que estás escribiendo: solo se repinta al marcar o al soltar el campo.
+    document.addEventListener('change', e => {
+      const estado = leer();
+      if (e.target.dataset.k) { estado.checks = estado.checks || {}; estado.checks[e.target.dataset.k] = e.target.checked; }
+      else if (e.target.dataset.sinver) { estado.sinver = estado.sinver || {}; estado.sinver[e.target.dataset.sinver] = e.target.value; }
+      else return;
+      guardar(estado);
+      pintar();
+    });
+    document.querySelectorAll('.zonas button').forEach(b => b.addEventListener('click', () => {
+      const estado = leer();
+      estado.zona = estado.zona === b.dataset.zona ? null : b.dataset.zona;
+      guardar(estado);
+      pintar();
+    }));
+
+    fetch('data/plan.json').then(r => r.json()).then(p => {
+      PLAN = p;
+      document.getElementById('listaReglas').innerHTML = p.reglas.map(r => `<li>${esc(r)}</li>`).join('');
+      pintar();
+    }).catch(() => { document.getElementById('error').hidden = false; });
+  </script>
+</body>
+</html>

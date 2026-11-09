@@ -26,10 +26,11 @@
     "nombre": "31-oct-2026-1345",
     "fecha": "2026-10-31",
     "zonas": [
+      "zona franca",
       "ZONA 3 - Z. UNIVERSIT."
     ],
     "duracion_min": 43.93,
-    "titulo": "31 oct · Les Corts · Carrer de la Mineria"
+    "titulo": "31 oct · Zona Franca + Les Corts · Carrer de la Mineria"
   },
   {
     "id": "2026-10-30-30-oct-2026-1948--les-corts-zona-franca",
@@ -90,10 +91,11 @@
     "nombre": "30-sept-2026-1304",
     "fecha": "2026-09-30",
     "zonas": [
+      "zona franca",
       "ZONA 6 - MONTJÜIC"
     ],
     "duracion_min": 49.82,
-    "titulo": "30 sep · Montjuïc · Plaza Europa"
+    "titulo": "30 sep · Zona Franca · Plaza Europa"
   },
   {
     "id": "2026-09-23-23-sept-2026-1219--zona-franca",
