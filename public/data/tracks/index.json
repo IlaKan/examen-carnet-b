@@ -1,5 +1,15 @@
 [
   {
+    "id": "2026-11-10-10-nov-2026-1038--zona-franca",
+    "nombre": "10-nov-2026-1038 - zona franca",
+    "titulo": "10 nov · Poble Sec · Semáforo calle Lleida (+1)",
+    "fecha": "2026-11-10",
+    "zonas": [
+      "ZONA 4 - POBLE SEC"
+    ],
+    "duracion_min": 55.1
+  },
+  {
     "id": "2026-11-09-09-nov-2026-1134--les-corts",
     "nombre": "09-nov-2026-1134 - les corts",
     "titulo": "9 nov · Les Corts · Avinguda de Madrid",
