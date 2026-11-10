@@ -144,10 +144,12 @@
 
     <div id="ctaUltima"></div>
 
-    <a class="card" href="cobertura.html"
+    <a id="ctaRecupera" class="card" href="cobertura.html"
        style="display:block; margin-bottom:18px; text-decoration:none; border:1px solid var(--warn-border);">
-      <div class="label-upper" style="color:var(--warn-text);">Cobertura</div>
-      <div style="font-size:16px; font-weight:700; color:var(--text); margin-top:4px;">Qué puntos críticos no has pisado nunca →</div>
+      <div class="label-upper" style="color:var(--warn-text);">Hoy recupera</div>
+      <div id="recuperaTit" style="font-size:16px; font-weight:700; color:var(--text); margin-top:4px;">Lo que te falta →</div>
+      <div id="recuperaSub" style="font-size:13px; color:var(--text-muted); margin-top:4px;" hidden></div>
+      <div id="recuperaUlt" style="font-size:12px; color:var(--text-dim); margin-top:6px;" hidden></div>
     </a>
 
     <section id="tusClases" aria-labelledby="tusClasesTitulo" hidden>
@@ -387,6 +389,55 @@
       document.getElementById('ctaPlanClase').textContent = d.clase ? '🚗 ' + d.clase : 'Sin clase: repaso en casa';
       document.getElementById('ctaPlan').style.display = 'block';
     }).catch(() => {});
+
+    // Tarjeta «Hoy recupera»: fallo repetido > tramo a cero de la próxima clase > enlace genérico.
+    // Todo con textContent (nada de datos/localStorage entra como HTML). Si algo falla, queda «Lo que te falta →».
+    (function () {
+      const TIPOS = {
+        stop: ['No vi un stop o semáforo', 'Stop y semáforo: para siempre'], senal: ['No vi la señal o su panel', 'Lee la señal y su panel'],
+        prioridad: ['Prioridad / ceda el paso', null], posicion: ['Posición o giro', 'Posición y giro en L'],
+        incorporacion: ['Incorporación o carril', null], velocidad: ['Velocidad', 'Velocidad y control'], tunel: ['Luces en túnel', 'Túnel = luces'],
+      };
+      const MI_ZONA = ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.', 'ZONA 4 - POBLE SEC', 'ZONA 6 - MONTJÜIC'];
+      const corto = x => String(x).replace(/^Les Corts · /, '');
+      const get = u => fetch(u).then(r => { if (!r.ok) throw new Error(u); return r.json(); });
+      const pon = (id, t) => { const e = document.getElementById(id); e.textContent = t; e.hidden = false; };
+      Promise.all([get('data/plan.json'), get('data/points.json'), get('data/pisados.json'), get('data/tracks/index.json'),
+        get('data/fallos.json').catch(() => [])]).then(([plan, pts, pis, idx, fallosClase]) => {
+        const hoy = fechaLocalISO(new Date());
+        const mias = pts.filter(p => MI_ZONA.includes(p.zona));
+        const sec = s => { const ps = mias.filter(p => p.sector === s); return { n: ps.length, k: ps.filter(p => pis[p.nombre]).length }; };
+        const proxima = plan.dias.find(d => d.fecha >= hoy && d.zona);
+        const sectoresProx = proxima && proxima.sectores ? proxima.sectores : [...new Set(mias.map(p => p.sector))];
+
+        let fallos = Array.isArray(fallosClase) ? fallosClase.filter(f => f && TIPOS[f.tipo]) : [];
+        try { const a = JSON.parse(localStorage.getItem('tpb_fallos') || '[]'); if (Array.isArray(a)) fallos = fallos.concat(a.filter(f => f && TIPOS[f.tipo])); } catch (e) {}
+        const cuenta = {};
+        fallos.forEach(f => { cuenta[f.tipo] = (cuenta[f.tipo] || 0) + 1; });
+        const top = Object.keys(TIPOS).filter(k => cuenta[k] >= 2).sort((a, b) => cuenta[b] - cuenta[a])[0];
+        let tit = null;
+        if (top) {
+          tit = 'Tu fallo que más se repite: ' + TIPOS[top][0] + ' (' + cuenta[top] + ' veces)';
+          const h = TIPOS[top][1];
+          const donde = h && sectoresProx.find(s => mias.some(p => p.sector === s && p.habilidad === h && !pis[p.nombre]));
+          if (donde) pon('recuperaSub', 'Se entrena en: ' + corto(donde));
+        } else if (proxima) {
+          const roja = (proxima.sectores || []).find(s => mias.some(p => p.sector === s && !pis[p.nombre]));
+          if (roja) {
+            const c = sec(roja);
+            tit = 'Para tu clase del ' + proxima.titulo + ': ' + corto(roja) + ' (' + c.k + '/' + c.n + ')';
+            pon('recuperaSub', '2 min de repaso antes de salir →');
+          }
+        }
+        if (tit) document.getElementById('recuperaTit').textContent = tit;
+
+        const ultima = idx.map(t => t.fecha).sort().pop();
+        if (ultima) {
+          const nuevos = pts.filter(p => pis[p.nombre] && [...pis[p.nombre]].sort()[0] === ultima).length;
+          pon('recuperaUlt', 'Última clase (' + new Date(ultima + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) + '): ' + nuevos + (nuevos === 1 ? ' punto nuevo' : ' puntos nuevos'));
+        }
+      }).catch(() => {});
+    })();
 
     // Tira de los últimos 7 días (hoy incluido, no la semana de calendario Lun-Dom) —
     // así siempre se ven las clases más recientes aunque caigan a caballo de dos

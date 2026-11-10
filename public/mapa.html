@@ -598,7 +598,19 @@
         speedBtn.textContent = '×' + SPEEDS[speedIdx];
       });
 
-      setIndex(0);
+      // &min=<n>: arranca parado en el minuto n de la clase. Los minutos son los reales del
+      // GPS (los que muestra el panel de tiempo); tClase, que acorta las pausas, solo
+      // sirve de respaldo si el GPX no trae horas.
+      const minUrl = Number(params().get('min'));
+      if (minUrl > 0) {
+        const seg = minUrl * 60;
+        let j = startTime ? pointTimes.findIndex(t => t && (t - startTime) / 1000 >= seg) : tClase.findIndex(t => t >= seg);
+        if (j < 0) j = N - 1;
+        reloj = tClase[j];
+        setIndex(j);
+      } else {
+        setIndex(0);
+      }
     }
 
     main();

@@ -135,6 +135,9 @@
     }
     .repaso-btn-ok { border-color: var(--confirm); color: var(--confirm); }
     .repaso-btn-repasar { border-color: var(--accent); color: var(--accent); }
+    .filtro-sector { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0; padding: 0 16px 8px; font-size: 13px; color: var(--text-muted); }
+    .filtro-sector a { min-height: 44px; display: inline-flex; align-items: center; color: var(--accent); white-space: nowrap; }
+    .filtro-sector a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .repaso-vacio, .repaso-elige { text-align: center; padding: 40px 16px; color: var(--text-dim); font-size: 14px; line-height: 1.6; }
   </style>
 </head>
@@ -150,6 +153,8 @@
     <button type="button" class="tab" id="tab-repasar" role="tab" aria-selected="false" aria-controls="vista-repasar" data-view="repasar">Repasar</button>
     <button type="button" class="tab" id="tab-lista" role="tab" aria-selected="false" aria-controls="vista-lista" data-view="lista">Lista</button>
   </div>
+
+  <p id="filtroSector" class="filtro-sector" hidden></p>
 
   <div id="map"></div>
 
@@ -271,6 +276,8 @@
       '__faltan_lc': { nombre: '⭐ Me faltan · Les Corts', zonas: MI_ZONA.slice(0, 2) },
       '__faltan_psm': { nombre: '⭐ Me faltan · Poble Sec y Montjuïc', zonas: MI_ZONA.slice(2) },
     };
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    let SECTOR = null;  // filtro por sector (?sector=…), prioridad sobre el desplegable de zona
     let PISADOS = null; // { nombre: [fechas] } de scripts/actualizar_pisados.py; null si no carga
 
     Promise.all([
@@ -290,7 +297,17 @@
         // initMap (que también se difiere un tick) y no lo pise.
         const zonaUrl = new URLSearchParams(location.search).get('zona');
         const select = document.getElementById('filtroZona');
-        if (zonaUrl && Array.from(select.options).some(o => o.value === zonaUrl)) {
+        const sectorUrl = new URLSearchParams(location.search).get('sector');
+        if (sectorUrl && pts.some(p => p.sector === sectorUrl)) {
+          setTimeout(() => {
+            SECTOR = sectorUrl;
+            const f = document.getElementById('filtroSector');
+            f.innerHTML = 'Sector: <strong>' + esc(sectorUrl) + '</strong> <a href="puntos.html">Quitar filtro</a>';
+            f.hidden = false;
+            refrescar();
+            cambiarVista('repasar');
+          }, 0);
+        } else if (zonaUrl && Array.from(select.options).some(o => o.value === zonaUrl)) {
           setTimeout(() => {
             select.value = zonaUrl;
             select.dispatchEvent(new Event('change'));
@@ -361,13 +378,19 @@
         select.appendChild(opt);
       });
       select.addEventListener('change', () => {
-        const filtered = puntosFiltrados();
-        render(filtered);
-        renderExplorar(filtered);
-        if (vistaActiva() === 'repasar') renderRepasar();
-        const bounds = filtered.map(p => [p.lat, p.lng]);
-        if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
+        // elegir una zona a mano anula el filtro por sector
+        if (SECTOR) { SECTOR = null; document.getElementById('filtroSector').hidden = true; }
+        refrescar();
       });
+    }
+
+    function refrescar() {
+      const filtered = puntosFiltrados();
+      render(filtered);
+      renderExplorar(filtered);
+      if (vistaActiva() === 'repasar') renderRepasar();
+      const bounds = filtered.map(p => [p.lat, p.lng]);
+      if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
     }
 
     // Ordenados por sector, para repasar zona a zona.
@@ -377,6 +400,7 @@
     }
 
     function puntosFiltrados() {
+      if (SECTOR) return ALL_POINTS.filter(p => p.sector === SECTOR);
       const select = document.getElementById('filtroZona');
       if (FALTAN[select.value]) return puntosQueFaltan(FALTAN[select.value].zonas);
       return select.value ? ALL_POINTS.filter(p => p.zona === select.value) : ALL_POINTS;
@@ -663,11 +687,11 @@
     function renderRepasar() {
       const cont = document.getElementById('repasoContenido');
       const select = document.getElementById('filtroZona');
-      if (!select.value) {
+      if (!select.value && !SECTOR) {
         cont.innerHTML = '<p class="repaso-elige">Elige arriba «⭐ Me faltan» o una zona para repasar sus puntos.</p>';
         return;
       }
-      const zona = select.value;
+      const zona = SECTOR ? 'sector: ' + SECTOR : select.value;
       const puntosZona = puntosFiltrados();
       let cola = ordenRepaso(puntosZona, leerProgreso()[zona] || {});
       let indice = 0;

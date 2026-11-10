@@ -1,0 +1,10 @@
+[
+  { "id": "c-1110-basuras", "fecha": "2026-11-10", "tipo": "stop", "gravedad": "No lo sé", "sector": "Poble Sec",
+    "nota": "Semáforo Basuras (doble semáforo, salida de camiones): hay que parar en la primera línea. El profe tuvo que frenar. Min 34 de la clase." },
+  { "id": "c-1110-ronda", "fecha": "2026-11-10", "tipo": "velocidad", "gravedad": "No lo sé", "sector": null,
+    "nota": "Salida de la Ronda Litoral hacia C. Mare de Déu de Port (min 41; de 49 a 10 km/h en 20 s): distraída hablando al reducir; de 4ª-5ª directamente a 2ª. El profe: no hacerlo." },
+  { "id": "e-stop", "fecha": null, "tipo": "stop", "gravedad": "No lo sé", "sector": null,
+    "nota": "Recordado en la entrevista del 10 nov: te lo han corregido más de una vez (fechas sin apuntar)." },
+  { "id": "e-reducir", "fecha": null, "tipo": "velocidad", "gravedad": "No lo sé", "sector": null,
+    "nota": "Recordado en la entrevista del 10 nov: reducciones al salir de la Ronda, más de una vez (fechas sin apuntar)." }
+]

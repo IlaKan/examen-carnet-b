@@ -2,9 +2,10 @@
   {
     "id": "2026-11-10-10-nov-2026-1038--zona-franca",
     "nombre": "10-nov-2026-1038 - zona franca",
-    "titulo": "10 nov · Poble Sec · Semáforo calle Lleida (+1)",
+    "titulo": "10 nov · Poble Sec + Zona Franca · Semáforo calle Lleida (+1)",
     "fecha": "2026-11-10",
     "zonas": [
+      "zona franca",
       "ZONA 4 - POBLE SEC"
     ],
     "duracion_min": 55.1

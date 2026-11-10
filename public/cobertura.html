@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TuPilotoB — Cobertura de puntos críticos</title>
+  <title>TuPilotoB — Lo que te falta</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
@@ -81,20 +81,57 @@
       background: var(--bg-dark-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0 10px;
     }
     .meta-clase { font-size: 13px; color: var(--text-dim); margin: 10px 0 0; }
+
+    /* --- Lo que te falta: fallos, habilidades, salida, tramos --- */
+    .bloque { margin-bottom: 14px; }
+    .bloque h2, h2.seccion { margin: 0 0 10px; color: var(--text-dim); }
+    h2.seccion { margin-top: 22px; }
+    .btn-primario { width: 100%; color: #17102e; background: var(--accent); border-color: var(--accent); font-weight: 700; }
+    .campo-lbl { display: block; margin: 14px 0 6px; color: var(--text-dim); }
+    .campo {
+      width: 100%; box-sizing: border-box; min-height: 44px; font: inherit; font-size: 15px; color: var(--text);
+      background: var(--bg-dark-3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0 10px; color-scheme: dark;
+    }
+    #formFallo { margin-top: 10px; }
+    #formFallo .filtro-zona { padding: 0 0 4px; }
+    #formFallo .acciones .btn-primario { flex: 2; width: auto; }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .estado-msg { min-height: 1em; margin: 10px 0 0; font-size: 13px; color: var(--text-muted); }
+    .vacio-txt { margin: 12px 0 0; font-size: 13px; line-height: 1.5; color: var(--text-dim); }
+    .fallo-fila { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 52px; border-bottom: 1px solid var(--border-subtle); font-size: 13px; line-height: 1.4; color: var(--text-muted); }
+    .fallo-fila .btn { flex: 0 0 auto; padding: 0 14px; }
+    #listaFallos details.grupo { margin-top: 8px; }
+    .hab { list-style: none; margin: 0; padding: 8px 0; border-bottom: 1px solid var(--border-subtle); }
+    .hab-t { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; font-weight: 700; color: var(--text); }
+    .hab-t .n { font-weight: 400; font-size: 12px; color: var(--text-dim); white-space: nowrap; }
+    .hab-s { margin-top: 2px; font-size: 12px; line-height: 1.45; color: var(--text-muted); }
+    ul.habs { margin: 0; padding: 0; }
+    .salida { padding: 12px 0; border-top: 1px solid var(--border-subtle); }
+    .salida:first-of-type { border-top: 0; padding-top: 0; }
+    .salida h3 { margin: 2px 0 4px; font-size: 15px; color: var(--text); }
+    .salida p { margin: 0 0 6px; font-size: 13px; line-height: 1.5; color: var(--text-muted); }
+    .salida .acciones { flex-direction: column; }
+    .salida .btn { flex: none; text-align: center; padding: 6px 10px; }
+    .sector-sub { display: block; margin-top: 2px; font-size: 12px; font-weight: 400; color: var(--text-dim); }
+    details.grupo.prioridad .sector-sub { color: var(--text-dim); }
+    .acciones-sector { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .acciones-sector .btn { flex: 1 1 140px; }
+    .acciones-sector .en-clase { flex: 1 1 100%; min-height: 44px; display: flex; align-items: center; font-size: 13px; line-height: 1.4; color: var(--text-muted); }
+    .punto .debil { margin: 0 0 6px; font-size: 12px; font-weight: 700; color: var(--warn-text); }
   </style>
 </head>
 <body>
   <div class="topbar topbar-row">
-    <h1>Cobertura</h1>
+    <h1>Lo que te falta</h1>
     <a href="lista.html" class="topbar-link">← Inicio</a>
   </div>
 
   <div class="tabs" role="tablist" aria-label="Vista">
-    <button type="button" class="tab activa" id="tab-cobertura" role="tab" aria-selected="true" aria-controls="vista-cobertura">Cobertura</button>
+    <button type="button" class="tab activa" id="tab-cobertura" role="tab" aria-selected="true" aria-controls="vista-cobertura">Lo que te falta</button>
     <button type="button" class="tab" id="tab-clase" role="tab" aria-selected="false" aria-controls="vista-clase">Por clase</button>
   </div>
 
-  <div class="filtro-zona" role="group" aria-label="Zona">
+  <div class="filtro-zona" id="filtroZonaPrincipal" role="group" aria-label="Zona">
     <button type="button" data-zona="lc">Les Corts</button>
     <button type="button" data-zona="zf">Zona Franca</button>
     <button type="button" data-zona="psm">Poble Sec y Montjuïc</button>
@@ -108,12 +145,47 @@
     <p id="error" class="empty-state" hidden>No se pudieron cargar los datos. Recarga la página.</p>
 
     <div id="vista-cobertura" role="tabpanel" aria-labelledby="tab-cobertura" hidden>
+      <section class="card bloque" aria-labelledby="h-fallos">
+        <h2 id="h-fallos" class="label-upper">Tus fallos</h2>
+        <button type="button" class="btn btn-primario" id="btnNuevoFallo" aria-expanded="false" aria-controls="formFallo">+ Apuntar un fallo</button>
+        <form id="formFallo" novalidate hidden>
+          <span class="label-upper campo-lbl" id="lblTipo" style="margin-top:0">¿Qué pasó?</span>
+          <div class="filtro-zona" id="opTipo" role="group" aria-labelledby="lblTipo"></div>
+          <span class="label-upper campo-lbl" id="lblGrav">Gravedad, si te la dijo el profe</span>
+          <div class="filtro-zona" id="opGrav" role="group" aria-labelledby="lblGrav"></div>
+          <label class="label-upper campo-lbl" for="fSector">¿Dónde? (opcional)</label>
+          <select id="fSector" class="campo"></select>
+          <label class="label-upper campo-lbl" for="fFecha">Fecha</label>
+          <input type="date" id="fFecha" class="campo" />
+          <div class="acciones" style="margin-top:14px">
+            <button type="submit" class="btn btn-primario">Guardar</button>
+            <button type="button" class="btn" id="btnCancelarFallo">Cancelar</button>
+          </div>
+        </form>
+        <p class="estado-msg" id="msgFallos" role="status" aria-live="polite"></p>
+        <div id="listaFallos"></div>
+        <div class="acciones" id="enviarFallos" hidden>
+          <button type="button" class="btn" id="btnEnviarFallos">Enviar a Claude</button>
+        </div>
+      </section>
+
+      <section class="card bloque" aria-labelledby="h-hab">
+        <h2 id="h-hab" class="label-upper">Habilidades en riesgo</h2>
+        <ul class="habs" id="habilidades"></ul>
+      </section>
+
+      <section class="card bloque" aria-labelledby="h-salida">
+        <h2 id="h-salida" class="label-upper">Salida oficial de memoria</h2>
+        <div id="salidas"></div>
+      </section>
+
+      <h2 class="label-upper seccion" id="h-tramos">Tramos que te faltan</h2>
       <div class="resumen">
         <div class="card"><div class="num" id="nMia"></div><div class="lbl" id="lblMia"></div></div>
         <div class="card alerta"><div class="num" id="nNunca"></div><div class="lbl">nunca pisados</div></div>
         <div class="card"><div class="num" id="nClases"></div><div class="lbl">clases grabadas aquí</div></div>
       </div>
-      <details class="grupo" id="clasesZona" open>
+      <details class="grupo" id="clasesZona">
         <summary id="clasesZonaTitulo"></summary>
         <div id="clasesZonaLista"></div>
       </details>
@@ -209,12 +281,13 @@
       return { radius: 5, color: C.bg, weight: 1.5, fillColor: C.confirm, fillOpacity: 1 };
     }
 
-    function tarjeta(p) {
+    function tarjeta(p, debil) {
       const n = partesNota(p.nota), e = estadoDe(p);
       const chips = p.clases.map(c => `<span class="chip">${fechaCorta(c.fecha)}</span>`).join('');
       return `<article class="card punto ${e}">
         <div class="zona">${esc(p.sector || p.zona)}</div>
         <h3>${esc(p.nombre)}</h3>
+        ${debil ? `<p class="debil">Débil: ${esc(debil)}</p>` : ''}
         ${p.habilidad && !p.clases.length ? `<p class="habilidad">Habilidad: ${esc(p.habilidad)}</p>` : ''}
         <p class="nota"><span class="nota-lbl">${esc(n.lbl)}</span>${esc(n.txt)}</p>
         ${chips ? `<div class="clases" aria-label="Clases que pasan por aquí">${chips}</div>` : ''}
@@ -224,10 +297,164 @@
         </div>
       </article>`;
     }
-    function grupo(titulo, lista, abierto, prioridad) {
+    function grupo(titulo, lista, abierto) {
       if (!lista.length) return '';
-      return `<details class="grupo${prioridad ? ' prioridad' : ''}"${abierto ? ' open' : ''}>
-        <summary>${esc(titulo)}</summary>${lista.map(tarjeta).join('')}</details>`;
+      return `<details class="grupo"${abierto ? ' open' : ''}>
+        <summary>${esc(titulo)}</summary>${lista.map(p => tarjeta(p)).join('')}</details>`;
+    }
+
+    // ---------- Lo que te falta: datos y utilidades ----------
+    const TIPOS = {
+      stop: { t: 'No vi un stop o semáforo', h: 'Stop y semáforo: para siempre' },
+      senal: { t: 'No vi la señal o su panel', h: 'Lee la señal y su panel' },
+      prioridad: { t: 'Prioridad / ceda el paso', h: null },
+      posicion: { t: 'Posición o giro', h: 'Posición y giro en L' },
+      incorporacion: { t: 'Incorporación o carril', h: null },
+      velocidad: { t: 'Velocidad', h: 'Velocidad y control' },
+      tunel: { t: 'Luces en túnel', h: 'Túnel = luces' },
+    };
+    const GRAVEDADES = ['No lo sé', 'Leve', 'Deficiente', 'Eliminatoria'];
+    const FALLOS_KEY = 'tpb_fallos';
+    let PLAN = null;
+    const leerFallos = () => {
+      try { const a = JSON.parse(localStorage.getItem(FALLOS_KEY) || '[]'); return Array.isArray(a) ? a.filter(f => f && TIPOS[f.tipo]) : []; }
+      catch (e) { return []; }
+    };
+    let FALLOS = leerFallos();
+    // Fallos que Ilaria contó por chat (data/fallos.json): se suman a los del móvil, no se borran desde aquí.
+    let FALLOS_CLASE = [];
+    const todosFallos = () => [...FALLOS_CLASE, ...FALLOS];
+    const guardarFallos = () => { try { localStorage.setItem(FALLOS_KEY, JSON.stringify(FALLOS)); return true; } catch (e) { return false; } };
+    const pad2 = n => String(n).padStart(2, '0');
+    const hoyISO = () => { const d = new Date(); return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; };
+    const diasDesde = iso => Math.round((Date.parse(hoyISO() + 'T12:00:00') - Date.parse(iso + 'T12:00:00')) / 86400000);
+    const corto = s => String(s).replace(/^Les Corts · /, '');
+    const plural = (n, a, b) => n + ' ' + (n === 1 ? a : b);
+
+    // firme = con clases y sin duda; débil = pisado dudoso o 1 sola clase de hace más de 14 días
+    function estadoPunto(p) {
+      if (!p.clases.length) return { e: 'falta' };
+      if (p.dudoso) return { e: 'debil', motivo: p.dudoso };
+      if (p.clases.length === 1 && diasDesde(p.clases[0].fecha) > 14)
+        return { e: 'debil', motivo: `solo 1 pasada, hace ${diasDesde(p.clases[0].fecha)} días` };
+      return { e: 'firme' };
+    }
+    function calcSectores(mia) {
+      return [...new Set(mia.map(p => p.sector))].map(s => {
+        const ps = mia.filter(p => p.sector === s).map(p => ({ p, ...estadoPunto(p) }));
+        const ok = ps.filter(x => x.e !== 'falta').length;
+        const estado = ps.some(x => x.e === 'falta') ? 'falta' : ps.some(x => x.e === 'debil') ? 'debil' : 'hecho';
+        const fechas = ps.flatMap(x => x.p.clases.map(c => c.fecha)).sort();
+        return { s, ps, ok, estado, ultima: fechas.length ? fechas[fechas.length - 1] : null };
+      }).sort((a, b) => a.ok / a.ps.length - b.ok / b.ps.length);
+    }
+
+    // ---------- A. Tus fallos ----------
+    let tipoSel = null, gravSel = GRAVEDADES[0];
+    const msgFallos = t => { document.getElementById('msgFallos').textContent = t; };
+
+    function pintarOpciones() {
+      document.getElementById('opTipo').innerHTML = Object.entries(TIPOS).map(([k, v]) =>
+        `<button type="button" data-v="${k}" aria-pressed="${k === tipoSel}">${esc(v.t)}</button>`).join('');
+      document.getElementById('opGrav').innerHTML = GRAVEDADES.map(g =>
+        `<button type="button" data-v="${esc(g)}" aria-pressed="${g === gravSel}">${esc(g)}</button>`).join('');
+    }
+    function pintarSelectorSector(mia) {
+      const sel = document.getElementById('fSector'), antes = sel.value;
+      const secs = [...new Set(mia.map(p => p.sector))].sort();
+      sel.innerHTML = '<option value="">No lo sé</option>' + secs.map(x => `<option value="${esc(x)}">${esc(corto(x))}</option>`).join('');
+      if (secs.includes(antes)) sel.value = antes;
+    }
+    function abrirForm(abrir) {
+      document.getElementById('formFallo').hidden = !abrir;
+      document.getElementById('btnNuevoFallo').setAttribute('aria-expanded', String(abrir));
+      if (abrir) { document.getElementById('fFecha').value = hoyISO(); document.getElementById('fFecha').max = hoyISO(); }
+      msgFallos('');
+    }
+    function pintarFallos() {
+      const abiertos = new Set([...document.querySelectorAll('#listaFallos details[open]')].map(d => d.dataset.tipo));
+      const por = {};
+      todosFallos().forEach(f => (por[f.tipo] = por[f.tipo] || []).push(f));
+      document.getElementById('listaFallos').innerHTML = !todosFallos().length
+        ? '<p class="vacio-txt">Aún no has apuntado ningún fallo. Al acabar cada clase, con el coche parado: 20 segundos.</p>'
+        : Object.entries(por).sort((a, b) => b[1].length - a[1].length).map(([k, lista]) =>
+          `<details class="grupo" data-tipo="${k}"${abiertos.has(k) ? ' open' : ''}>
+            <summary>${esc(TIPOS[k].t)} · ${lista.length}</summary>
+            ${[...lista].sort((a, b) => String(b.fecha).localeCompare(String(a.fecha))).map(f =>
+              `<div class="fallo-fila"><span>${esc(f.fecha ? fechaCorta(f.fecha) : 'Sin fecha')} · ${esc(f.gravedad || GRAVEDADES[0])}${f.sector ? ' · ' + esc(corto(f.sector)) : ''}${f.nota ? `<br><small>${esc(f.nota)}</small>` : ''}</span>
+                ${FALLOS_CLASE.includes(f) ? '' : `<button type="button" class="btn" data-borrar="${esc(f.id)}">Borrar</button>`}</div>`).join('')}
+          </details>`).join('');
+      document.getElementById('enviarFallos').hidden = !FALLOS.length;
+      if (PUNTOS.length) pintarHabilidades();
+    }
+    function textoFallos() {
+      return 'Fallos TuPilotoB\n' + [...FALLOS].sort((a, b) => String(a.fecha).localeCompare(String(b.fecha))).map(f =>
+        `${f.fecha} · ${TIPOS[f.tipo].t} · ${f.gravedad || GRAVEDADES[0]} · ${f.sector ? corto(f.sector) : 'sin sitio'}`).join('\n');
+    }
+    async function enviarFallos() {
+      const text = textoFallos();
+      try {
+        if (navigator.share) { await navigator.share({ text }); return; }
+        await navigator.clipboard.writeText(text);
+        msgFallos('Copiado. Pégamelo en el chat.');
+      } catch (e) {
+        if (e && e.name === 'AbortError') return;
+        msgFallos('No se pudo copiar. Inténtalo de nuevo.');
+      }
+    }
+
+    // ---------- B. Habilidades en riesgo ----------
+    function pintarHabilidades() {
+      const mia = PUNTOS.filter(FILTROS[zona].punto), secs = calcSectores(mia);
+      const filas = Object.entries(TIPOS).map(([k, v]) => {
+        const n = todosFallos().filter(f => f.tipo === k).length;
+        const nunca = v.h ? mia.filter(p => p.habilidad === v.h && !p.clases.length) : [];
+        const sitios = secs.filter(x => nunca.some(p => p.sector === x.s));
+        return { nombre: v.h || v.t, n, ceros: nunca.length, sitios };
+      }).filter(x => x.n || x.sitios.length).sort((a, b) => b.n - a.n || b.ceros - a.ceros);
+      document.getElementById('habilidades').innerHTML = filas.length ? filas.map(x =>
+        `<li class="hab"><div class="hab-t"><span>${esc(x.nombre)}</span><span class="n">${plural(x.n, 'fallo', 'fallos')}</span></div>
+          ${x.sitios.length ? `<div class="hab-s">Se entrena en: ${x.sitios.map(y => `${esc(corto(y.s))} (${y.ok}/${y.ps.length})`).join(', ')}</div>` : ''}</li>`).join('')
+        : '<li class="vacio-txt" style="list-style:none">Nada en riesgo en esta zona. Apunta un fallo después de cada clase y aparecerá aquí.</li>';
+    }
+
+    // ---------- C. Salida oficial de memoria ----------
+    function pintarSalidas() {
+      const sal = PLAN && PLAN.salidas, box = document.getElementById('salidas');
+      if (!sal) { box.innerHTML = '<p class="vacio-txt">No se pudo cargar el plan.</p>'; return; }
+      const claves = zona === 'lc' ? ['lc'] : zona === 'todo' ? ['lc', 'zf'] : ['zf'];
+      box.innerHTML = claves.filter(k => sal[k]).map(k => {
+        const x = sal[k], pasos = x.pasos || [];
+        return `<div class="salida">
+          <div class="label-upper" style="color:var(--text-dim)">${k === 'lc' ? 'Les Corts' : 'Zona Franca'}</div>
+          <h3>${esc(x.nombre)}</h3>
+          <p>Has pasado ${plural(pasos.length, 'vez', 'veces')}${pasos.length ? ': ' + pasos.map(q => esc(fechaCorta(q.fecha))).join(', ') : ''}.</p>
+          ${x.nota ? `<p>${esc(x.nota)}</p>` : ''}
+          <div class="acciones">
+            ${pasos.map(q => `<a class="btn" href="mapa.html?track=${encodeURIComponent(q.id)}&amp;min=${Math.max(0, q.min - 2)}">Ver a ×10 · ${esc(fechaCorta(q.fecha))} desde el min ${esc(q.min)}</a>`).join('')}
+            <a class="btn" href="https://www.google.com/maps/@?api=1&amp;map_action=pano&amp;viewpoint=${esc(x.lat)},${esc(x.lng)}" target="_blank" rel="noopener">Street View</a>
+          </div></div>`;
+      }).join('');
+    }
+
+    // ---------- D. Tramos que te faltan ----------
+    function enClase(sector) {
+      const d = PLAN && PLAN.dias.find(x => x.fecha >= hoyISO() && x.sectores && x.sectores.includes(sector));
+      return d ? `Pídelo el ${d.titulo}${d.clase ? ' · ' + d.clase : ''}` : 'Aún no está en ninguna clase del plan';
+    }
+    function bloqueSector(x, abierto) {
+      const ico = { falta: ['🔴', 'Falta'], debil: ['🟡', 'Débil'], hecho: ['🟢', 'Hecho'] }[x.estado];
+      const orden = { falta: 0, debil: 1, firme: 2 };
+      const ps = [...x.ps].sort((a, b) => orden[a.e] - orden[b.e]);
+      return `<details class="grupo${x.estado === 'falta' ? ' prioridad' : ''}"${abierto ? ' open' : ''}>
+        <summary><span><span role="img" aria-label="${ico[1]}">${ico[0]}</span> ${esc(corto(x.s))} · ${x.ok}/${x.ps.length}
+          <span class="sector-sub">Última vez: ${x.ultima ? esc(fechaCorta(x.ultima)) : 'nunca'}</span></span></summary>
+        <div class="acciones-sector">
+          <a class="btn" href="puntos.html?sector=${encodeURIComponent(x.s)}">2 min · Repasar</a>
+          ${PLAN && PLAN.mymaps ? `<a class="btn" href="${esc(PLAN.mymaps)}" target="_blank" rel="noopener">10 min · Ruta</a>` : ''}
+          <div class="en-clase"><span><strong>En clase:</strong> ${esc(enClase(x.s))}</span></div>
+        </div>
+        ${ps.map(q => tarjeta(q.p, q.e === 'debil' ? q.motivo : null)).join('')}</details>`;
     }
 
     function pintarCobertura() {
@@ -261,18 +488,18 @@
             <span class="n">${zona === 'zf' ? Math.round(c.duracion_min) + ' min' : n + (n === 1 ? ' punto' : ' puntos')} →</span></a>`;
         }).join('');
 
-      // Un grupo por sector (scripts/sectores.py), los menos cubiertos primero;
-      // dentro, lo que falta va antes de lo pisado.
-      const sectores = [...new Set(mia.map(p => p.sector))].map(s => {
-        const ps = mia.filter(p => p.sector === s), n = ps.filter(p => p.clases.length).length;
-        return { s, ok: n, ps: [...ps.filter(p => !p.clases.length), ...ps.filter(p => p.clases.length)] };
-      }).sort((a, b) => a.ok / a.ps.length - b.ok / b.ps.length);
-      const icono = (n, t) => n === t ? '🟢' : n / t >= .5 ? '🟡' : '🔴';
+      // Un bloque por sector (scripts/sectores.py): 🔴 abiertos, luego 🟡, y los 🟢 plegados.
+      const sects = calcSectores(mia);
+      const de = e => sects.filter(x => x.estado === e);
       document.getElementById('grupos').innerHTML =
-        sectores.map(({ s, ok: n, ps }) => grupo(`${icono(n, ps.length)} ${s} · ${n}/${ps.length}`, ps, n < ps.length, n < ps.length)).join('') +
+        de('falta').map(x => bloqueSector(x, true)).join('') + de('debil').map(x => bloqueSector(x, false)).join('') +
+        (de('hecho').length ? `<details class="grupo"><summary>Hechos (${de('hecho').length})</summary>${de('hecho').map(x => bloqueSector(x, false)).join('')}</details>` : '') +
         (zona === 'todo' ? grupo('La Maquinista (fuera de tu examen)', PUNTOS.filter(p => !MI_ZONA.includes(p.zona)), false) : '');
+      pintarSelectorSector(mia);
+      pintarHabilidades();
+      pintarSalidas();
 
-      document.querySelectorAll('.filtro-zona button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.zona === zona)));
+      document.querySelectorAll('#filtroZonaPrincipal button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.zona === zona)));
       const sel = document.getElementById('selClase'), antes = sel.value;
       sel.innerHTML = [...clases].sort((a, b) => cubre(b) - cubre(a)).map(t => {
         const n = PUNTOS.filter(p => p.clases.some(x => x.id === t.id)).length;
@@ -295,7 +522,7 @@
       const suyos = PUNTOS.filter(p => p.clases.some(x => x.id === id));
       document.getElementById('metaClase').textContent =
         `${Math.round(c.duracion_min)} min · ${c.zonas.join(', ')} · ${suyos.length} punto(s) crítico(s) cruzado(s)`;
-      document.getElementById('puntosClase').innerHTML = suyos.length ? suyos.map(tarjeta).join('')
+      document.getElementById('puntosClase').innerHTML = suyos.length ? suyos.map(p => tarjeta(p)).join('')
         : '<p class="empty-state">Esta clase no pasa a 60 m de ningún punto del catálogo.</p>';
     }
 
@@ -319,7 +546,10 @@
 
     async function init() {
       const get = u => fetch(u).then(r => { if (!r.ok) throw new Error(u); return r.json(); });
-      const [puntos, indice] = await Promise.all([get('data/points.json'), get('data/tracks/index.json')]);
+      const [puntos, indice, plan, fallosClase] = await Promise.all([get('data/points.json'), get('data/tracks/index.json'),
+        get('data/plan.json').catch(() => null), get('data/fallos.json').catch(() => [])]);
+      PLAN = plan;
+      FALLOS_CLASE = Array.isArray(fallosClase) ? fallosClase.filter(f => f && TIPOS[f.tipo]) : [];
       const tracks = await Promise.all(indice.map(t => get(`data/tracks/${t.id}.json`)));
       PUNTOS = puntos.map((p, idx) => ({ ...p, idx, clases: [] }));
       CLASES = indice.map((t, i) => ({ ...t, linea: tracks[i].points.filter((_, j) => j % 3 === 0).map(q => [q.lat, q.lng]) }));
@@ -327,10 +557,11 @@
       PUNTOS.forEach(p => p.clases.sort((a, b) => a.fecha.localeCompare(b.fecha)));
 
       document.getElementById('cargando').hidden = true;
+      pintarOpciones(); pintarFallos();
       cambiarVista('cobertura');
     }
 
-    document.querySelectorAll('.filtro-zona button').forEach(b => b.onclick = () => {
+    document.querySelectorAll('#filtroZonaPrincipal button').forEach(b => b.onclick = () => {
       zona = b.dataset.zona;
       try { localStorage.setItem(ZONA_KEY, zona); } catch (e) {}
       pintarCobertura();
@@ -339,6 +570,35 @@
         sel.value ? pintarClase(sel.value) : (capaTracks.clearLayers(), document.getElementById('puntosClase').innerHTML = '');
       }
     });
+
+    // Formulario de fallos: chips de selección única, guardar, borrar, enviar.
+    document.getElementById('btnNuevoFallo').onclick = () => abrirForm(document.getElementById('formFallo').hidden);
+    document.getElementById('btnCancelarFallo').onclick = () => { abrirForm(false); document.getElementById('btnNuevoFallo').focus(); };
+    document.getElementById('formFallo').addEventListener('click', e => {
+      const b = e.target.closest('[data-v]');
+      if (!b) return;
+      const esTipo = b.parentElement.id === 'opTipo';
+      if (esTipo) tipoSel = b.dataset.v; else gravSel = b.dataset.v;
+      b.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    });
+    document.getElementById('formFallo').addEventListener('submit', e => {
+      e.preventDefault();
+      if (!tipoSel) { msgFallos('Elige primero qué pasó.'); return; }
+      const sector = document.getElementById('fSector').value || null;
+      FALLOS.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), fecha: document.getElementById('fFecha').value || hoyISO(), tipo: tipoSel, gravedad: gravSel, sector });
+      const ok = guardarFallos();
+      tipoSel = null; gravSel = GRAVEDADES[0]; pintarOpciones(); pintarFallos();
+      abrirForm(false);
+      msgFallos(ok ? 'Guardado.' : 'Guardado solo hasta cerrar la página: este navegador no deja guardar.');
+      document.getElementById('btnNuevoFallo').focus();
+    });
+    document.getElementById('listaFallos').addEventListener('click', e => {
+      const b = e.target.closest('[data-borrar]');
+      if (!b || !confirm('¿Borrar este fallo?')) return;
+      FALLOS = FALLOS.filter(f => f.id !== b.dataset.borrar);
+      guardarFallos(); pintarFallos(); msgFallos('Borrado.');
+    });
+    document.getElementById('btnEnviarFallos').onclick = enviarFallos;
 
     document.getElementById('tab-cobertura').onclick = () => cambiarVista('cobertura');
     document.getElementById('tab-clase').onclick = () => cambiarVista('clase');

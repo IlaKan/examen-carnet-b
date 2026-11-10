@@ -97,7 +97,8 @@
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
     "google_maps_link": "https://www.google.com/maps?q=41.389976,2.107738",
-    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)"
+    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)",
+    "dudoso": "Pasaste cerca, nunca entraste por ella (5 y 9 nov)."
   },
   {
     "nombre": "Z2 - 18. Avda Pearson - Joan d'Alòs.",
@@ -221,7 +222,8 @@
     "fecha_verificacion": "2026-09-22",
     "conductor": "N/A (catálogo autoescuela, no es track de conducción)",
     "google_maps_link": "https://www.google.com/maps?q=41.391314,2.108705",
-    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)"
+    "sector": "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)",
+    "dudoso": "Pasaste cerca, nunca entraste por ella (5 y 9 nov)."
   },
   {
     "nombre": "Z2 - 7.carrer dels Moneders",

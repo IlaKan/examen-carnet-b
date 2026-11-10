@@ -65,6 +65,13 @@ HABILIDADES = {
     "Velocidad y control": ["Salida 13 Ronda de Dalt", "Calle la Guatlla", "Cambio sentido zona Esbarjo"],
 }
 
+# Pisados que no prueban la maniobra: el track pasó a ≤60 m pero por otra vía
+# (comprobado a mano contra los tracks; se revisa en cada clase nueva).
+DUDOSOS = {
+    "Entrada 10 ronda de dalt (Besós)": "Pasaste cerca, nunca entraste por ella (5 y 9 nov).",
+    "Entrada 10 Rda Dalt (Llobregat)": "Pasaste cerca, nunca entraste por ella (5 y 9 nov).",
+}
+
 
 def invertir(grupos):
     out = {}
@@ -85,8 +92,11 @@ def main():
         p.pop("habilidad", None)
         if n in habilidad:
             p["habilidad"] = habilidad[n]
+        p.pop("dudoso", None)
+        if n in DUDOSOS:
+            p["dudoso"] = DUDOSOS[n]
         usados.add(n)
-    sobran = (set(sector) | set(habilidad)) - usados
+    sobran = (set(sector) | set(habilidad) | set(DUDOSOS)) - usados
     assert not sobran, f"nombres que no existen en el catálogo: {sobran}"
     POINTS_PATH.write_text(json.dumps(points, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"{len(points)} puntos con sector, {sum('habilidad' in p for p in points)} con habilidad")

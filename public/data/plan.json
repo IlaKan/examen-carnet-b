@@ -1,5 +1,25 @@
 {
   "examen": "2026-11-17",
+  "mymaps": "https://www.google.com/maps/d/viewer?mid=1DpVITTFNuIKchst967aGzC8IpMsqjSg",
+  "salidas": {
+    "lc": { "nombre": "Av. del Doctor Marañón", "punto": "Z3 - 12.Salida y llegada Zona 3",
+      "lat": 41.38204, "lng": 2.113865,
+      "pasos": [
+        { "id": "2026-11-09-09-nov-2026-1134--les-corts", "fecha": "2026-11-09", "min": 30 },
+        { "id": "2026-11-06-06-nov-2026-1302", "fecha": "2026-11-06", "min": 14 },
+        { "id": "2026-11-05-05-nov-2026-1113--les-corts", "fecha": "2026-11-05", "min": 12 },
+        { "id": "2026-10-29-29-oct-2026-1350--les-corts", "fecha": "2026-10-29", "min": 13 }
+      ] },
+    "zf": { "nombre": "Carrer de la Mineria", "punto": null,
+      "nota": "Punto medio de un tramo de la calle en OpenStreetMap; el punto exacto de recogida está sin confirmar.",
+      "lat": 41.3651828, "lng": 2.1386187,
+      "pasos": [
+        { "id": "2026-10-31-31-oct-2026-1345", "fecha": "2026-10-31", "min": 7 },
+        { "id": "2026-10-07-07-oct-2026-1219", "fecha": "2026-10-07", "min": 20 },
+        { "id": "2026-09-30-30-sept-2026-1304", "fecha": "2026-09-30", "min": 7 },
+        { "id": "2026-09-22-22-sept-2026-1301--zona-franca", "fecha": "2026-09-22", "min": 23 }
+      ] }
+  },
   "dias": [
     {
       "fecha": "2026-11-07", "titulo": "Sáb 7", "clase": null,
@@ -30,40 +50,44 @@
       ]
     },
     {
-      "fecha": "2026-11-10", "titulo": "Mar 10", "clase": "Zona Franca · 9:45 · Yoli", "contar": true,
-      "objetivo": "Plaça Cerdà → Paseo de la Zona Franca → Plaça d'Espanya–Fira",
+      "fecha": "2026-11-10", "titulo": "Mar 10", "clase": "Zona Franca · 9:45 · Yoli", "contar": true, "zona": "zf", "sectores": ["Montjuïc · Oeste (giros a la izquierda)", "Montjuïc · Plaça d'Espanya–Fira"],
+      "objetivo": "Montjuïc Oeste (giros a la izquierda, 0/5) + Plaça d'Espanya–Fira (0/2)",
       "tareas": [
-        { "t": "Paseo de la Zona Franca: el carril bus no cuenta → un carril = 30" },
+        { "t": "Al subir, pedir a Yoli: giros izq. INEFC, Polvorín, Calle Segura, Plaza del Caballo y Plaça d'Espanya por la Fira" },
+        { "t": "Giro en «L»: pegada al centro, pasa la isleta antes de girar · Guatlla a 30" },
         { "t": "Plaça d'Espanya–Fira: Hotel Intercontinental y semáforo calle Lleida" },
         { "t": "Subir el GPX y apuntar las cosas que no viste" }
       ]
     },
     {
-      "fecha": "2026-11-11", "titulo": "Mié 11", "clase": "Zona Franca · 9:45 + 10:50 · Yoli", "contar": true,
-      "objetivo": "Simulacro 1 + Montjuïc (giros a la izquierda, Cima y Sur)",
+      "fecha": "2026-11-11", "titulo": "Mié 11", "clase": "Zona Franca · 9:45 + 10:50 · Yoli", "contar": true, "zona": "zf", "sectores": ["Montjuïc · Cima y Sur", "Poble Sec"],
+      "objetivo": "Simulacro 1 + Montjuïc Cima y Sur + Paseo de la Zona Franca",
       "tareas": [
         { "t": "Simulacro: profe en silencio, solo órdenes" },
-        { "t": "Giros izq.: INEFC, Polvorín, Calle Segura · Plaza del Caballo · Guatlla" },
-        { "t": "Castillo, Esbarjo, derecha prohibida camiones" },
+        { "t": "Castillo, Esbarjo, derecha prohibida camiones · repetir los giros que fallaste el martes" },
+        { "t": "Paseo de la Zona Franca: el carril bus no cuenta → un carril = 30" },
         { "t": "Pedir la calificación DGT: eliminatoria / deficiente / leve" }
       ]
     },
     {
-      "fecha": "2026-11-12", "titulo": "Jue 12", "clase": "Les Corts · 13:00 + 13:45 · Yoli", "contar": true,
-      "objetivo": "Ctra. de Sants–L'Hospitalet + Ronda de Dalt Sur (salidas 13-15)",
+      "fecha": "2026-11-12", "titulo": "Jue 12", "clase": "Les Corts · 13:00 + 13:45 · Yoli", "contar": true, "zona": "lc", "sectores": ["Les Corts · Pedralbes Norte (Pearson)", "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)", "Les Corts · Ronda de Dalt Sur (salidas 13-15)", "Les Corts · Ctra. de Sants–L'Hospitalet"],
+      "objetivo": "1ª: Pearson + Ronda (Besòs y salidas 13-15) · 2ª: Ctra. de Sants–L'Hospitalet",
       "tareas": [
-        { "t": "Incorporación Ctra. Sants: el stop manda sobre el ámbar intermitente" },
-        { "t": "Túnel Ctra. Sants (luces) · Finestrelles · Cardenal Reig · Riera Blanca" },
-        { "t": "Salidas 13, 14 y 15: baja la velocidad antes, luces en túnel, ceda al final" },
+        { "t": "Al subir, pedir a Yoli: Pearson, Ronda sentido Besòs, salidas 13-15 y Ctra. de Sants, repartidas en las dos clases" },
+        { "t": "1ª clase · Pearson: stop sin visibilidad, paneles, calle sin salida, Panamá, Joan d'Alòs · Moneders" },
+        { "t": "1ª clase · Ronda: entrada 10 sentido Besòs · salidas 13, 14 y 15: baja antes, luces en túnel, ceda al final" },
+        { "t": "2ª clase · Incorporación Ctra. Sants: el stop manda sobre el ámbar intermitente" },
+        { "t": "2ª clase · Túnel Ctra. Sants (luces) · Finestrelles · Cardenal Reig · Riera Blanca" },
         { "t": "Subir el GPX y apuntar las cosas que no viste" }
       ]
     },
     {
-      "fecha": "2026-11-13", "titulo": "Vie 13", "clase": "Les Corts · 12:15 · Yoli", "contar": true,
-      "objetivo": "Repetir lo que fallaste el 9 y el 12 + Diagonal–Dr. Marañón",
+      "fecha": "2026-11-13", "titulo": "Vie 13", "clase": "Les Corts · 12:15 · Yoli", "contar": true, "zona": "lc", "sectores": ["Les Corts · Eje Diagonal–Dr. Marañón", "Les Corts · Joan XXIII–Dexeus"],
+      "objetivo": "Repetir lo que fallaste el jueves + salida oficial Dr. Marañón",
       "tareas": [
-        { "t": "Repetir los fallos de la semana" },
+        { "t": "Repetir lo que falló o faltó el jueves (Pearson, Ronda, Ctra. Sants)" },
         { "t": "Salida oficial: Diagonal–Doctor Marañón" },
+        { "t": "Refrescar lo visto una sola vez: Cruce Diagonal–Hotel Sofía · Túnel Hospital Dexeus (luces)" },
         { "t": "Esta noche o mañana temprano: ¿han publicado tu zona?" }
       ]
     },
