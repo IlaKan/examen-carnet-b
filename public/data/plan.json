@@ -60,33 +60,34 @@
       ]
     },
     {
-      "fecha": "2026-11-11", "titulo": "Mié 11", "clase": "Zona Franca · 9:45 + 10:50 · Yoli", "contar": true, "zona": "zf", "sectores": ["Montjuïc · Cima y Sur", "Poble Sec"],
-      "objetivo": "Simulacro 1 + Montjuïc Cima y Sur + Paseo de la Zona Franca",
+      "fecha": "2026-11-11", "titulo": "Mié 11", "clase": "Les Corts · 9:45 + 10:50 · Yoli", "contar": true, "zona": "lc", "sectores": ["Les Corts · Pedralbes Norte (Pearson)", "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)", "Les Corts · Ronda de Dalt Sur (salidas 13-15)"],
+      "objetivo": "Plan cerrado · 1ª: Ronda sentido Besòs + barrio Pearson · 2ª: salidas 13, 14 y 15 reduciendo bien",
       "tareas": [
-        { "t": "Simulacro: profe en silencio, solo órdenes" },
-        { "t": "Castillo, Esbarjo, derecha prohibida camiones · repetir los giros que fallaste el martes" },
-        { "t": "Paseo de la Zona Franca: el carril bus no cuenta → un carril = 30" },
-        { "t": "Pedir la calificación DGT: eliminatoria / deficiente / leve" }
+        { "t": "Al subir: «Yoli, traigo un plan cerrado: en esta, Ronda sentido Besòs y todo Pearson; en la siguiente, salidas 13, 14 y 15»" },
+        { "t": "1ª · Diagonal (Hotel Sofía) → Dr. Marañón, carril central, panel «Ronda de Dalt Besòs» → carril derecho ya: salida 10 «Av. Pearson» a 0,6 km" },
+        { "t": "1ª · Pearson: Moneders → Stop sin visibilidad → Paneles → Pearson–Panamá → Calle sin salida → Joan d'Alòs" },
+        { "t": "1ª · Entrada 10 Besòs (Moneders/Ardena: corta, muro a la derecha, luces) → salida 9 «Sarrià» → rotonda Can Caralleu. Si falta tiempo, quita Panamá y la calle sin salida" },
+        { "t": "2ª · Entrada 10 Llobregat → salidas 13, 14 y 15 (no cojas el ramal de Lleida / B-23)" },
+        { "t": "2ª · En cada salida: panel → me callo → intermitente → carril pronto → freno con el pedal → marchas de una en una" },
+        { "t": "Al acabar: apuntar los fallos y subir el GPX", "href": "cobertura.html" }
       ]
     },
     {
-      "fecha": "2026-11-12", "titulo": "Jue 12", "clase": "Les Corts · 13:00 + 13:45 · Yoli", "contar": true, "zona": "lc", "sectores": ["Les Corts · Pedralbes Norte (Pearson)", "Les Corts · Nudo Ronda de Dalt (entradas 9 y 10)", "Les Corts · Ronda de Dalt Sur (salidas 13-15)", "Les Corts · Ctra. de Sants–L'Hospitalet"],
-      "objetivo": "1ª: Pearson + Ronda (Besòs y salidas 13-15) · 2ª: Ctra. de Sants–L'Hospitalet",
+      "fecha": "2026-11-12", "titulo": "Jue 12", "clase": "Les Corts · 13:00 + 13:45 · Yoli", "contar": true, "zona": "lc", "sectores": ["Les Corts · Ctra. de Sants–L'Hospitalet"],
+      "objetivo": "1ª: Ctra. de Sants–L'Hospitalet · 2ª: Simulacro 1 desde Dr. Marañón",
       "tareas": [
-        { "t": "Al subir, pedir a Yoli: Pearson, Ronda sentido Besòs, salidas 13-15 y Ctra. de Sants, repartidas en las dos clases" },
-        { "t": "1ª clase · Pearson: stop sin visibilidad, paneles, calle sin salida, Panamá, Joan d'Alòs · Moneders" },
-        { "t": "1ª clase · Ronda: entrada 10 sentido Besòs · salidas 13, 14 y 15: baja antes, luces en túnel, ceda al final" },
-        { "t": "2ª clase · Incorporación Ctra. Sants: el stop manda sobre el ámbar intermitente" },
-        { "t": "2ª clase · Túnel Ctra. Sants (luces) · Finestrelles · Cardenal Reig · Riera Blanca" },
-        { "t": "Subir el GPX y apuntar las cosas que no viste" }
+        { "t": "1ª clase · Incorporación Ctra. Sants (el stop manda sobre el ámbar intermitente) · Túnel (luces) · Finestrelles · Cardenal Reig · Riera Blanca" },
+        { "t": "Si el miércoles faltó Pearson o alguna salida 13-15: pídelo en la 1ª" },
+        { "t": "2ª clase · Simulacro: sal desde Dr. Marañón, profe en silencio, calificación DGT al final" },
+        { "t": "Al acabar: apuntar los fallos y subir el GPX", "href": "cobertura.html" }
       ]
     },
     {
       "fecha": "2026-11-13", "titulo": "Vie 13", "clase": "Les Corts · 12:15 · Yoli", "contar": true, "zona": "lc", "sectores": ["Les Corts · Eje Diagonal–Dr. Marañón", "Les Corts · Joan XXIII–Dexeus"],
-      "objetivo": "Repetir lo que fallaste el jueves + salida oficial Dr. Marañón",
+      "objetivo": "Tus fallos de la semana + stops y semáforos",
       "tareas": [
-        { "t": "Repetir lo que falló o faltó el jueves (Pearson, Ronda, Ctra. Sants)" },
-        { "t": "Salida oficial: Diagonal–Doctor Marañón" },
+        { "t": "Repetir lo que falló en el simulacro del jueves (mira «Tus fallos»)", "href": "cobertura.html" },
+        { "t": "Stops y semáforos: para en la primera línea · semáforo doble o salida = sin hablar" },
         { "t": "Refrescar lo visto una sola vez: Cruce Diagonal–Hotel Sofía · Túnel Hospital Dexeus (luces)" },
         { "t": "Esta noche o mañana temprano: ¿han publicado tu zona?" }
       ]
@@ -97,6 +98,8 @@
       "tareas": [
         { "t": "Mirar la zona publicada y elegirla abajo, en «Sprint final»", "href": "#sprint" },
         { "t": "Llamar a la autoescuela: hoy y el lunes, clases en tu zona" },
+        { "t": "Si te toca Zona Franca: es tu única clase allí → sal desde Mineria y pide los giros izq. de Montjuïc Oeste (0/5) y el Hotel Intercontinental; pide también el lunes en Zona Franca" },
+        { "t": "Si te toca Les Corts: pide pasar esta clase a Les Corts, desde Dr. Marañón" },
         { "t": "Simulacro con Ángel: profe en silencio + calificación DGT" },
         { "t": "Si hay eliminatoria por no ver algo → el lunes solo stops, semáforos y paneles" }
       ]
