@@ -1,5 +1,16 @@
 [
   {
+    "id": "2026-11-11-11-nov-2026-1105--les-corts",
+    "nombre": "11-nov-2026-1105 - les corts",
+    "titulo": "11 nov · Les Corts · Carrer de Sant Martí de l'Erm",
+    "fecha": "2026-11-11",
+    "zonas": [
+      "ZONA 2 - PEDRALBES",
+      "ZONA 3 - Z. UNIVERSIT."
+    ],
+    "duracion_min": 78.88
+  },
+  {
     "id": "2026-11-10-10-nov-2026-1038--zona-franca",
     "nombre": "10-nov-2026-1038 - zona franca",
     "titulo": "10 nov · Poble Sec + Zona Franca · Semáforo calle Lleida (+1)",

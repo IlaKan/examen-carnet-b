@@ -1,0 +1,11 @@
+{
+  "disponible": false,
+  "error": "HTTP Error 502: Bad Gateway",
+  "semaforos": [],
+  "stops": [],
+  "cedas": [],
+  "pasos_peatones": [],
+  "carril_bici": [],
+  "carril_bus": [],
+  "rotondas": []
+}
