@@ -1,0 +1,11 @@
+{
+  "disponible": false,
+  "error": "The read operation timed out",
+  "semaforos": [],
+  "stops": [],
+  "cedas": [],
+  "pasos_peatones": [],
+  "carril_bici": [],
+  "carril_bus": [],
+  "rotondas": []
+}

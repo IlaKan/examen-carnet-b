@@ -1,5 +1,16 @@
 [
   {
+    "id": "2026-11-12-12-nov-2026-1430--les-corts",
+    "nombre": "12-nov-2026-1430 - les corts ",
+    "titulo": "12 nov · Les Corts · Ctra Sants - CC. Finestrelles (+3)",
+    "fecha": "2026-11-12",
+    "zonas": [
+      "ZONA 2 - PEDRALBES",
+      "ZONA 3 - Z. UNIVERSIT."
+    ],
+    "duracion_min": 91.47
+  },
+  {
     "id": "2026-11-11-11-nov-2026-1105--les-corts",
     "nombre": "11-nov-2026-1105 - les corts",
     "titulo": "11 nov · Les Corts · Carrer de Sant Martí de l'Erm",
