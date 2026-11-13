@@ -13,3 +13,9 @@ __pycache__/
 
 # Mockups temporales del companion visual de brainstorming (superpowers)
 .superpowers/
+
+# Exportaciones para Google My Maps (se regeneran con scripts/exportar_google_maps.py)
+exports/
+
+# Extracto local de OpenStreetMap (BBBike Barcelona) y su índice; se regenera con scripts/osm_local.py
+osm_local/

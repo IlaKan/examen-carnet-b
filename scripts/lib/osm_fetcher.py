@@ -11,6 +11,9 @@ import urllib.parse
 
 import certifi
 
+from scripts.lib.osm_tags import node_layer, way_layers
+from scripts.lib.osm_local import infra_from_index
+
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
 # semaforos/stops/cedas/pasos_peatones son puntos (nodos OSM). carril_bici/
@@ -38,17 +41,22 @@ def _build_query(bbox):
   node["highway"="stop"]({bbox_str});
   node["highway"="give_way"]({bbox_str});
   node["highway"="crossing"]({bbox_str});
-  way["highway"="cycleway"]({bbox_str});
-  way["cycleway"]({bbox_str});
-  way["busway"]({bbox_str});
-  way["lanes:bus"]({bbox_str});
-  way["junction"="roundabout"]({bbox_str});
+  way["highway"~"^(cycleway|busway)$"]({bbox_str});
+  way[~"^cycleway(:left|:right|:both)?$"~"^(lane|track|opposite_lane|opposite_track|share_busway|shared_busway)$"]({bbox_str});
+  way[~"^(busway|busway:.*|lanes:bus.*|lanes:psv.*|bus:lanes.*|psv:lanes.*)$"~"."]({bbox_str});
+  way["junction"~"^(roundabout|circular)$"]({bbox_str});
 );
 out geom;
 """
 
 
-def fetch_osm_infrastructure(bbox, retries=3, retry_wait_s=5):
+def fetch_osm_infrastructure(bbox, retries=3, retry_wait_s=5, use_local=True):
+    # Local extract first (scripts/lib/osm_local.py): no dependency on the
+    # public Overpass servers, which were down most of Nov 2026.
+    if use_local:
+        local = infra_from_index(bbox)
+        if local is not None:
+            return local
     query = _build_query(bbox)
     data = urllib.parse.urlencode({"data": query}).encode("utf-8")
 
@@ -77,15 +85,9 @@ def fetch_osm_infrastructure(bbox, retries=3, retry_wait_s=5):
         tags = el.get("tags", {})
 
         if el["type"] == "node":
-            point = {"lat": el["lat"], "lng": el["lon"]}
-            if tags.get("highway") == "traffic_signals":
-                result["semaforos"].append(point)
-            elif tags.get("highway") == "stop":
-                result["stops"].append(point)
-            elif tags.get("highway") == "give_way":
-                result["cedas"].append(point)
-            elif tags.get("highway") == "crossing":
-                result["pasos_peatones"].append(point)
+            layer = node_layer(tags)
+            if layer:
+                result[layer].append({"lat": el["lat"], "lng": el["lon"]})
             continue
 
         # way: geometría completa (lista de puntos), no solo el centro —
@@ -94,12 +96,7 @@ def fetch_osm_infrastructure(bbox, retries=3, retry_wait_s=5):
         if not geometry:
             continue
         line = {"points": [{"lat": g["lat"], "lng": g["lon"]} for g in geometry]}
-
-        if tags.get("junction") == "roundabout":
-            result["rotondas"].append(line)
-        elif tags.get("highway") == "cycleway" or "cycleway" in tags:
-            result["carril_bici"].append(line)
-        elif "busway" in tags or "lanes:bus" in tags:
-            result["carril_bus"].append(line)
+        for layer in way_layers(tags):
+            result[layer].append(line)
 
     return result

@@ -48,7 +48,7 @@ def test_fetch_handles_unreachable_host_gracefully(monkeypatch):
 
     monkeypatch.setattr(mod, "_urlopen", fake_urlopen)
     monkeypatch.setattr(mod.time, "sleep", lambda seconds: None)  # skip real waiting
-    result = fetch_osm_infrastructure(LA_CAMPANA_BBOX)
+    result = fetch_osm_infrastructure(LA_CAMPANA_BBOX, use_local=False)
     assert result["disponible"] is False
     assert result["error"]
     assert result["semaforos"] == []
