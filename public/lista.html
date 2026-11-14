@@ -135,6 +135,14 @@
       <div id="resultados" class="card"></div>
     </div>
 
+    <section id="tusClases" aria-labelledby="tusClasesTitulo" hidden style="margin-bottom:18px;">
+      <h2 id="tusClasesTitulo" class="label-upper" style="color:var(--text-dim); margin:0 0 2px;"></h2>
+      <p style="margin:0 0 8px; font-size:14px; font-weight:700; color:var(--text);">Tu zona de examen: Zona 4 · Poble Sec <span style="font-weight:400; color:var(--text-dim);">(provisional)</span></p>
+      <div id="zonasClases" class="zonas-clases" role="group" aria-label="Zona de las clases"></div>
+      <div id="clasesLista" class="card" style="padding:4px 16px;"></div>
+      <button type="button" id="verTodas" class="ver-todas" hidden></button>
+    </section>
+
     <a id="ctaPlan" class="card" href="plan.html"
        style="display:none; margin-bottom:18px; text-decoration:none; border:1px solid var(--accent);">
       <div class="label-upper" id="ctaPlanDia" style="color:var(--accent);"></div>
@@ -151,13 +159,6 @@
       <div id="recuperaSub" style="font-size:13px; color:var(--text-muted); margin-top:4px;" hidden></div>
       <div id="recuperaUlt" style="font-size:12px; color:var(--text-dim); margin-top:6px;" hidden></div>
     </a>
-
-    <section id="tusClases" aria-labelledby="tusClasesTitulo" hidden>
-      <h2 id="tusClasesTitulo" class="label-upper" style="color:var(--text-dim); margin:0 0 6px;"></h2>
-      <div id="zonasClases" class="zonas-clases" role="group" aria-label="Zona de las clases"></div>
-      <div id="clasesLista" class="card" style="padding:4px 16px;"></div>
-      <button type="button" id="verTodas" class="ver-todas" hidden></button>
-    </section>
 
     <a class="cta-thumb" href="tecnica.html"
        style="background-image:url('https://images.unsplash.com/photo-1722500342362-f05c2bf325c1?auto=format&amp;fit=crop&amp;w=900&amp;q=60');">
@@ -246,13 +247,16 @@
     const CLASES_VISIBLES = 5;
     // Por zona y la que más puntos cubre primero (a días del examen la fecha importa poco).
     // Mismo criterio de zona que cobertura.html; la elección se recuerda en el móvil.
+    // Zona de examen publicada el 13 nov (provisional): Zona 4, primera y por defecto.
+    // m = qué clases entran (las que pisan la Zona 4); z = qué puntos se cuentan (+ Montjuïc, adonde puede subir el examen).
     const ZONAS_CLASE = {
+      psm: { nombre: 'Zona 4 · Poble Sec', m: ['ZONA 4 - POBLE SEC'], z: ['ZONA 4 - POBLE SEC', 'ZONA 6 - MONTJÜIC'] },
       lc: { nombre: 'Les Corts', z: ['ZONA 2 - PEDRALBES', 'ZONA 3 - Z. UNIVERSIT.'] },
       zf: { nombre: 'Zona Franca', z: ['zona franca'] },
-      psm: { nombre: 'Poble Sec y Montjuïc', z: ['ZONA 4 - POBLE SEC', 'ZONA 6 - MONTJÜIC'] },
       todas: { nombre: 'Todas' },
     };
-    let zonaClases = (() => { try { return ZONAS_CLASE[localStorage.getItem('tpb_home_zona')] ? localStorage.getItem('tpb_home_zona') : 'lc'; } catch (e) { return 'lc'; } })();
+    // Clave nueva: la elección guardada antes (Les Corts) no debe tapar la zona del examen.
+    let zonaClases = (() => { try { return ZONAS_CLASE[localStorage.getItem('tpb_home_zona_z4')] ? localStorage.getItem('tpb_home_zona_z4') : 'psm'; } catch (e) { return 'psm'; } })();
     let PISADOS = [];  // [{zona, fechas}] de data/pisados.json + points.json
 
     function renderClases(tracks) {
@@ -268,7 +272,7 @@
     function pintarClases(todas) {
       const sel = ZONAS_CLASE[zonaClases];
       const tracks = zonaClases === 'todas' ? todas
-        : todas.filter(t => (t.zonas || []).some(z => sel.z.includes(z) || sel.z.includes(z.toLowerCase())))
+        : todas.filter(t => (t.zonas || []).some(z => (sel.m || sel.z).includes(z) || (sel.m || sel.z).includes(z.toLowerCase())))
             .sort((a, b) => puntosDe(b, sel) - puntosDe(a, sel) || b.duracion_min - a.duracion_min);
       const lista = document.getElementById('clasesLista');
       lista.innerHTML = '';
@@ -277,7 +281,7 @@
         `<button type="button" data-zona="${k}" aria-pressed="${k === zonaClases}">${v.nombre}</button>`).join('');
       document.querySelectorAll('#zonasClases button').forEach(b => b.onclick = () => {
         zonaClases = b.dataset.zona;
-        try { localStorage.setItem('tpb_home_zona', zonaClases); } catch (e) {}
+        try { localStorage.setItem('tpb_home_zona_z4', zonaClases); } catch (e) {}
         pintarClases(todas);
       });
       if (!tracks.length) lista.innerHTML = '<p class="clase-vacia">Aún no hay clases grabadas en esta zona.</p>';
