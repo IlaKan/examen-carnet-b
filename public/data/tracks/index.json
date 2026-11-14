@@ -1,5 +1,16 @@
 [
   {
+    "id": "2026-11-14-14-nov-2026-1308--poble-sec",
+    "nombre": "14-nov-2026-1308 - poble sec",
+    "titulo": "14 nov · Poble Sec + Montjuïc · Giro izquierda Polvorín (+4)",
+    "fecha": "2026-11-14",
+    "zonas": [
+      "ZONA 4 - POBLE SEC",
+      "ZONA 6 - MONTJÜIC"
+    ],
+    "duracion_min": 96.43
+  },
+  {
     "id": "2026-11-12-12-nov-2026-1430--les-corts",
     "nombre": "12-nov-2026-1430 - les corts ",
     "titulo": "12 nov · Les Corts · Ctra Sants - CC. Finestrelles (+3)",

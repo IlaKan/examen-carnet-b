@@ -88,11 +88,13 @@
   ],
   "Z4 - 7.Stop de la muerte": [
     "2026-10-30",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-14"
   ],
   "Z4 - 8.Calle Annibal": [
     "2026-10-30",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-14"
   ],
   "Z4 - 6.Stop Poeta Cabanes": [
     "2026-10-30",
@@ -157,7 +159,8 @@
     "2026-11-12"
   ],
   "Z4 - 12 Semáforo calle Lleida": [
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-14"
   ],
   "Z4 - 2.Semáforo Basuras": [
     "2026-11-10"
@@ -173,5 +176,20 @@
   ],
   "Z3 - 9.Riera Blanca Hospitalet": [
     "2026-11-12"
+  ],
+  "Z6 - 6.Giro izquierda Polvorín": [
+    "2026-11-14"
+  ],
+  "Z6 - 7.Giro izquierda Calle Segura": [
+    "2026-11-14"
+  ],
+  "Z6 - 8. Giro izquierda INEFC": [
+    "2026-11-14"
+  ],
+  "Z6 - 2.Plaza del Caballo": [
+    "2026-11-14"
+  ],
+  "Z4 -10 Hotel Intercontinental": [
+    "2026-11-14"
   ]
 }
